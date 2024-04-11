@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salud y Nutricion</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{%  static 'Salud_y_Nutricion.css '%}">
+</head>
+<body>
+    <header>
+        <div class="rc">
+            <a href="{% url 'index' %}">
+                <h1>RC</h1>
+                <h2>Recetarium</h2>
+            </a>
+        </div>
+    </header>
+    <section class="section-container">
+        <div class="card-items">
+            <a href="#">
+                <h1>Dietas</h1>
+            </a>
+            <p>Puedes encontrar dietas que están en la plataforma así publicaciones de usuarios y de consejeros, puedes visualizar y emplear estas dietas en tu plan nutricional o ver opciones como comentarios y me gustas de otros usuarios.</p>
+            <small></small>
+        </div>
+        <div class="card-items">
+            <a href="{% url 'calculadora_salud' %}">
+                <h1>Calculadora de salud</h1>
+            </a>
+            <p>A partir de ciertos valores ingresados en un formulario se realiza el cálculo de estos para proporcionar unas sugerencias de acuerdo a la información que puedan indicarte o determinar si sería mejor seguir con una dieta o un plan nutricional para ajustar valores o si estás en parámetros para tu salud.</p>
+            <small></small>
+        </div>
+        <div class="card-items">
+            <a href="#">
+                <h1>Crea tus Propias Recetas</h1>
+            </a>
+            <p>En el plan nutricional puedes adaptar las dietas a tu rutina o crear hábitos alimenticios en base a un calendario organizado con tus horarios para que puedas organizar y balancear tu rutina alimenticia.</p>
+            <small></small>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-container">
+            <p>&copy; {% now "Y" %} <b>Recetarium.</b> Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <!-- Bootstrap JS y Dependencias Popper.js y jQuery -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

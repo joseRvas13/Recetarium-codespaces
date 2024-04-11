@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+
+/* Estilos generales */
+body {
+    background-color: #0000002c;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: none;
+}
+
+.rc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    color: #000; /* Color inicial del texto */
+    transition: color 0.3s; /* Transición suave del cambio de color */
+    font-family: 'Courgette', cursive; /* Aplica la misma fuente que Recetarium */
+    font-family: 'Lobster', sans-serif;
+}
+
+.rc:hover {
+    color: green; /* Cambia el color del texto a verde al pasar el cursor */
+}
+
+.rc a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rc h1 {
+    margin: 0;
+    font-size: 45px;
+    font-family: 'Courgette', cursive; /* Aplica la misma fuente que Recetarium */
+    font-family: 'Lobster', sans-serif;
+}
+
+.rc h2 {
+    margin: 0;
+    font-size: 35px;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: transparent;
+    padding: 20px;
+}
+
+/* Estilos para las cartas */
+.card-items {
+    flex: 1;
+    margin: 20px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-size: cover;
+    background-position: center;
+    height: 360px; /* Ajusta la altura de las cartas */
+    color: #fff; /* Color del texto blanco */
+}
+
+.card-items:hover {
+    transform: scale(1.05); /* Aumenta un poco el tamaño al pasar el cursor */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.card-items::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Reducimos la opacidad del fondo oscuro */
+    border-radius: 20px;
+}
+
+.card-items h1 {
+    margin: 20px 0;
+    text-align: center;
+    font-size: 36px;
+    font-family: 'Courgette', cursive; /* Aplica la misma fuente que Recetarium */
+    font-family: 'Lobster', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Aumenta el contraste de la sombra */
+    color: #fff; /* Asegura que el texto sea blanco */
+    position: relative;
+    z-index: 1; /* Asegura que el texto esté por encima del fondo oscuro */
+    border-bottom: none; /* Elimina la línea debajo del título */
+    transition: color 0.3s; /* Transición suave del cambio de color */
+}
+
+.card-items h1:hover {
+    color: green; /* Cambia el color del texto a verde al pasar el cursor */
+}
+
+.card-items p {
+    margin: 0;
+    padding: 0 20px 20px;
+    font-size: 20px;
+    text-align: justify; /* Justifica el texto */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Aumenta el contraste de la sombra */
+    color: #fff; /* Asegura que el texto sea blanco */
+    position: relative;
+    z-index: 1; /* Asegura que el texto esté por encima del fondo oscuro */
+}
+
+/* Estilos específicos para cada carta */
+.card-items:nth-child(1) {
+    background-image: url('https://images.pexels.com/photos/5907573/pexels-photo-5907573.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+}
+
+.card-items:nth-child(2) {
+    background-image: url('https://images.pexels.com/photos/6053916/pexels-photo-6053916.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+}
+
+.card-items:nth-child(3) {
+    background-image: url('https://images.pexels.com/photos/7613555/pexels-photo-7613555.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+}
+
+/* Estilo para los enlaces dentro de las cartas */
+.card-items a {
+    color: inherit; /* Hereda el color del texto del elemento padre */
+    text-decoration: none; /* Elimina la subrayado de los enlaces */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    color: #000; /* Color inicial del texto */
+    transition: color 0.3s; /* Transición suave del cambio de color */
+    font-size: 24px; /* Tamaño de fuente más grande */
+    font-family: 'Courgette', cursive; /* Aplica la misma fuente que Recetarium */
+    font-family: 'Lobster', sans-serif;
+}
+
+footer:hover {
+    color: green; /* Cambia el color del texto a verde al pasar el cursor */
+}
+
+/* Media query para hacer el diseño responsive */
+@media only screen and (max-width: 768px) {
+    .rc {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .rc h2 {
+        margin-top: 10px;
+        font-size: 30px;
+    }
+
+    .card-items {
+        flex-basis: calc(50% - 40px);
+        max-width: calc(50% - 40px);
+        height: 280px; /* Ajusta la altura de las cartas en dispositivos pequeños */
+    }
+
+    footer {
+        font-size: 20px; /* Tamaño de fuente más grande */
+    }
+}

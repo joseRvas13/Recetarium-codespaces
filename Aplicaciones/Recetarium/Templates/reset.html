@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-0 shadow">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Nueva Contraseña</h3>
+                    <p class="card-text text-muted text-center mb-4">Por favor, ingrese una nueva contraseña.</p>
+
+                    <form class="needs-validation" method="POST" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="password1" class="mb-2">Contraseña</label>
+                            <input type="password" class="form-control border-success" id="password1" name="password1" placeholder="Contraseña" required>
+                            <div class="invalid-feedback">
+                                Por favor, ingrese una contraseña.
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label for="password2" class="mb-2">Confirmar Contraseña</label>
+                            <input type="password" class="form-control border-success" id="password2" name="password2" placeholder="Confirmar Contraseña" required>
+                            <div class="invalid-feedback">
+                                Las contraseñas no coinciden.
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-success btn-block">Guardar Contraseña</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

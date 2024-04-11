@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+
+/* Estilos generales */
+body {
+    background-image: url('https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-repeat: no-repeat;
+    background-size: cover; /* Hace que la imagen de fondo sea responsive */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+    min-height: 100vh; /* Ajusta la altura mínima del cuerpo para cubrir toda la pantalla */
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: none;
+}
+
+.rc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    color: #000; /* Color inicial del texto */
+    transition: color 0.3s; /* Transición suave del cambio de color */
+    font-family: 'Courgette', cursive; /* Aplica la misma fuente que Recetarium */
+    font-family: 'Lobster', sans-serif;
+}
+
+.rc:hover {
+    color: green; /* Cambia el color del texto a verde al pasar el cursor */
+}
+
+.rc a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rc h1 {
+    margin: 0;
+    font-size: 45px;
+    font-family: 'Courgette', cursive; /* Aplica la misma fuente que Recetarium */
+    font-family: 'Lobster', sans-serif;
+}
+
+.rc h2 {
+    margin: 0;
+    font-size: 35px;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+}
+
+form {
+    background-color: rgba(255, 249, 249, 0.7);
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    flex-grow: 1; /* Permite que el formulario ocupe el espacio disponible */
+    max-height: 40vh; /* Limita la altura máxima del formulario */
+    overflow-y: auto; /* Agrega desplazamiento vertical cuando sea necesario */
+}
+
+.encabezado {
+    font-size: 26px;
+    color: #26a56b;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form input {
+    width: calc(100% - 20px);
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin: 10px auto;
+    box-sizing: border-box;
+}
+
+.botones {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn1,
+.btn2 {
+    background-color: #26a56b;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 19px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.btn1:hover,
+.btn2:hover {
+    background-color: #ccc;
+    color: #26a56b;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    color: #000; /* Color inicial del texto */
+    transition: color 0.3s; /* Transición suave del cambio de color */
+    font-size: 24px; /* Tamaño de fuente más grande */
+    font-family: 'Courgette', cursive; /* Aplica la misma fuente que Recetarium */
+    font-family: 'Lobster', sans-serif;
+}
+
+footer:hover {
+    color: green; /* Cambia el color del texto a verde al pasar el cursor */
+}
+
+/* Media queries for responsiveness */
+@media only screen and (max-width: 768px) {
+    .rc {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .rc h2 {
+        margin-top: 10px;
+        font-size: 30px;
+    }
+
+    form {
+        width: 90%;
+        max-width: 90%; /* Ajusta el ancho máximo del formulario */
+    }
+
+    .encabezado {
+        font-size: 22px;
+    }
+
+    form input {
+        width: calc(100% - 16px);
+    }
+
+    
+    footer {
+        font-size: 20px; /* Tamaño de fuente más grande */
+    }
+}

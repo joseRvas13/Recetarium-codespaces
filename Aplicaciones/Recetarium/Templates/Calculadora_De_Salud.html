@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora IMC</title>
+    <link rel="stylesheet" href="{% static 'Calculadora_De_Salud.css' %}">
+</head>
+<body>
+
+<header>
+    <div class="rc">
+        <a href="{% url 'index' %}">
+            <h1>RC</h1>
+            <h2>Recetarium</h2>
+        </a>
+    </div>
+</header>
+
+<form action="#" method="POST">
+    {% csrf_token %}
+    <div class="encabezado">Calculadora IMC</div>
+    <input type="text" id="Estatura" name="estatura" placeholder="Ingrese su Estatura (M)" required>
+    <input type="number" id="Peso" name="peso" placeholder="Ingrese su peso(Kg)" required>
+    <div class="botones">
+        <button class="btn1" type="submit">Calcular</button>
+        <button type="button" class="btn2"><a href="{% url 'salud_nutricion' %}">Volver</a></button>
+    </div>
+</form>
+
+<footer>
+    <p>&copy; 2023 <b>Recetarium.</b> Todos los derechos reservados.</p>
+</footer>
+
+<script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>
