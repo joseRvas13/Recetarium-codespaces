@@ -8,6 +8,7 @@ urlpatterns = [
     path('salud-nutricion/', views.salud_nutricion, name="salud_nutricion"),
     path('calculadora-salud/', views.calculadora_salud, name="calculadora_salud"),
     path('signup/', views.signup, name='signup'),
+    path('signin/', views.signin, name='signin'),
 
     #SISTEMA CORREO AUTOMATICO Y OLVIDO DE CONTRASEÑA
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="reset_password.html", email_template_name="reset_password_email.html"), name="password_reset"),

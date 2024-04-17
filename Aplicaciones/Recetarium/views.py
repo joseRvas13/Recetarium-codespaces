@@ -21,6 +21,9 @@ def salud_nutricion(request):
 def calculadora_salud(request):
     return render(request, 'Calculadora_De_Salud.html')
 
+def signin(request):
+    return render(request, 'signin.html')
+
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)

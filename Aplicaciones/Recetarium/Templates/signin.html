@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/signin.css">
+    <title>Recetarium - Inicia Sesion o Registrate</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h1>RC</h1>
+        </div>
+       
+    </header>
+
+    <main>
+        <div class="form">
+            <div class="encabezado">
+                <h1>Iniciar Sesion</h1>
+            </div>
+            <div class="slogan">
+                <h1>Recetarium</h1>
+                <h2>La Mejor Manera De Cocinar</h2>
+            </div>
+         
+
+            <div class="contenido">
+
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <input type="text" id="email" name="email" placeholder="Correo Electrónico" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                    </div>
+                    
+                    <h5>¿Olvidaste tu contraseña?</h5>
+
+                    <button class="red" type="submit">Iniciar Sesión</button>
+
+                    <h6>¿Aun no tines cuenta?..¡Crea tu cuenta Aqui!</h6>
+                    
+                    <a href="{% url 'signup' %}" class="crear">Crear cuenta</a>
+                </form>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Recetarium 2024 Todos los derechos reservados</p>
+    </footer>
+    
+</body>
+</html>
