@@ -24,6 +24,13 @@ def calculadora_salud(request):
 def signin(request):
     return render(request, 'signin.html')
 
+def soporte_tecnico(request):
+    return render(request, 'soporte_tecnico.html')
+
+def crear_elegir_receta(request):
+    return render(request, 'crear_elegir_receta.html')
+
+
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)

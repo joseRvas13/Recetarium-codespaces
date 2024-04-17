@@ -27,8 +27,8 @@
             <div class="slogan">Recetarium</div>
             <nav>
                 <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Soporte Técnico</a></li>
+                    <li><a href="{% url 'index' %}">Inicio</a></li>
+                    <li><a href="{% url 'soporte_tecnico' %}">Soporte Técnico</a></li>
                     <li><a href="{% url 'signin' %}">Iniciar sesión</a></li>
                 </ul>
             </nav>
@@ -84,7 +84,7 @@
             <small></small>
         </div>
         <div class="card-items">
-            <a href="#"> <h1>Crea tus Propias Recetas</h1></a>
+            <a href="{% url 'crear_elegir_receta' %}"> <h1>Crea tus Propias Recetas</h1></a>
             <p>En Recetarium puedes crear tus recetas y guardarlas o poder publicarlas con las demás personas para que sean calificadas y comentadas por expertos o por la comunidad de usuarios existente en la plataforma.</p>
             <small></small>
         </div>
