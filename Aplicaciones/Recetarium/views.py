@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm
 from django.contrib.auth.models import User
+from .models import Receta
 
 def index(request):
     return render(request, 'index.html')
@@ -29,6 +30,11 @@ def soporte_tecnico(request):
 
 def crear_elegir_receta(request):
     return render(request, 'crear_elegir_receta.html')
+
+# PÁGINA RECETAS DISPONIBLES
+def lista_recetas(request):
+    recetas = Receta.objects.all()
+    return render(request, 'lista_recetas.html', {'recetas': recetas})
 
 
 def signup(request):
