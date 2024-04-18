@@ -1,40 +1,63 @@
-{% extends 'base.html' %}
-  
-{% block content %}
-  <div class="container" style="opacity: 0.9;">
-    <div class="row justify-content-center mt-5">
-      <div class="col-lg-6">
-        <div class="card border-0 shadow-lg">
-          <div class="card-body p-5">
-            <h2 class="card-title text-center mb-4">Crear Cuenta</h2>
-            <form id="signup-form" method="post" class="needs-validation" novalidate>
-              {% csrf_token %}
-              {% for field in form %}
-                <div class="mb-4">
-                  <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                  <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" class="form-control rounded-pill py-3 px-4{% if field.errors %} is-invalid{% endif %}" placeholder="{{ field.label }}" required style="border: 1px solid #ced4da; border-radius: 20px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);">
-                  {% for error in field.errors %}
-                    <div class="invalid-feedback d-block">{{ error }}</div>
-                  {% endfor %}
-                </div>
-              {% endfor %}
-              <button type="submit" class="btn btn-primary btn-block rounded-pill mt-4" style="font-family: 'Roboto', sans-serif; font-size: 18px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">Crear Cuenta</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'singup.css' %}">
+    <title>Recetarium - Registrate</title>
+</head>
 
-  <script>
-    // Función para mostrar la alerta después de enviar el formulario
-    function mostrarAlerta() {
-      alert("¡Cuenta creada con éxito! Ahora puedes iniciar sesión.");
-    }
-  
-    // Agregar un evento de escucha para el envío del formulario
-    document.getElementById("signup-form").addEventListener("submit", function(event) {
-      mostrarAlerta(); // Mostrar la alerta
-    });
-  </script>
-{% endblock %}
+<body>
+    <header>
+        <div class="logo">
+           <a href="{% url 'index' %}"> <h1>RC</h1></a>
+        </div>
+       
+    </header>
+
+    <main>
+        <div class="form">
+            <div class="encabezado">
+                <h1>Crea Tu Cuenta</h1>
+            </div>
+            <div class="slogan">
+                <h1>Recetarium</h1>
+                <h2>La Mejor Manera De Cocinar</h2>
+            </div>
+         
+
+            <div class="contenido">
+
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <input type="text" id="email" name="email" placeholder="Primer Nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" placeholder="Segundo nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" placeholder="Correo Electronico" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" placeholder="Contraseña (Confirmacion)" required>
+                    </div>
+                    
+                    <button class="red" type="submit">¡Crear Cuenta!</button>
+                    <h5>¿Ya tienes cuenta?</h5>
+                    <a href="{% url 'signin' %}" class="iniciar">Iniciar Sesion</a>
+                </form>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Recetarium 2024 Todos los derechos reservados</p>
+    </footer>
+    
+</body>
+</html>
