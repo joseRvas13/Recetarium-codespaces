@@ -26,7 +26,9 @@ header {
     padding: 20px;
     z-index: 1;
 }
-
+.logo a{
+    text-decoration: none;
+}
 .logo h1 {
     font-size: 75px;
     font-family: 'Courgette', cursive;
@@ -34,6 +36,7 @@ header {
     color: white;
     transition: color 0.3s ease, font-size 0.3s ease;
     margin-top: -35px;
+    text-decoration: none;
 }
 
 .logo:hover h1 {

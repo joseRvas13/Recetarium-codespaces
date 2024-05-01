@@ -8,7 +8,7 @@ body {
 }
 
 .card {
-    background-color: rgba(175, 14, 14, 0.7);
+    background-color: #127446;
     transition: background-color 0.3s, color 0.3s;
 }
 

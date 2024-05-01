@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 *{
     padding: 0;
     margin: 0;
@@ -71,16 +72,19 @@ nav ul {
 
 nav ul li {
     margin: 0 15px;
+
 }
 
 nav ul li a {
     color: #fff;
     text-decoration: none;
     transition: color 0.3s ease; 
+    font-family: "Urbanist", sans-serif;
 }
 
 nav ul li a:hover {
 color: #28a56b;
+
 }
 
 
@@ -123,6 +127,8 @@ small {
     font-size: 30px;
     margin: 5px 0 15px;
     line-height: 60px;
+    font-family: "Urbanist", sans-serif;
+    font-weight: bold;
 }
 
 button {
@@ -153,6 +159,10 @@ section {
     height: 100px;
 }
 
+.card-items a{
+    text-decoration: none;
+}
+
 .card-items {
     position: relative;
     flex: 1;
@@ -163,6 +173,7 @@ section {
     border-radius: 15px;
     height: 485px;
     width: 25px;
+    text-decoration: none;
     overflow: hidden;
     transition: transform 0.3s; /* Agrega transición para un efecto suave al resaltar */
 
@@ -190,18 +201,20 @@ section {
     position: relative;
     font-family: 'Courgette', cursive;
     font-family: 'Lobster', sans-serif;
+    text-decoration: none;
     z-index: 1;
 }
 .card-items h1:hover{
+    text-decoration: none;
     color: #28a56b;
-    transition: color 0.7s ease;
+    transition: color 0.7s ease ;
 }
 
 .card-items p {
     font-size: 20px;
     text-align: center;
     position: relative;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Urbanist", sans-serif;
     z-index: 1;
 }
 
@@ -233,20 +246,126 @@ section {
 
 
 hr{
- background-color: #28a56b;
+ background-color: rgba(0, 0, 0, 0.5);
  width: 100%;
  height: 15px;
  margin-top: 60vh;
 }
-footer {
-    background-color: #333;
+
+main{
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.986);
+
+}
+
+main h2{
+    color: #28a56b;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    font-size: 70px;
+    margin-bottom: 54px;
+    transition: font-size 0.7s ease; /* Transición de tamaño de fuente */
+
+}
+
+main h2:hover{
+    font-size: 73px;
+    transition: font-size 0.7s ease;
+}
+main h2:not(:hover) {
+    font-size: 70px; /* Tamaño de fuente al no estar el cursor */
+}
+
+.container2{
+    max-width: 100%;
+}
+.container2 h1{margin-top: 45px;
+    font-size: 50px;
+    color: white;
+    text-align: center;
+    font-family: "Urbanist", sans-serif;
+
+}
+.int{
+    font-family: "Urbanist", sans-serif;
+    text-align: center;
+    font-size: 23px;
+    color: rgba(255, 242, 242, 0.993);
+}
+.int1{
+    font-family: "Urbanist", sans-serif;
+    text-align: center;
+    font-size: 23px;
+    color: rgba(255, 242, 242, 0.993);
+}
+.init3{
+    font-family: "Urbanist", sans-serif;
+    text-align: center;
+    font-size: 23px;
+    color: rgba(255, 242, 242, 0.993);
+}
+.container2 small{
+    font-size: 23px ;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+}
+
+.carousel {
+    box-shadow: 3px 3px 4px 3px rgba(0, 0, 0, 0.438);
+    margin: 50px auto;
+    position: relative;
+    background-color: rgba(23, 104, 57, 0.438); /* Cambia el color del contenedor */
+    border-radius: 100px; /* Añade bordes redondeados */
+    overflow: hidden; /* Evita que el contenido se desborde */
+    width: 80%;
+    height: 100%;
+}
+
+
+  .informacion{
+    margin: 50px auto;
+    position: relative;
+    margin-top: 100px;
+    max-width: 80%;
+  }
+  .informacion h1{
+    color: #28a56b;
+    font-size: 75px;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+  }
+  .informacion p{
+    font-size: 20px;
+    color: #000;
+    font-family: "Urbanist", sans-serif;
+  }
+  .informacion h6{
+    font-size: 35px;
+    color: #28a56b;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+  }
+   
+  footer {
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 20px;
     text-align: center;
-    bottom: 0;
     width: 100%;
     animation: slideInUp 1s ease;
-  }
+    transition: background-color 0.5s ease; /* Corrección de 'bacground-color' a 'background-color' */
+}
+
+footer:hover {
+    background-color: rgba(23, 104, 57, 0.438);
+}
+
+footer:not(:hover) {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 
   @keyframes slideInUp {
     from {
@@ -257,6 +376,19 @@ footer {
     }
   }
 
+  .bordeado h1{
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    transition: color  0.5s esase;
+
+  }
+  
+    footer p {
+    font-family: "Urbanist", sans-serif;
+  }
+  footer b{
+    font-family: "Urbanist", sans-serif;
+  }
   .social-icons {
     margin-top: 10px;
   }
@@ -267,42 +399,11 @@ footer {
     margin: 0 10px;
     font-size: 20px;
     transition: color 0.3s ease;
+    font-family: "Urbanist", sans-serif;
+
   }
 
   .social-icons a:hover {
     color: #55acee; /* Cambia el color al pasar el mouse sobre los iconos */
   }
-  .bordeado h1{
-    font-family: 'Courgette', cursive;
-    font-family: 'Lobster', sans-serif;
-  }
-  .bordeado h1:hover{
-    color: #28a56b;
-    transition: color 0.5s esase;
-  }
-  main{
-    align-items: center;
-    text-align: center;
-    height: 500px;
-    width: 100%;
-  }
-  main h1{
-    color: #28a56b;
-    font-size: 75px;
-    font-family: 'Courgette', cursive;
-    font-family: 'Lobster', sans-serif;
-  }
-  main p{
-    font-size: 20px;
-    color: #000;
-  }
-  main h6{
-    margin-top: 20px;
-    font-size: 35px;
-    color: #28a56b;
-    font-family: 'Courgette', cursive;
-    font-family: 'Lobster', sans-serif;
-  }
-  .informacion{
-    height: 100vh;
-  }
+  
