@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,86 +6,46 @@
     <title>Recetas Disponibles - Recetarium</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
-        /* Estilo personalizado */
-        body {
-            background-color: #bfcedd5e;
-            color: #333;
-        }
-        .logo h1, .logo h2 {
-            font-family: 'Courgette', cursive;
-            font-family: 'Lobster', sans-serif;
-            color: rgb(0, 0, 0);
-            transition: color 0.3s ease, font-size 0.3s ease;
-            text-align: center;
-        }
-        .logo h1 {
-            font-size: 3.5vw; /* Tamaño de fuente responsive */
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        .logo h2 {
-            font-size: 2.5vw; /* Tamaño de fuente responsive */
-            margin-top: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        .logo:hover h1, .logo:hover h2 {
-            color: #28a56b;
-        }
-        .card {
-            margin-bottom: 20px;
-            border: 1px solid #49484869;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            margin-top: 55px;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card-img-top {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-        }
-        .card-body {
-            padding: 20px;
-        }
-        .card-title {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .card-text {
-            font-size: 16px;
-            margin-bottom: 5px;
-            color: #666;
-        }
-
-        /* Estilos para pantallas más pequeñas */
-        @media (max-width: 768px) {
-            .logo h1 {
-                font-size: 8vw; /* Tamaño de fuente responsive */
-            }
-            .logo h2 {
-                font-size: 6vw; /* Tamaño de fuente responsive */
-            }
-            .card-title {
-                font-size: 18px;
-            }
-        }
-    </style>
+    <!-- Incluir la biblioteca de iconos Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'lista_recetas.css' %}">
 </head>
 <body>
     <header>
         <div class="logo">
             <h1>Recetarium</h1>
             <h2>Recetas Disponibles</h2>
-        </div>   
+        </div>
+        <br>
+        <div class="search-container">
+            <form action="{% url 'buscar_recetas' %}" method="get">
+                <input type="text" placeholder="Buscar recetas..." name="search">
+                <button type="submit"><i class="fas fa-search"></i></button>
+                <div class="filter-icon">
+                    <button type="button" id="filter-toggle"><i class="fas fa-filter"></i></button>
+                    <div class="filter-dropdown" id="filter-dropdown">
+                        <select name="categoria">
+                            <option value="">Categorías</option>
+                            <option value="Plato principal">Plato principal</option>
+                            <option value="Entrada">Entrada</option>
+                            <option value="Postre">Postre</option>
+                            <option value="Ensalada">Ensalada</option>
+                        </select>
+                        <select name="dificultad">
+                            <option value="">Dificultades</option>
+                            <option value="Moderada">Moderada</option>
+                            <option value="Baja">Baja</option>
+                        </select>
+                        <select name="tiempo_preparacion">
+                            <option value="">Tiempos preparación</option>
+                            <option value="10 - 15">10 - 15 minutos</option>
+                            <option value="15 - 30">15 - 30 minutos</option>
+                        </select>
+                        <button type="submit" id="filter-submit"><i class="fas fa-search"></i> Aplicar filtros</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </header>
 
     <div class="container">
@@ -92,19 +53,40 @@
             {% for receta in recetas %}
                 <div class="col-lg-4 col-md-6">
                     <div class="card">
-                        <img src="{{ receta.imagen }}" class="card-img-top" alt="{{ receta.nombre_plato }}">
-                        <div class="card-body">
-                            <h2 class="card-title">{{ receta.nombre_plato }}</h2>
-                            <p class="card-text"><strong>Categoría:</strong> {{ receta.categoria }}</p>
-                            <p class="card-text"><strong>Ingredientes:</strong> {{ receta.ingredientes }}</p>
-                            <p class="card-text"><strong>Descripción:</strong> {{ receta.descripcion }}</p>
-                            <p class="card-text"><strong>Tiempo de preparación:</strong> {{ receta.tiempo_preparacion }}</p>
-                            <p class="card-text"><strong>Dificultad:</strong> {{ receta.dificultad }}</p>
-                        </div>
+                        <a href="{% url 'detalle_receta' receta.id_receta %}">
+                            <img src="{{ receta.imagen }}" class="card-img-top" alt="{{ receta.nombre_plato }}">
+                            <div class="card-body">
+                                <h2 class="card-title">{{ receta.nombre_plato }}</h2>
+                                <p class="card-text">
+                                    <span><i class="fas fa-folder"></i> {{ receta.categoria }}</span>
+                                    <span><i class="fas fa-clock"></i> {{ receta.tiempo_preparacion }} Minutos</span>
+                                    <span><i class="fas fa-star"></i> {{ receta.dificultad }}</span>
+                                </p>
+                            </div>
+                        </a>    
                     </div>
                 </div>
             {% endfor %}
         </div>
     </div>
+    <!-- Agregar enlaces de paginación -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if recetas.has_previous %}
+                <a href="?page=1">&laquo; Primera</a>
+                <a href="?page={{ recetas.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            <span class="current">
+                Página {{ recetas.number }} de {{ recetas.paginator.num_pages }}.
+            </span>
+
+            {% if recetas.has_next %}
+                <a href="?page={{ recetas.next_page_number }}">Siguiente</a>
+                <a href="?page={{ recetas.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    <script src="{% static 'js/Filtros_Recetas_Disponibles.js' %}"></script>
 </body>
 </html>

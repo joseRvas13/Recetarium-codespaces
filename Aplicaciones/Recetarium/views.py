@@ -3,6 +3,9 @@ from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm
 from django.contrib.auth.models import User
 from .models import Receta
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import re
+from django.db.models import Q
 
 def index(request):
     return render(request, 'index.html')
@@ -31,12 +34,46 @@ def soporte_tecnico(request):
 def crear_elegir_receta(request):
     return render(request, 'crear_elegir_receta.html')
 
+def invalid_page(request):
+    return render(request, 'invalid_page.html')
+
 # PÁGINA RECETAS DISPONIBLES
 def lista_recetas(request):
     recetas = Receta.objects.all()
     return render(request, 'lista_recetas.html', {'recetas': recetas})
 
+#region PÁGINA DETALLES DE LAS RECETAS POR SU ID
+def detalle_receta(request, id_receta):
+    receta = Receta.objects.get(pk=id_receta)
+    return render(request, 'detalle_receta.html', {'receta': receta})
+#endregion
 
+#region PÁGINACION RECETAS DISPONIBLES
+def lista_recetas(request):
+    recetas_list = Receta.objects.all()
+    recetas_por_pagina = 21
+    paginator = Paginator(recetas_list, recetas_por_pagina)
+    page_number = request.GET.get('page')
+    
+    # Verificar si el parámetro de página está presente
+    if page_number is None:
+        # Si no hay parámetro de página, redirigir a la primera página
+        return render(request, 'lista_recetas.html', {'recetas': paginator.page(1)})
+
+    try:
+        recetas = paginator.page(page_number)
+    except PageNotAnInteger:
+        # Si el número de página no es un entero, mostrar la página de error personalizada
+        return render(request, 'invalid_page.html')  # Redirigir a la página de error
+    except EmptyPage:
+        # Si el número de página está fuera del rango, mostrar la página de error personalizada
+        return render(request, 'invalid_page.html')  # Redirigir a la página de error
+    
+    return render(request, 'lista_recetas.html', {'recetas': recetas})
+#endregion
+
+
+#region SIGNUP
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -60,3 +97,32 @@ def signup(request):
 
 def home(request):
     return render(request, 'index.html')
+
+#endregion
+
+#region FUNCIONALIAD BUSQUEDA DE RECETAS (RECETAS DISPONIBLES)
+def buscar_recetas(request):
+    query = request.GET.get('search')
+    categoria = request.GET.get('categoria')
+    dificultad = request.GET.get('dificultad')
+    tiempo_preparacion = request.GET.get('tiempo_preparacion')
+    
+    # Eliminar caracteres no alfabéticos de la consulta
+    query = re.sub(r'[^a-zA-Z\s]', '', query) if query else None
+    
+    # Construir la consulta principal para la búsqueda de recetas
+    consulta = Q()
+    if query:
+        consulta &= Q(nombre_plato__icontains=query)
+    if categoria:
+        consulta &= Q(categoria=categoria)
+    if dificultad:
+        consulta &= Q(dificultad=dificultad)
+    if tiempo_preparacion:
+        consulta &= Q(tiempo_preparacion=tiempo_preparacion)
+    
+    # Filtrar las recetas utilizando la consulta construida
+    recetas = Receta.objects.filter(consulta).distinct()
+    
+    return render(request, 'lista_recetas.html', {'recetas': recetas})
+#endregion

@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+
+body {
+    background-image: url('https://images.pexels.com/photos/349609/pexels-photo-349609.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-size: cover; /* La imagen de fondo cubrirá toda la pantalla */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.logo h1, .logo h2 {
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    color: rgb(0, 0, 0);
+    transition: color 0.3s ease, font-size 0.3s ease;
+    text-align: center;
+}
+
+.logo h1 {
+    font-size: 3.5vw; /* Tamaño de fuente responsive */
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.logo h2 {
+    font-size: 2.5vw; /* Tamaño de fuente responsive */
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.logo:hover h1, .logo:hover h2 {
+    color: #28a56b;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+    text-align: justify;
+
+}
+
+.container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 40px; /* Aumentamos el espacio interno */
+    margin: 30px auto; /* Centramos el contenedor */
+    max-width: 800px; /* Limitamos el ancho máximo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh; /* Ajustamos la altura mínima para centrar verticalmente */
+}
+
+.container h1 {
+    font-family: 'Lobster', sans-serif;
+    font-size: 2.5rem;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.container p {
+    font-size: 1.1rem;
+    color: #555555;
+    margin-bottom: 10px;
+}
+
+.container p strong {
+    color: #333333;
+}
+
+@media (max-width: 768px) {
+    .logo h1 {
+        font-size: 8vw; /* Tamaño de fuente responsive */
+    }
+    .logo h2 {
+        font-size: 6vw; /* Tamaño de fuente responsive */
+    }
+    .card-title {
+        font-size: 18px;
+    }
+    .card-img-top {
+        height: 150px; /* Ajuste de altura para pantallas pequeñas */
+    }
+    .card-text {
+        font-size: 14px; /* Reducir el tamaño del texto para pantallas pequeñas */
+    }
+
+    .container {
+        padding: 30px;
+    }
+
+    .container h1 {
+        font-size: 2rem;
+    }
+
+    .container p {
+        font-size: 1rem;
+    }
+}

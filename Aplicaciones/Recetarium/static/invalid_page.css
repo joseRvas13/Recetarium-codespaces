@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+/* Estilo personalizado */
+body {
+    background-color: #bfcedd5e;
+    color: #333;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+.logo h1, .logo h2 {
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    color: rgb(0, 0, 0);
+    transition: color 0.3s ease, font-size 0.3s ease;
+    text-align: center;
+}
+
+.logo h1 {
+    font-size: 3.5vw; /* Tamaño de fuente responsive */
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.logo h2 {
+    font-size: 2.5vw; /* Tamaño de fuente responsive */
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.logo:hover h1, .logo:hover h2 {
+    color: #28a56b;
+}
+
+.container {
+    text-align: center;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #666;
+    margin-bottom: 20px;
+}

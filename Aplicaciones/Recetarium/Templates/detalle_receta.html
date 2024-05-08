@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Receta - Recetarium</title>
+    <link rel="stylesheet" href="{% static 'detalle_recetas.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Recetarium</h1>
+            <h2>Recetas Disponibles</h2>
+        </div>   
+    </header>
+    <br>
+
+    <div class="container">
+        <img src="{{ receta.imagen }}" class="card-img-top" alt="{{ receta.nombre_plato }}" style="max-height: 300px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Contenido de los detalles de la receta -->
+                <h1>{{ receta.nombre_plato }}</h1>
+                <p><strong>Categoría:</strong> {{ receta.categoria }}</p>
+                <p><strong>Ingredientes:</strong> {{ receta.ingredientes }}</p>
+                <p><strong>Descripción:</strong> {{ receta.descripcion }}</p>
+                <p><strong>Tiempo de preparación:</strong> {{ receta.tiempo_preparacion }}</p>
+                <p><strong>Dificultad:</strong> {{ receta.dificultad }}</p>
+                <!-- Agrega más detalles según sea necesario -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <!-- Pie de página de tu página -->
+    </footer>
+</body>
+</html>
