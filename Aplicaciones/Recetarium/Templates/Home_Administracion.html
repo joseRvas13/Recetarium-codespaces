@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración Recetarium</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            background-color: #343a40;
+            color: #fff;
+            height: 100vh;
+            padding-top: 20px;
+        }
+
+        .sidebar-heading {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-menu li {
+            padding: 10px 0;
+        }
+
+        .sidebar-menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu li a:hover {
+            background-color: #495057;
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        .content {
+            margin-top: 20px;
+        }
+
+        .content-heading {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .content-text {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 sidebar">
+            <h1 class="sidebar-heading">Admin</h1>
+            <ul class="sidebar-menu">
+                <li><a href="#">Usuarios</a></li>
+                <li><a href="{% url 'listado_consejeros' %}">Consejeros</a></li>
+                <li><a href="#">Recetas</a></li>
+                <li><a href="#">Ingredientes</a></li>
+                <li><a href="#">Auditoria</a></li>
+
+                <!-- Add more menu items as needed -->
+            </ul>
+        </div>
+
+        <!-- Content -->
+        <div class="col-md-9 content">
+            <h2 class="content-heading">Bienvenido a la Administración Recetarium</h2>
+            <p class="content-text">Selecciona una opción del menú lateral para empezar.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

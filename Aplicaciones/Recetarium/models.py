@@ -12,3 +12,18 @@ class Receta(models.Model):
 
     class Meta:
         db_table = 'tbl_recetas'
+
+class Consejero(models.Model):
+    id_consejero = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=225)
+    apellido = models.CharField(max_length=225)
+    edad = models.IntegerField()
+    idioma = models.CharField(max_length=225)
+    fecha_nacimiento = models.DateTimeField()
+    titulacion = models.CharField(max_length=225)
+    pais = models.TextField()
+    experiencia = models.CharField(max_length=225)
+
+    class Meta:
+        db_table = 'tbl_consejeros'
+

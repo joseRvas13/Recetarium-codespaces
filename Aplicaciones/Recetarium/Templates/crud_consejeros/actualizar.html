@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insertar Consejero</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+    <style>
+                body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #6c757d; /* Gris */
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da; /* Gris claro */
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff; /* Azul */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3; /* Azul más oscuro */
+        }
+
+        .btn-back {
+            padding: 10px 20px;
+            background-color: #6c757d; /* Gris */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-back:hover {
+            background-color: #5a6268; /* Gris más oscuro */
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Insertar Nuevo Consejero</h1>
+    {% for consejero in consejeros %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" value="{{ consejero.nombre }}" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" class="form-control" name="apellido" id="apellido" value="{{ consejero.apellido }}" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="edad">Edad:</label>
+                    <input type="text" class="form-control" name="edad" id="edad" value="{{ consejero.edad }}" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="idioma">Idioma:</label>
+                    <input type="text" class="form-control" name="idioma" id="idioma" value="{{ consejero.idioma }}" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                    <input type="text" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" value="{% if consejero.fecha_nacimiento %}{{ consejero.fecha_nacimiento }}{% endif %}" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="titulacion">Titulación:</label>
+                    <input type="text" class="form-control" name="titulacion" id="titulacion" value="{{ consejero.titulacion }}" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="pais">País:</label>
+                    <input type="text" class="form-control" name="pais" id="pais" value="{{ consejero.pais }}" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="experiencia">Experiencia:</label>
+                    <input type="text" class="form-control" name="experiencia" id="experiencia" value="{{ consejero.experiencia }}" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="{% url 'listado_consejeros' %}" class="btn btn-back">Volver al Listado</a>
+            </div>
+        </div>
+    </form>
+    {% endfor %}
+</div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+<!-- DateRangePicker Initialization -->
+
+<script>
+    $(function() {
+        var fechaNacimiento = '{{ consejero.fecha_nacimiento|default:"" }}';
+        var startDate = fechaNacimiento ? new Date(fechaNacimiento) : null;
+    
+        $('#fecha_nacimiento').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 1900,
+            maxYear: new Date().getFullYear(),
+            locale: {
+                format: 'YYYY-MM-DD',
+                applyLabel: 'Aceptar',
+                cancelLabel: 'Cancelar',
+                daysOfWeek: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+            },
+            startDate: startDate
+        });
+    });
+    </script>
+    
+</body>
+</html>

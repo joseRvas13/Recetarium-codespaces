@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
-from .views import lista_recetas, buscar_recetas
+from .views import Home_Administracion, borrar_consejero, consejero_actualizar, consejero_insertar, consejero_listado, lista_recetas, buscar_recetas
 
 urlpatterns = [
     path('', views.index, name="index"),
@@ -23,4 +23,11 @@ urlpatterns = [
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="reset_password_sent.html"), name="password_reset_done"),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="reset.html"), name="password_reset_confirm"),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="reset_password_complete.html"), name="password_reset_complete"),
+
+    #CRUD CONSEJEROS
+    path('Administracion/', Home_Administracion),
+    path('Administracion/Consejeros/listado/', consejero_listado, name='listado_consejeros'),
+    path('Administracion/Consejeros/insertar/', consejero_insertar, name='consejero_insertar'),
+    path('Administracion/Consejeros/borrar/<int:id_consejero>/', borrar_consejero, name='borrar_consejero'),
+    path('Administracion/Consejeros/actualizar/<int:id_consejero>/', consejero_actualizar, name='actualizar_consejero'),
 ]

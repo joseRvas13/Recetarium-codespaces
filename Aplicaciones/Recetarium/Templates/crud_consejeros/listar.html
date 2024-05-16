@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insertar Consejero</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px; /* Aumento del ancho del contenedor */
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #6c757d; /* Gris */
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .btn {
+            padding: 2px 7px; /* Tamaño de botones ajustado */
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+            color: #fff;
+        }
+
+        .btn-update {
+            background-color: #6c757d; /* Gris */
+            color: #fff;
+            margin-left: 5px;
+        }
+
+        .btn-update:hover {
+            background-color: #5a6268; /* Gris más oscuro */
+            color: #fff;
+        }
+
+        .btn-create {
+            background-color: #28a745; /* Verde */
+            color: #fff;
+            margin-bottom: 10px; /* Espacio inferior */
+        }
+
+        .btn-create:hover {
+            background-color: #218838; /* Verde más oscuro */
+            color: #fff;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Listado de Consejeros</h1>
+    <a href="{% url 'consejero_insertar' %}" class="btn btn-create float-right"><i class="fas fa-plus-circle"></i> Nuevo Consejero</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Idioma</th>
+                <th>Fecha de nacimiento</th>
+                <th>Titulación</th>
+                <th>País</th>
+                <th>Experiencia</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consejero in consejeros %}
+            <tr>
+                <td>{{ consejero.nombre }}</td>
+                <td>{{ consejero.apellido }}</td>
+                <td>{{ consejero.edad }}</td>
+                <td>{{ consejero.idioma }}</td>
+                <td>{{ consejero.fecha_nacimiento}}</td>
+                <td>{{ consejero.titulacion }}</td>
+                <td>{{ consejero.pais }}</td>
+                <td>{{ consejero.experiencia}} Dias</td>
+                <td>
+                    <div class="btn-group">
+                        <a href="{% url 'borrar_consejero' consejero.id_consejero %}" class="btn btn-delete"><i class="fas fa-trash-alt"></i> Borrar</a>
+                        <a href="/Administracion/Consejeros/actualizar/{{ consejero.id_consejero }}" class="btn btn-update"><i class="fas fa-edit"></i> Actualizar</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

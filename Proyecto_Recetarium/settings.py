@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Aplicaciones.Recetarium.apps.RecetariumConfig',
     'bootstrap4',
-
 ]
 
 MIDDLEWARE = [
@@ -83,7 +82,7 @@ WSGI_APPLICATION = 'Proyecto_Recetarium.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'proyecto_recetarium',
+        'NAME': 'recetarium_db',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

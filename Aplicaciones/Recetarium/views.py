@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm
 from django.contrib.auth.models import User
-from .models import Receta
+from .models import Consejero, Receta
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import re
 from django.db.models import Q
@@ -125,4 +125,70 @@ def buscar_recetas(request):
     recetas = Receta.objects.filter(consulta).distinct()
     
     return render(request, 'lista_recetas.html', {'recetas': recetas})
+#endregion
+
+#region CRUD CONSEJEROS
+def Home_Administracion(request):
+    return render(request, 'Home_Administracion.html')
+
+def consejero_insertar(request):
+    if request.method == "POST":
+        if (
+            request.POST.get('nombre') and
+            request.POST.get('apellido') and
+            request.POST.get('edad') and
+            request.POST.get('idioma') and
+            request.POST.get('fecha_nacimiento') and
+            request.POST.get('titulacion') and
+            request.POST.get('pais') and
+            request.POST.get('experiencia')
+        ):
+            consejero = Consejero()
+            consejero.nombre = request.POST.get('nombre')
+            consejero.apellido = request.POST.get('apellido')
+            consejero.edad = request.POST.get('edad')
+            consejero.idioma = request.POST.get('idioma')
+            consejero.fecha_nacimiento = request.POST.get('fecha_nacimiento')
+            consejero.titulacion = request.POST.get('titulacion')
+            consejero.pais = request.POST.get('pais')
+            consejero.experiencia = request.POST.get('experiencia')
+            consejero.save()
+            return redirect('/Administracion/Consejeros/listado')
+    return render(request, "crud_consejeros/insertar.html")
+
+def consejero_listado(request):
+    consejeros = Consejero.objects.all()
+    return render(request, 'crud_consejeros/listar.html', {'consejeros': consejeros})
+
+def borrar_consejero(request, id_consejero):
+    consejero = Consejero.objects.filter(id_consejero=id_consejero)
+    consejero.delete()
+    return redirect('/Administracion/Consejeros/listado')
+
+def consejero_actualizar(request, id_consejero):
+    if request.method == "POST":
+        if (
+            request.POST.get('nombre') and
+            request.POST.get('apellido') and
+            request.POST.get('edad') and
+            request.POST.get('idioma') and
+            request.POST.get('fecha_nacimiento') and
+            request.POST.get('titulacion') and
+            request.POST.get('pais') and
+            request.POST.get('experiencia')
+        ):
+            consejero = Consejero.objects.get(pk=id_consejero)
+            consejero.nombre = request.POST.get('nombre')
+            consejero.apellido = request.POST.get('apellido')
+            consejero.edad = request.POST.get('edad')
+            consejero.idioma = request.POST.get('idioma')
+            consejero.fecha_nacimiento = request.POST.get('fecha_nacimiento')
+            consejero.titulacion = request.POST.get('titulacion')
+            consejero.pais = request.POST.get('pais')
+            consejero.experiencia = request.POST.get('experiencia')
+            consejero.save()
+            return redirect('/Administracion/Consejeros/listado')
+    else:
+        consejero = Consejero.objects.filter(id_consejero=id_consejero)
+        return render(request, "crud_consejeros/actualizar.html", {"consejeros": consejero})
 #endregion
