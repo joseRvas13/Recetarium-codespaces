@@ -1,3 +1,4 @@
+from django.db import connection
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm
@@ -6,6 +7,7 @@ from .models import Consejero, Receta
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import re
 from django.db.models import Q
+from django.core.files.storage import FileSystemStorage
 
 def index(request):
     return render(request, 'index.html')
@@ -133,62 +135,89 @@ def Home_Administracion(request):
 
 def consejero_insertar(request):
     if request.method == "POST":
-        if (
-            request.POST.get('nombre') and
-            request.POST.get('apellido') and
-            request.POST.get('edad') and
-            request.POST.get('idioma') and
-            request.POST.get('fecha_nacimiento') and
-            request.POST.get('titulacion') and
-            request.POST.get('pais') and
-            request.POST.get('experiencia')
-        ):
-            consejero = Consejero()
-            consejero.nombre = request.POST.get('nombre')
-            consejero.apellido = request.POST.get('apellido')
-            consejero.edad = request.POST.get('edad')
-            consejero.idioma = request.POST.get('idioma')
-            consejero.fecha_nacimiento = request.POST.get('fecha_nacimiento')
-            consejero.titulacion = request.POST.get('titulacion')
-            consejero.pais = request.POST.get('pais')
-            consejero.experiencia = request.POST.get('experiencia')
-            consejero.save()
+        if request.FILES.get('imagen') and request.POST.get('nombre') and request.POST.get('apellido') and request.POST.get('edad') and request.POST.get('idioma') and request.POST.get('fecha_nacimiento') and request.POST.get('titulacion') and request.POST.get('pais') and request.POST.get('experiencia'):
+            insertar = connection.cursor()
+            imagen = request.FILES.get('imagen')
+            nombre = request.POST.get('nombre')
+            apellido = request.POST.get('apellido')
+            edad = request.POST.get('edad')
+            idioma = request.POST.get('idioma')
+            fecha_nacimiento = request.POST.get('fecha_nacimiento')
+            titulacion = request.POST.get('titulacion')
+            pais = request.POST.get('pais')
+            experiencia = request.POST.get('experiencia')
+            fs = FileSystemStorage()
+            filename = fs.save(imagen.name, imagen)
+            imagen_path = fs.url(filename)
+            insertar.execute("call insertarconsejeros(%s,%s,%s,%s,%s,%s,%s,%s,%s)", (imagen_path, nombre, apellido, edad, idioma, fecha_nacimiento, titulacion, pais, experiencia))
             return redirect('/Administracion/Consejeros/listado')
-    return render(request, "crud_consejeros/insertar.html")
+        else:
+            return render(request, 'crud_consejeros/insertar.html')
+    else:
+        return render(request, 'crud_consejeros/insertar.html')
 
 def consejero_listado(request):
-    consejeros = Consejero.objects.all()
-    return render(request, 'crud_consejeros/listar.html', {'consejeros': consejeros})
+    query = request.GET.get('q', '')
+    page_number = request.GET.get('page', 1)  # Obtiene el número de página, si no hay, es la primera página.
 
-def borrar_consejero(request, id_consejero):
-    consejero = Consejero.objects.filter(id_consejero=id_consejero)
-    consejero.delete()
+    with connection.cursor() as cursor:
+        if query:
+            sql_query = """
+                SELECT * FROM tbl_consejeros
+                WHERE nombre LIKE %s
+                OR apellido LIKE %s
+                OR titulacion LIKE %s
+                OR pais LIKE %s
+            """
+            cursor.execute(sql_query, [f'%{query}%', f'%{query}%', f'%{query}%', f'%{query}%'])
+        else:
+            cursor.execute('CALL listadoconsejeros()')
+        
+        consejeros = cursor.fetchall()
+    
+    # Crear un objeto Paginator con los resultados y el número deseado de elementos por página.
+    paginator = Paginator(consejeros, 15)
+    page_obj = paginator.get_page(page_number)  # Obtener la página solicitada.
+
+    return render(request, 'crud_consejeros/listar.html', {'consejeros': page_obj, 'query': query})
+
+def borrar_consejero(request,idconsejeros):
+    borrar = connection.cursor()
+    borrar.execute("call borrarconsejeros('"+str(idconsejeros)+"')")
     return redirect('/Administracion/Consejeros/listado')
 
-def consejero_actualizar(request, id_consejero):
+def consejero_actualizar(request, idconsejeros):
     if request.method == "POST":
-        if (
-            request.POST.get('nombre') and
-            request.POST.get('apellido') and
-            request.POST.get('edad') and
-            request.POST.get('idioma') and
-            request.POST.get('fecha_nacimiento') and
-            request.POST.get('titulacion') and
-            request.POST.get('pais') and
-            request.POST.get('experiencia')
-        ):
-            consejero = Consejero.objects.get(pk=id_consejero)
-            consejero.nombre = request.POST.get('nombre')
-            consejero.apellido = request.POST.get('apellido')
-            consejero.edad = request.POST.get('edad')
-            consejero.idioma = request.POST.get('idioma')
-            consejero.fecha_nacimiento = request.POST.get('fecha_nacimiento')
-            consejero.titulacion = request.POST.get('titulacion')
-            consejero.pais = request.POST.get('pais')
-            consejero.experiencia = request.POST.get('experiencia')
-            consejero.save()
+        imagen_nueva = request.FILES.get('imagen')
+        if all([request.POST.get('nombre'), request.POST.get('apellido'), request.POST.get('edad'), request.POST.get('idioma'), request.POST.get('fecha_nacimiento'), request.POST.get('titulacion'), request.POST.get('pais'), request.POST.get('experiencia')]):
+            insertar = connection.cursor()
+            nombre = request.POST.get('nombre')
+            apellido = request.POST.get('apellido')
+            edad = request.POST.get('edad')
+            idioma = request.POST.get('idioma')
+            fecha_nacimiento = request.POST.get('fecha_nacimiento')
+            titulacion = request.POST.get('titulacion')
+            pais = request.POST.get('pais')
+            experiencia = request.POST.get('experiencia')
+            if imagen_nueva:
+                fs = FileSystemStorage()
+                filename = fs.save(imagen_nueva.name, imagen_nueva)
+                imagen_path = fs.url(filename)
+            else:
+                # Si no se cargó una nueva imagen, utiliza la imagen existente en la base de datos
+                unconsejero = connection.cursor()
+                unconsejero.execute("CALL consultarunconsejero(%s)", [idconsejeros])
+                consejero = unconsejero.fetchone()
+                imagen_path = consejero[1]
+            insertar.execute("CALL actualizarconsejeros(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (idconsejeros, imagen_path, nombre, apellido, edad, idioma, fecha_nacimiento, titulacion, pais, experiencia))
             return redirect('/Administracion/Consejeros/listado')
     else:
-        consejero = Consejero.objects.filter(id_consejero=id_consejero)
-        return render(request, "crud_consejeros/actualizar.html", {"consejeros": consejero})
+        unconsejero = connection.cursor()
+        unconsejero.execute("CALL consultarunconsejero(%s)", [idconsejeros])
+        consejero = unconsejero.fetchone()
+        return render(request, 'crud_consejeros/actualizar.html', {"consejero": consejero})
+    
+def mostrar_imagen_grande(request, imagen_url):
+    return render(request, 'mostrar_imagen_grande.html', {'imagen_url': imagen_url})
+    
 #endregion

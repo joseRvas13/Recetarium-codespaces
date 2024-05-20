@@ -28,6 +28,7 @@ urlpatterns = [
     path('Administracion/', Home_Administracion),
     path('Administracion/Consejeros/listado/', consejero_listado, name='listado_consejeros'),
     path('Administracion/Consejeros/insertar/', consejero_insertar, name='consejero_insertar'),
-    path('Administracion/Consejeros/borrar/<int:id_consejero>/', borrar_consejero, name='borrar_consejero'),
-    path('Administracion/Consejeros/actualizar/<int:id_consejero>/', consejero_actualizar, name='actualizar_consejero'),
+    path('Administracion/Consejeros/borrar/<int:idconsejeros>/', borrar_consejero),
+    path('Administracion/Consejeros/actualizar/<int:idconsejeros>/', consejero_actualizar),
+    path('mostrar-imagen-grande/<path:imagen_url>/', views.mostrar_imagen_grande, name='mostrar_imagen_grande'),
 ]

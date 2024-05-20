@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insertar Consejero</title>
+    <title>Listado Consejero</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
@@ -13,90 +13,140 @@
             background-color: #f8f9fa;
             padding: 20px;
         }
-
         .container {
-            max-width: 1200px; /* Aumento del ancho del contenedor */
+            max-width: 1200px;
             margin: 0 auto;
         }
-
         h1 {
             text-align: center;
             margin-bottom: 30px;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 30px;
         }
-
         th, td {
             border: 1px solid #dee2e6;
             padding: 10px;
             text-align: left;
         }
-
         th {
-            background-color: #6c757d; /* Gris */
+            background-color: #6c757d;
             color: #fff;
         }
-
         tr:nth-child(even) {
             background-color: #f8f9fa;
         }
-
         tr:hover {
             background-color: #e9ecef;
         }
-
         .btn {
-            padding: 2px 7px; /* Tamaño de botones ajustado */
+            padding: 2px 7px;
             border-radius: 5px;
             text-decoration: none;
         }
-
         .btn-delete {
             background-color: #dc3545;
             color: #fff;
         }
-
         .btn-delete:hover {
             background-color: #c82333;
             color: #fff;
         }
-
         .btn-update {
-            background-color: #6c757d; /* Gris */
+            background-color: #6c757d;
             color: #fff;
             margin-left: 5px;
         }
-
         .btn-update:hover {
-            background-color: #5a6268; /* Gris más oscuro */
+            background-color: #5a6268;
             color: #fff;
         }
-
         .btn-create {
-            background-color: #28a745; /* Verde */
+            background-color: #28a745;
             color: #fff;
-            margin-bottom: 10px; /* Espacio inferior */
+            margin-bottom: 10px;
+        }
+        .btn-create:hover {
+            background-color: #218838;
+            color: #fff;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-container form {
+            display: flex;
+            align-items: center;
+        }
+        .search-container input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 570px;
+            border: 2px solid #5f5d5da9;
+        }
+        .search-container button[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        .search-container button[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .search-container button[type="submit"] i {
+            font-size: 18px;
+            margin-right: 5px;
         }
 
-        .btn-create:hover {
-            background-color: #218838; /* Verde más oscuro */
-            color: #fff;
-        }
+        .pagination a {
+        color: #fff;
+        background-color: #28a745; /* Color verde */
+        border: 1px solid #28a745; /* Borde verde */
+        padding: 8px 12px; /* Espaciado interior de los botones */
+        margin-right: 5px; /* Margen derecho para separar los botones */
+        border-radius: 5px; /* Bordes redondeados */
+        text-decoration: none; /* Quita subrayado de los enlaces */
+    }
+
+    /* Estilo para el botón de la página actual */
+    .pagination .current {
+        color: #000; /* Color de texto */
+        background-color: #fff; /* Fondo blanco */
+        border: 1px solid #28a745; /* Borde verde */
+        padding: 8px 12px; /* Espaciado interior del botón */
+        margin-right: 5px; /* Margen derecho para separar los botones */
+        border-radius: 5px; /* Bordes redondeados */
+    }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
 
 <div class="container">
     <h1>Listado de Consejeros</h1>
-    <a href="{% url 'consejero_insertar' %}" class="btn btn-create float-right"><i class="fas fa-plus-circle"></i> Nuevo Consejero</a>
+    <div class="search-container">
+        <form method="GET" action="{% url 'listado_consejeros' %}" class="form-inline">
+            <input type="text" name="q" class="form-control" placeholder="Buscar consejero (Puede ser Nombre, Apellido, Titulación o Pais)" value="{{ query }}">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Buscar</button>
+        </form>
+    </div>
+    <br><br>
+    <a href="{% url 'consejero_insertar' %}" class="btn btn-create float-right"><i class="fas fa-user-plus"></i> Nuevo Consejero</a>
     <table>
         <thead>
             <tr>
+                <th>Imagen</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Edad</th>
@@ -111,27 +161,67 @@
         <tbody>
             {% for consejero in consejeros %}
             <tr>
-                <td>{{ consejero.nombre }}</td>
-                <td>{{ consejero.apellido }}</td>
-                <td>{{ consejero.edad }}</td>
-                <td>{{ consejero.idioma }}</td>
-                <td>{{ consejero.fecha_nacimiento}}</td>
-                <td>{{ consejero.titulacion }}</td>
-                <td>{{ consejero.pais }}</td>
-                <td>{{ consejero.experiencia}} Dias</td>
+                <td>
+                    <a href="{% url 'mostrar_imagen_grande' imagen_url=consejero.1|urlencode %}" target="_blank">
+                        <img src="{% static 'media/' %}{{ consejero.1 }}" style="width:72px; height: 93px;">
+                    </a>
+                </td>
+                <td>{{ consejero.2 }}</td>
+                <td>{{ consejero.3 }}</td>
+                <td>{{ consejero.4 }} Años</td>
+                <td>{{ consejero.5 }}</td>
+                <td>{{ consejero.6 }}</td>
+                <td>{{ consejero.7 }}</td>
+                <td>{{ consejero.8 }}</td>
+                <td>{{ consejero.9 }} Días</td>
                 <td>
                     <div class="btn-group">
-                        <a href="{% url 'borrar_consejero' consejero.id_consejero %}" class="btn btn-delete"><i class="fas fa-trash-alt"></i> Borrar</a>
-                        <a href="/Administracion/Consejeros/actualizar/{{ consejero.id_consejero }}" class="btn btn-update"><i class="fas fa-edit"></i> Actualizar</a>
+                        <a href="#" class="btn btn-delete" onclick="confirmDelete('{{ consejero.0 }}')"><i class="fas fa-trash"></i> Borrar</a>
+                        <a href="/Administracion/Consejeros/actualizar/{{ consejero.0 }}" class="btn btn-update"><i class="fas fa-user-edit"></i> Actualizar</a>
                     </div>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
-    </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if consejeros.has_previous %}
+                    <a href="?page=1">&laquo; Primera</a>
+                    <a href="?page={{ consejeros.previous_page_number }}">Anterior</a>
+                {% endif %}
+        
+                <span class="current">
+                    Página {{ consejeros.number }} de {{ consejeros.paginator.num_pages }}.
+                </span>
+        
+                {% if consejeros.has_next %}
+                    <a href="?page={{ consejeros.next_page_number }}">Siguiente</a>
+                    <a href="?page={{ consejeros.paginator.num_pages }}">Última &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </table>    
 </div>
 
 <!-- Bootstrap JS (optional) -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function confirmDelete(consejeroId) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, borrar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/Administracion/Consejeros/borrar/' + consejeroId;
+            }
+        })
+    }
+</script>
 </body>
 </html>
