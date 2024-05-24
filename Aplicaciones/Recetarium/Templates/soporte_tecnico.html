@@ -7,10 +7,14 @@
     <title>Soporte Técnico</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../static/soporte-tecnico.css">
 </head>
 <body>
     <header>
+        <div class="atras">
+            <a href="{% url 'index' %}">  <i class="bi bi-arrow-left-short"></i> </a>
+        </div>
         <div class="logo">
            <a href="{% url 'index' %}"> <h1>Recetarium</h1></a>
         </div>
@@ -20,6 +24,7 @@
             <br><br>
 
             <div class="slogan">
+                <i class="bi bi-file-person"></i>
                 <h1>Bienvenido a soporte ténico</h1>
             </div>
             <div class="encabezado">
@@ -28,13 +33,13 @@
             <div class="contenido">
                 <form>
                     <div class="form-group">
-                        <input type="text" placeholder="Nombre">
+                        <i class="bi bi-person-fill"></i><input type="text" placeholder="Nombre">
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="Correo Electrónico">
+                        <i class="bi bi-envelope"></i>  <input type="text" placeholder="Correo Electrónico">
                     </div>
                     <div class="form-group">
-                        <textarea rows="5" placeholder="Descripción del Problema"></textarea>
+                        <i class="bi bi-chat-left-dots"></i> <textarea rows="5" placeholder="Descripción del Problema"></textarea>
                     </div>
                     <button type="submit" class="red">Enviar</button>
                 </form>

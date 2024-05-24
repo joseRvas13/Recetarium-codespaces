@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'singup.css' %}">
+   <link rel="stylesheet" href="{% static 'singup.css'%}">
     <title>Recetarium - Registrate</title>
 </head>
 
@@ -30,25 +30,10 @@
             <div class="contenido">
 
                 <form action="" method="POST">
-                    <div class="form-group">
-                        <input type="text" id="email" name="email" placeholder="Primer Nombre" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" id="password" name="password" placeholder="Segundo nombre" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" id="password" name="password" placeholder="Correo Electronico" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" id="password" name="password" placeholder="Contraseña" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" id="password" name="password" placeholder="Contraseña (Confirmacion)" required>
-                    </div>
-                    
-                    <button class="red" type="submit">¡Crear Cuenta!</button>
-                    <h5>¿Ya tienes cuenta?</h5>
-                    <a href="{% url 'signin' %}" class="iniciar">Iniciar Sesion</a>
+
+            
+                    </form>
+  
                 </form>
 
             </div>
@@ -58,6 +43,7 @@
     <footer>
         <p>Recetarium 2024 Todos los derechos reservados</p>
     </footer>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
     
 </body>
 </html>

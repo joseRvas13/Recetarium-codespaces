@@ -15,15 +15,16 @@ class Receta(models.Model):
 
 class Consejero(models.Model):
     id_consejero = models.AutoField(primary_key=True)
+    imagen = models.CharField(max_length=255)
     nombre = models.CharField(max_length=225)
     apellido = models.CharField(max_length=225)
+    descripcion = models.CharField(max_length=225)
     edad = models.IntegerField()
     idioma = models.CharField(max_length=225)
-    fecha_nacimiento = models.DateTimeField()
+    fecha_nacimiento = models.DateField()
     titulacion = models.CharField(max_length=225)
     pais = models.TextField()
     experiencia = models.CharField(max_length=225)
 
     class Meta:
         db_table = 'tbl_consejeros'
-

@@ -6,13 +6,13 @@ from .models import Consejero, Receta
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import re
 from django.db.models import Q
-
+#region INDEX
 def index(request):
     return render(request, 'index.html')
-
+#endregion 
 def crear_elegir_receta(request):
     return render(request, 'Crear_Elegir_Receta.html')
-
+ 
 def olvido_contraseña(request):
     return render(request, 'Olvido_Contraseña.html')
 
@@ -22,17 +22,24 @@ def inicio_sesion_registro(request):
 def salud_nutricion(request):
     return render(request, 'Salud_y_Nutricion.html')
 
+
 def calculadora_salud(request):
     return render(request, 'Calculadora_De_Salud.html')
 
 def signin(request):
     return render(request, 'signin.html')
 
+
+#region SOPORTE TECNICO 
 def soporte_tecnico(request):
     return render(request, 'soporte_tecnico.html')
+#end
 
-def crear_elegir_receta(request):
-    return render(request, 'crear_elegir_receta.html')
+#region FORMULARIO DE CREAR RECETAS (USUARIO)
+def receta_crear(request):
+    return render(request, 'receta_crear.html')
+#endregion
+
 
 def invalid_page(request):
     return render(request, 'invalid_page.html')
@@ -41,6 +48,28 @@ def invalid_page(request):
 def lista_recetas(request):
     recetas = Receta.objects.all()
     return render(request, 'lista_recetas.html', {'recetas': recetas})
+
+def lista_consejeros(request):
+    consejeros = Consejero.objects.all()
+    return render(request, 'lista_consejeros.html', {'consejeros':consejeros})
+
+#region paginacion consejeros
+def lista_consejeros(request):
+    consejeros_list = Consejero.objects.all().order_by('id_consejero')  # Asegúrate de que el nombre del modelo es Consejero
+    consejeros_por_pagina = 9
+    paginator = Paginator(consejeros_list, consejeros_por_pagina)
+
+    page = request.GET.get('page')
+    try:
+        consejeros = paginator.page(page)
+    except PageNotAnInteger:
+        consejeros = paginator.page(1)
+    except EmptyPage:
+        consejeros = paginator.page(paginator.num_pages)
+
+    return render(request, 'lista_consejeros.html', {'consejeros': consejeros})
+
+#endregion
 
 #region PÁGINA DETALLES DE LAS RECETAS POR SU ID
 def detalle_receta(request, id_receta):

@@ -1,0 +1,310 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+/* Estilo personalizado */
+body {
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background: linear-gradient(315deg, rgb(179, 179, 179) 3%, rgb(77, 73, 73) 38%, rgb(99, 105, 103) 68%, rgb(81, 92, 87) 98%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+}
+
+body.trasparent{
+    background: transparent; /* Fondo transparente */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8); /* Sombra negra en el header transparente */
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+.wave {
+    background: rgb(255 255 255 / 25%);
+    border-radius: 1000% 1000% 0 0;
+    position: fixed;
+    width: 200%;
+    height: 12em;
+    animation: wave 10s -3s linear infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.wave:nth-of-type(2) {
+    bottom: -1.25em;
+    animation: wave 18s linear reverse infinite;
+    opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+    bottom: -2.5em;
+    animation: wave 20s -1s reverse infinite;
+    opacity: 0.9;
+}
+
+@keyframes wave {
+    2% {
+        transform: translateX(1);
+    }
+
+    25% {
+        transform: translateX(-25%);
+    }
+
+    50% {
+        transform: translateX(-50%);
+    }
+
+    75% {
+        transform: translateX(-25%);
+    }
+
+    100% {
+        transform: translateX(1);
+    }
+}
+
+
+
+
+.encabezado {
+    display: flex;
+    justify-content: space-between; /* Ajusta la distribución horizontal */
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+    font-size: 3.5vw; /* Tamaño de fuente responsive */
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+.logo{
+    margin-left: 25px;
+}
+
+.logo h1 , .pagina h2{
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    color: rgb(255, 255, 255);
+    transition: color 0.3s ease, font-size 0.3s ease;
+    text-align: center;
+    
+}
+
+.pagina h2{
+    font-size: 40px;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.logo i {
+    color: white;
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+ 
+}
+
+.slogan h1 {
+    margin-right: 115px;
+    color: #ffffff;
+    font-family: "Urbanist", sans-serif;
+    font-size: 20px;
+}
+
+.logo:hover h1, .pagina h2  :hover{
+    font-size: 45px;
+}
+
+
+.search-container {
+    margin-top: -14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container form {
+    display: flex;
+    align-items: center;
+
+}
+
+.search-container input[type="text"] {
+    padding: 10px;
+    border: 1px solid #28a56b;
+    border-radius: 55px;
+    font-size: 16px;
+    width: 570px; /* Ancho ajustable según tus necesidades */
+ 
+}
+
+.search-container button[type="submit"] {
+    background-color: transparent; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px; /* Espacio entre el campo de búsqueda y el botón */
+}
+
+.search-container button[type="submit"]:hover {
+    background-color: transparent; /* Color de fondo del botón al pasar el mouse */
+}
+
+/* Estilos para el icono de búsqueda */
+.search-container button[type="submit"] i {
+    font-size: 18px;
+    margin-right: 5px; /* Espacio entre el icono y el texto del botón */
+}
+
+.filter-icon {
+    margin-left: 10px;
+    
+}
+
+.filter-icon button {
+    background-color: #28a56b; /* Color de fondo del botón */
+    color: #ca2121; /* Color del icono */
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease, border 0.3 ease; /* Transición suave al pasar el cursor */
+}
+
+
+
+.filter-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.filter-icon {
+    position: relative;
+}
+.filter-icon button {
+    background-color: #28a56b;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.filter-dropdown select {
+    margin-bottom: 10px;
+}
+.show {
+    display: block !important; /* Asegúrate de que el menú desplegable se muestre */
+}
+
+.filter-dropdown select {
+    margin-bottom: 10px;
+    width: 200px;
+    padding: 8px;
+    color: gray;
+    border: 1px solid #28a56b;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    height: 40px;
+}
+
+.filter-dropdown select:focus {
+    outline: none;
+    border-color: #28a745; /* Cambia el color del borde cuando el select está enfocado */
+}
+
+.filter-submit {
+    background-color: #28a56b; /* Color de fondo del botón */
+    color: #fff; /* Color del texto */
+    border: none; /* Elimina el borde del botón */
+    padding: 10px 20px; /* Ajusta el relleno del botón */
+    border-radius: 5px; /* Añade esquinas redondeadas */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
+}
+
+.filter-submit:hover {
+    background-color: #000000; /* Color de fondo al pasar el cursor */
+}
+
+ q 
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination a {
+    color: #333;
+    float: none;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 2px;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #28a56b;
+    color: white;
+    border: 1px solid #28a56b;
+}
+
+.pagination a.active {
+    background-color: #28a56b;
+    color: white;
+    border: 1px solid #28a56b;
+}
+
+
+.card {
+    border: 3px solid #28a56b;
+    background: rgba(243, 243, 243, 0.918);
+    margin-top: 35px ;
+    text-align: center;
+    border-radius: 25px;
+    box-shadow:  rgba(0, 0, 0, 0.445); /* Sombra inicial modificada */
+    transition: transform 0.3s ease; /* Transición suave */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Agrandar el elemento al 105% del tamaño original */
+}
+
+
+.card-img-top {
+    border-radius: 25px;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.card h1{
+    text-align: center;
+}

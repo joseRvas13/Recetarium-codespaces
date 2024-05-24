@@ -1,32 +1,119 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 /* Estilo personalizado */
 body {
-    background-color: #bfcedd5e;
-    color: #333;
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background: linear-gradient(315deg, rgb(40, 165, 107) 3%, rgb(82, 161, 125) 38%, rgb(40, 165, 107) 68%, rgb(40, 165, 107) 98%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
 }
 
-.logo h1, .logo h2 {
-    font-family: 'Courgette', cursive;
-    font-family: 'Lobster', sans-serif;
-    color: rgb(0, 0, 0);
-    transition: color 0.3s ease, font-size 0.3s ease;
-    text-align: center;
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
 }
 
-.logo h1 {
+.wave {
+    background: rgb(255 255 255 / 25%);
+    border-radius: 1000% 1000% 0 0;
+    position: fixed;
+    width: 200%;
+    height: 12em;
+    animation: wave 10s -3s linear infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.wave:nth-of-type(2) {
+    bottom: -1.25em;
+    animation: wave 18s linear reverse infinite;
+    opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+    bottom: -2.5em;
+    animation: wave 20s -1s reverse infinite;
+    opacity: 0.9;
+}
+
+@keyframes wave {
+    2% {
+        transform: translateX(1);
+    }
+
+    25% {
+        transform: translateX(-25%);
+    }
+
+    50% {
+        transform: translateX(-50%);
+    }
+
+    75% {
+        transform: translateX(-25%);
+    }
+
+    100% {
+        transform: translateX(1);
+    }
+}
+
+
+.encabezado {
+    display: flex;
+    justify-content: space-between; /* Ajusta la distribución horizontal */
+    align-items: center; /* Alinea los elementos verticalmente al centro */
     font-size: 3.5vw; /* Tamaño de fuente responsive */
     margin-top: 1rem;
     margin-bottom: 0.5rem;
 }
-
-.logo h2 {
-    font-size: 2.5vw; /* Tamaño de fuente responsive */
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
+.logo{
+    margin-left: 25px;
 }
 
-.logo:hover h1, .logo:hover h2 {
-    color: #28a56b;
+.logo h1 , .pagina h2{
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    color: rgb(255, 255, 255);
+    transition: color 0.3s ease, font-size 0.3s ease;
+    text-align: center;
+    
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.logo i {
+    color: white;
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+ 
+}
+
+.slogan h1 {
+    margin-right: 115px;
+    color: #ffffff;
+    font-family: "Urbanist", sans-serif;
+    font-size: 20px;
+}
+
+.logo:hover h1, .pagina h2  :hover{
+    font-size: 45px;
 }
 
 .card {
@@ -90,6 +177,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    border: none;
 }
 
 .search-container form {
@@ -99,15 +187,15 @@ body {
 
 .search-container input[type="text"] {
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: none;
+    border-radius: 55px;
     font-size: 16px;
     width: 570px; /* Ancho ajustable según tus necesidades */
-    border: 2px solid #5f5d5da9;
+    border: none;
 }
 
 .search-container button[type="submit"] {
-    background-color: #28a745; /* Color de fondo del botón */
+    background-color: transparent; /* Color de fondo del botón */
     color: #fff; /* Color del texto del botón */
     border: none;
     padding: 10px 15px;
@@ -118,7 +206,7 @@ body {
 }
 
 .search-container button[type="submit"]:hover {
-    background-color: #218838; /* Color de fondo del botón al pasar el mouse */
+    background-color: transparent; /* Color de fondo del botón al pasar el mouse */
 }
 
 /* Estilos para el icono de búsqueda */
@@ -128,30 +216,28 @@ body {
 }
 
 .filter-icon {
-    margin-left: 50px;
+    margin-left: 10px;
+    
 }
 
 .filter-icon button {
-    background-color: #28a745; /* Color de fondo del botón */
-    color: #fff; /* Color del icono */
+    background-color: transparent; /* Color de fondo del botón */
+    color: #c01c1c; /* Color del icono */
     border: none;
     padding: 8px;
-    border-radius: 5px;
     cursor: pointer;
     font-size: 18px;
-    transition: background-color 0.3s ease; /* Transición suave al pasar el cursor */
+    transition: background-color 0.3s ease, border 0.3 ease; /* Transición suave al pasar el cursor */
 }
 
 
-.filter-icon i:hover {
-    color: #28a745; /* Cambiar el color al pasar sobre el icono */
-}
 
 .filter-dropdown {
     display: none;
     position: absolute;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
     border: 1px solid #ccc;
     padding: 10px;
     z-index: 1000;
@@ -160,7 +246,7 @@ body {
     position: relative;
 }
 .filter-icon button {
-    background-color: #28a745;
+    background-color: transparent;
     color: #fff;
     border: none;
     padding: 8px;
@@ -169,9 +255,7 @@ body {
     font-size: 18px;
     transition: background-color 0.3s ease;
 }
-.filter-icon button:hover {
-    background-color: #218838;
-}
+
 .filter-dropdown select {
     margin-bottom: 10px;
 }
@@ -180,15 +264,15 @@ body {
 }
 
 .filter-dropdown select {
-margin-bottom: 10px;
-width: 200px;
-padding: 8px;
-border: 1px solid #ccc;
-border-radius: 5px;
-background-color: #fff;
-font-size: 16px;
-transition: border-color 0.3s ease;
-height: 40px;
+    margin-bottom: 10px;
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    height: 40px;
 }
 
 .filter-dropdown select:focus {
@@ -259,24 +343,24 @@ border-color: #28a745; /* Cambia el color del borde cuando el select está enfoc
     .search-container input[type="text"] {
         width: calc(50% - 10px); /* Ancho ajustado para la barra de búsqueda */
         margin-right: 10px; /* Espacio entre la barra de búsqueda y el icono de búsqueda */
-        margin-bottom: 10px; /* Espacio entre la barra de búsqueda y los filtros */
+        margin-bottom: 0px; /* Espacio entre la barra de búsqueda y los filtros */
     }
 
     .search-container button[type="submit"] {
-        width: calc(50% - 10px); /* Ancho ajustado para el icono de búsqueda */
+        width: calc(20% - 10px); /* Ancho ajustado para el icono de búsqueda */
         margin-left: 10px; /* Espacio entre la barra de búsqueda y el icono de búsqueda */
         margin-bottom: 10px; /* Espacio entre el icono de búsqueda y los filtros */
     }
 
     .filter-icon {
-        width: 100%; /* Ancho completo */
+        width: 60%; /* Ancho completo */
         display: flex; /* Alinea los filtros en el centro */
         justify-content: center; /* Centrar elementos horizontalmente */
     }
 
     .filter-icon button {
         width: calc(100% - 20px); /* Ancho ajustado para los filtros */
-        height: 35px; /* Altura para mantener la proporción */
+        height: 15px; /* Altura para mantener la proporción */
         margin-bottom: 10px; /* Espacio entre los filtros y el borde inferior de la pantalla */
     }
 }

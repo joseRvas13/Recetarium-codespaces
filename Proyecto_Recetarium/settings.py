@@ -83,8 +83,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'recetarium_db',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'administrador',
+        'PASSWORD': 'oWIY4atLAFi0w9bl',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -129,6 +129,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'Aplicaciones', 'Recetarium', 'static'),
 ]
+
+# Media files (Uploaded files)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

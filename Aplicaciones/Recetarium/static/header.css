@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    top: 0;
+}
+
+header{
+    background-color: palegreen;
+}
+
+.logo{
+    color: white;
+}

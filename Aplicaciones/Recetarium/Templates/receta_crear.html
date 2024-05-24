@@ -1,0 +1,158 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Insertar Consejero</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+        <style>
+                    body {
+                background-color: #f8f9fa;
+                padding: 20px;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
+            h1 {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            label {
+                font-weight: bold;
+                color: #6c757d; /* Gris */
+            }
+
+            input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 1px solid #ced4da; /* Gris claro */
+                border-radius: 5px;
+            }
+
+            button[type="submit"] {
+                padding: 10px 20px;
+                background-color: #007bff; /* Azul */
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            button[type="submit"]:hover {
+                background-color: #0056b3; /* Azul más oscuro */
+            }
+
+            .btn-back {
+                padding: 10px 20px;
+                background-color: #6c757d; /* Gris */
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .btn-back:hover {
+                background-color: #5a6268; /* Gris más oscuro */
+            }
+        </style>
+    </head>
+    <body>
+
+    <div class="container">
+        <h1>Crea Tu Propia Receta</h1>
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Plato</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese un nombre" required>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="form-group">
+                        <label for="apellido">Categoria</label>
+                        <select name="" id="">
+                            <option value="">categoria</option>
+                            <option value=""></option>
+
+                            <option value=""></option>
+
+                            <option value=""></option>
+                            <option value=""></option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="edad">Edad:</label>
+                        <input type="number" class="form-control" name="edad" id="edad" placeholder="Ingrese una edad" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="idioma">Idioma:</label>
+                        <input type="text" class="form-control" name="idioma" id="idioma" placeholder="Ingrese un idioma" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                        <input type="number" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" placeholder="Ingrese fecha (YY-MM-DD)" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="titulacion">Titulación:</label>
+                        <input type="text" class="form-control" name="titulacion" id="titulacion" placeholder="Ingrese una titulacion" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="pais">País:</label>
+                        <input type="text" class="form-control" name="pais" id="pais" placeholder="Ingrese un pais" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="experiencia">Experiencia:</label>
+                        <input type="number" class="form-control" name="experiencia" id="experiencia" placeholder="Ingrese una experiencia (En Años)" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="pais">Imagen:</label>
+                        <input type="file" class="form-control" name="imagen" id="imagen" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a href="{% url 'listado_consejeros' %}" class="btn btn-back">Volver al Listado</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    </body>
+    </html>
