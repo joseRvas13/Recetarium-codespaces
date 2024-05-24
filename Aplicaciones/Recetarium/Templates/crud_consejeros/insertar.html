@@ -67,19 +67,19 @@
 
 <div class="container">
     <h1>Insertar Nuevo Consejero</h1>
-    <form action="{% url 'consejero_insertar' %}" method="post">
+    <form action="{% url 'consejero_insertar' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" name="nombre" id="nombre" required>
+                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese un nombre" required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="apellido">Apellido:</label>
-                    <input type="text" class="form-control" name="apellido" id="apellido" required>
+                    <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese uno(s) apellidos" required>
                 </div>
             </div>
         </div>
@@ -87,13 +87,13 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="edad">Edad:</label>
-                    <input type="text" class="form-control" name="edad" id="edad" required>
+                    <input type="number" class="form-control" name="edad" id="edad" placeholder="Ingrese una edad" required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="idioma">Idioma:</label>
-                    <input type="text" class="form-control" name="idioma" id="idioma" required>
+                    <input type="text" class="form-control" name="idioma" id="idioma" placeholder="Ingrese un idioma" required>
                 </div>
             </div>
         </div>
@@ -101,13 +101,13 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                    <input type="text" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" required>
+                    <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" placeholder="Ingrese fecha (YY-MM-DD)" required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="titulacion">Titulación:</label>
-                    <input type="text" class="form-control" name="titulacion" id="titulacion" required>
+                    <input type="text" class="form-control" name="titulacion" id="titulacion" placeholder="Ingrese una titulacion" required>
                 </div>
             </div>
         </div>
@@ -115,13 +115,19 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="pais">País:</label>
-                    <input type="text" class="form-control" name="pais" id="pais" required>
+                    <input type="text" class="form-control" name="pais" id="pais" placeholder="Ingrese un pais" required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="experiencia">Experiencia:</label>
-                    <input type="text" class="form-control" name="experiencia" id="experiencia" required>
+                    <input type="number" class="form-control" name="experiencia" id="experiencia" placeholder="Ingrese una experiencia (En Años)" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="pais">Imagen:</label>
+                    <input type="file" class="form-control" name="imagen" id="imagen" required>
                 </div>
             </div>
         </div>
@@ -140,25 +146,5 @@
 <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
-<!-- DateRangePicker Initialization -->
-
-<script>
-        $(function() {
-        $('#fecha_nacimiento').daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true,
-            minYear: 1900,
-            maxYear: parseInt(moment().format('YYYY'),10),
-            locale: {
-                format: 'YYYY-MM-DD',
-                applyLabel: 'Aceptar',
-                cancelLabel: 'Cancelar',
-                daysOfWeek: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
-                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-            }
-        });
-        $('#fecha_nacimiento').val('');
-    });
-</script>
 </body>
 </html>
