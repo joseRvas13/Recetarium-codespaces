@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
-from .views import Home_Administracion, borrar_consejero, consejero_actualizar, consejero_insertar, consejero_listado, lista_recetas, buscar_recetas, receta_crear, lista_consejeros
+from .views import Home_Administracion, actualizar_rol, borrar_consejero, borrar_rol, consejero_actualizar, consejero_insertar, consejero_listado, insertar_roles, lista_recetas, buscar_recetas, listado_roles, receta_crear, lista_consejeros
 
 urlpatterns = [
     path('', views.index, name="index"),
@@ -33,4 +33,11 @@ urlpatterns = [
     path('Administracion/Consejeros/borrar/<int:idconsejeros>/', borrar_consejero),
     path('Administracion/Consejeros/actualizar/<int:idconsejeros>/', consejero_actualizar),
     path('mostrar-imagen-grande/<path:imagen_url>/', views.mostrar_imagen_grande, name='mostrar_imagen_grande'),
+
+    #CRUD ROLES
+    path('Administracion/Roles/listado/', listado_roles, name='listado_roles'),
+    path('Administracion/Roles/insertar/', insertar_roles, name='insertar_roles'),
+    path('Administracion/Roles/borrar/<int:idroles>', borrar_rol),
+    path('Administracion/Roles/actualizar/<int:idroles>', actualizar_rol),
+    #FIN CRUD ROLES
 ]

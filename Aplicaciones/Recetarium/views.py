@@ -3,16 +3,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm
 from django.contrib.auth.models import User
-from .models import Consejero, Receta
+from .models import Consejero, Receta, Rol
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import re
 from django.db.models import Q
-<<<<<<< HEAD
+
 #region INDEX
-=======
+
 from django.core.files.storage import FileSystemStorage
 
->>>>>>> 5d5d3879c47c59b157aef73995054380a2e458ea
 def index(request):
     return render(request, 'index.html')
 #endregion 
@@ -253,4 +252,47 @@ def consejero_actualizar(request, idconsejeros):
 def mostrar_imagen_grande(request, imagen_url):
     return render(request, 'mostrar_imagen_grande.html', {'imagen_url': imagen_url})
     
+#endregion
+
+#region CRUD ROLES
+def insertar_roles(request):
+    if request.method == "POST":
+        if request.POST.get('nombre') and request.POST.get('descripcion') and request.POST.get('permisos'):
+            roles = Rol()
+            roles.nombre = request.POST.get('nombre')
+            roles.descripcion = request.POST.get('descripcion')
+            roles.permisos = request.POST.get('permisos')
+            roles.save()
+            return redirect('/Administracion/Roles/listado')
+        else:
+            return render(request, "crud_roles/insertar.html")
+    else:
+        return render(request, "crud_roles/insertar.html")
+
+def listado_roles(request):
+    roles = Rol.objects.all()
+    return render(request, 'crud_roles/listar.html', {'roles': roles})
+
+def borrar_rol(request, idroles):
+    roles = Rol.objects.filter(id=idroles)
+    roles.delete()
+    return redirect('/Administracion/Roles/listado')
+
+def actualizar_rol(request, idroles):
+    if request.method == "POST":
+        nombre = request.POST.get('nombre')
+        descripcion = request.POST.get('descripcion')
+        permisos = request.POST.get('permisos')
+        
+        if nombre and descripcion and permisos:
+            roles = Rol.objects.get(id=idroles)
+            roles.nombre = nombre
+            roles.descripcion = descripcion
+            roles.permisos = permisos
+            roles.save()
+            return redirect('/Administracion/Roles/listado')
+    else:
+        roles = Rol.objects.get(id=idroles)
+        return render(request, "crud_roles/actualizar.html", {"roles": roles})
+
 #endregion

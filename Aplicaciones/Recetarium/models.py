@@ -28,3 +28,11 @@ class Consejero(models.Model):
 
     class Meta:
         db_table = 'tbl_consejeros'
+
+class Rol(models.Model):
+    nombre = models.CharField(max_length=50)
+    descripcion = models.CharField(max_length=255)
+    permisos = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'tbl_roles'
