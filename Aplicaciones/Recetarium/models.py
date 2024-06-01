@@ -36,3 +36,29 @@ class Rol(models.Model):
 
     class Meta:
         db_table = 'tbl_roles'
+
+
+class Dieta(models.Model):
+    id_dieta_c = models.AutoField(primary_key=True)
+    imagen = models.CharField(max_length=255)
+    nombre = models.CharField(max_length=255)
+    descripcion = models.CharField(max_length=255)
+    objetivo = models.CharField(max_length=255)
+    calorias = models.IntegerField()
+    condicion_medica = models.CharField(max_length=255)
+    valor_nutricional = models.IntegerField()
+    actividad_fisica = models.CharField(max_length=255)
+    consejos = models.CharField(max_length=255)
+    dispositivos = models.CharField(max_length=255)
+    bibliografia = models.CharField(max_length=255)
+    consejero_id = models.IntegerField(null=True, blank=True)
+    dia_semana = models.CharField(max_length=20, null=True, blank=True)
+    desayuno = models.CharField(max_length=255, null=True, blank=True)
+    media_manana = models.CharField(max_length=255, null=True, blank=True)
+    almuerzo = models.CharField(max_length=255, null=True, blank=True)
+    merienda = models.CharField(max_length=255, null=True, blank=True)
+    cena = models.CharField(max_length=255, null=True, blank=True)
+    usuario_id = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'tbl_dieta_calendario'

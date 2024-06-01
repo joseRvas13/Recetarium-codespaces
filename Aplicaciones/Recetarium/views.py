@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm
 from django.contrib.auth.models import User
-from .models import Consejero, Receta, Rol
+from .models import Consejero, Dieta, Receta, Rol
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import re
 from django.db.models import Q
@@ -160,6 +160,50 @@ def buscar_recetas(request):
     
     return render(request, 'lista_recetas.html', {'recetas': recetas})
 #endregion
+
+#region DIETAS DISPONIBLES - CALENDARIO
+
+def lista_dietas(request):
+    dietas = Dieta.objects.all()
+    return render(request, 'dietas_disponibles/lista_dietas.html', {'dietas': dietas})
+
+def lista_dietas(request):
+    dietas_list = Dieta.objects.all()
+    dietas_por_pagina = 15
+    paginator = Paginator(dietas_list, dietas_por_pagina)
+    page_number = request.GET.get('page')
+    
+    # Verificar si el parámetro de página está presente
+    if page_number is None:
+        # Si no hay parámetro de página, redirigir a la primera página
+        return render(request, 'dietas_disponibles/lista_dietas.html', {'dietas': paginator.page(1)})
+
+    try:
+        dietas = paginator.page(page_number)
+    except PageNotAnInteger:
+        # Si el número de página no es un entero, mostrar la página de error personalizada
+        return render(request, 'invalid_page.html')  # Redirigir a la página de error
+    except EmptyPage:
+        # Si el número de página está fuera del rango, mostrar la página de error personalizada
+        return render(request, 'invalid_page.html')  # Redirigir a la página de error
+    
+    return render(request, 'dietas_disponibles/lista_dietas.html', {'dietas': dietas})
+
+def buscar_dietas(request):
+    query = request.GET.get('search_dietas')
+
+    query = re.sub(r'[^a-zA-Z\s]', '', query) if query else None
+
+    consulta = Q()
+    if query:
+        consulta &= Q(nombre__icontains=query)
+
+    dietas = Dieta.objects.filter(consulta).distinct()
+    
+    return render(request, 'dietas_disponibles/lista_dietas.html', {'dietas': dietas})
+
+#endregion
+
 
 #region CRUD CONSEJEROS
 def Home_Administracion(request):
