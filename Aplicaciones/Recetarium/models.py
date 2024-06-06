@@ -51,14 +51,36 @@ class Dieta(models.Model):
     consejos = models.CharField(max_length=255)
     dispositivos = models.CharField(max_length=255)
     bibliografia = models.CharField(max_length=255)
-    consejero_id = models.IntegerField(null=True, blank=True)
-    dia_semana = models.CharField(max_length=20, null=True, blank=True)
-    desayuno = models.CharField(max_length=255, null=True, blank=True)
-    media_manana = models.CharField(max_length=255, null=True, blank=True)
-    almuerzo = models.CharField(max_length=255, null=True, blank=True)
-    merienda = models.CharField(max_length=255, null=True, blank=True)
-    cena = models.CharField(max_length=255, null=True, blank=True)
+    consejero_id = models.IntegerField(null=True)
+    dia_semana = models.CharField(max_length=20, null=True)
+    desayuno = models.CharField(max_length=255, null=True)
+    media_manana = models.CharField(max_length=255, null=True)
+    almuerzo = models.CharField(max_length=255, null=True)
+    merienda = models.CharField(max_length=255, null=True)
+    cena = models.CharField(max_length=255, null=True)
     usuario_id = models.IntegerField(null=True, blank=True)
 
     class Meta:
         db_table = 'tbl_dieta_calendario'
+
+class Comida(models.Model):
+    DIA_CHOICES = [
+        ('Lunes', 'Lunes'),
+        ('Martes', 'Martes'),
+        ('Miércoles', 'Miércoles'),
+        ('Jueves', 'Jueves'),
+        ('Viernes', 'Viernes'),
+        ('Sábado', 'Sábado'),
+        ('Domingo', 'Domingo'),
+    ]
+
+    dieta = models.ForeignKey(Dieta, on_delete=models.CASCADE)
+    dia_semana = models.CharField(max_length=20, choices=DIA_CHOICES)
+    desayuno = models.CharField(max_length=255)
+    media_mañana = models.CharField(max_length=255)
+    almuerzo = models.CharField(max_length=255)
+    merienda = models.CharField(max_length=255)
+    cena = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'tbl_comidas'

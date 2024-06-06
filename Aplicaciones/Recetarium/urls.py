@@ -44,4 +44,5 @@ urlpatterns = [
     #DIETAS DISPONIBLES - CALENDARIO
     path('salud-nutricion/dietas/', lista_dietas, name='lista_dietas'),
     path('dietas/buscar/', buscar_dietas, name='buscar_dietas'),
+    path('salud-nutricion/dietas/dieta=<int:id_dieta_c>/', views.detalle_dietas, name='detalle_dietas'),
 ]

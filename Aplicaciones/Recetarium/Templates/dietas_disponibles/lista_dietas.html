@@ -43,7 +43,7 @@
             {% for dieta in dietas %}
                 <div class="col-lg-4 col-md-6">
                     <div class="card">
-                        <a href="#">
+                        <a href="{% url 'detalle_dietas' dieta.id_dieta_c %}">
                             <img src="{{ dieta.imagen }}" class="card-img-top" alt="{{ dieta.nombre }}">
                             <div class="card-body">
                                 <h2 class="card-title">{{ dieta.nombre }}</h2>

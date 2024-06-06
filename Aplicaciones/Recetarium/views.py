@@ -202,6 +202,10 @@ def buscar_dietas(request):
     
     return render(request, 'dietas_disponibles/lista_dietas.html', {'dietas': dietas})
 
+def detalle_dietas(request, id_dieta_c):
+    dietas = Dieta.objects.get(pk=id_dieta_c)
+    return render(request, 'dietas_disponibles/detalle_dietas.html', {'dietas': dietas})
+
 #endregion
 
 
