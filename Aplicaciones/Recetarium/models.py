@@ -1,14 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Receta(models.Model):
     id_receta = models.AutoField(primary_key=True)
     nombre_plato = models.CharField(max_length=50)
     imagen = models.CharField(max_length=255)
     categoria = models.CharField(max_length=255)
+    temporada = models.CharField(max_length=255)
+    origen = models.CharField(max_length=255)
     ingredientes = models.CharField(max_length=225)
     descripcion = models.CharField(max_length=255)
+    instrucciones = models.CharField(max_length=255)
     tiempo_preparacion = models.CharField(max_length=10)
     dificultad = models.CharField(max_length=20)
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         db_table = 'tbl_recetas'

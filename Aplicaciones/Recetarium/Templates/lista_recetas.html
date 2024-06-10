@@ -86,6 +86,15 @@
                                     <span><i class="fas fa-clock"></i> {{ receta.tiempo_preparacion }} Minutos</span>
                                     <span><i class="fas fa-star"></i> {{ receta.dificultad }}</span>
                                 </p>
+                                {% if receta.usuario %}
+                                    <p class="card-text"> 
+                                        <span><i class="fas fa-user"></i> {{ receta.usuario.first_name }} {{ receta.usuario.last_name }}</span>
+                                    </p>
+                                {% else %}
+                                    <p class="card-text"> 
+                                        <span><i class="fas fa-user"></i> Sistema Recetarium.</span>
+                                    </p>
+                                {% endif %}
                             </div>
                         </a>    
                     </div>

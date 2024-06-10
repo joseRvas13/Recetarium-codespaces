@@ -1,7 +1,9 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
-from .views import Home_Administracion, actualizar_rol, borrar_consejero, borrar_rol, buscar_dietas, consejero_actualizar, consejero_insertar, consejero_listado, insertar_roles, lista_dietas, lista_recetas, buscar_recetas, listado_roles, receta_crear, lista_consejeros
+from django.conf.urls.static import static
+from django.conf import settings
+from .views import Home_Administracion, actualizar_rol, borrar_consejero, borrar_rol, buscar_dietas, consejero_actualizar, consejero_insertar, consejero_listado, insertar_roles, lista_dietas, lista_recetas, buscar_recetas, listado_roles, receta_crear, lista_consejeros, ver_recetas_usuarios
 
 urlpatterns = [
     path('', views.index, name="index"),
@@ -45,4 +47,11 @@ urlpatterns = [
     path('salud-nutricion/dietas/', lista_dietas, name='lista_dietas'),
     path('dietas/buscar/', buscar_dietas, name='buscar_dietas'),
     path('salud-nutricion/dietas/dieta=<int:id_dieta_c>/', views.detalle_dietas, name='detalle_dietas'),
-]
+    #FIN DIETAS DISPONIBLES - CALENDARIO
+
+    #VER RECETAS USUARIOS
+    path('recetas/<int:usuario_id>/tus_recetas/', ver_recetas_usuarios, name="ver_recetas_usuarios")
+
+
+    #FIN VER RECETAS USUARIOS
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
