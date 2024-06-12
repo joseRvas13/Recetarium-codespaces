@@ -7,7 +7,12 @@ from .models import Consejero, Dieta, Receta, Rol
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import re
 from django.db.models import Q
+<<<<<<< HEAD
 from django.core.files.storage import FileSystemStorage
+=======
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.models import User
+>>>>>>> c7a39a416de2db75ea86841823a613ee921d34e6
 
 
 #region INDEX
@@ -211,6 +216,21 @@ def buscar_dietas(request):
     dietas = Dieta.objects.filter(consulta).distinct()
     
     return render(request, 'dietas_disponibles/lista_dietas.html', {'dietas': dietas})
+
+def detalle_dietas(request, id_dieta_c):
+    dietas = Dieta.objects.get(pk=id_dieta_c)
+    return render(request, 'dietas_disponibles/detalle_dietas.html', {'dietas': dietas})
+
+#endregion
+
+#region VER RECETAS POR EL ID DEL USUARIO
+
+def ver_recetas_usuarios(request, usuario_id):
+    user = get_object_or_404(User, id=usuario_id)
+    recetas_usuario = Receta.objects.filter(usuario=user)
+    return render(request, 'ver_recetas_usuarios/ver_recetas_usuarios.html', {'user': user, 'recetas_usuario': recetas_usuario})
+
+
 
 #endregion
 

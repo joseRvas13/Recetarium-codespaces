@@ -9,10 +9,24 @@
             <div class="col-lg-12">
                 <h1>{{ receta.nombre_plato }}</h1>
                 <p><strong>Categoría:</strong> {{ receta.categoria }}</p>
+                <p><strong>Temporada:</strong> {{ receta.temporada }}</p>
+                <p><strong>Origen:</strong> {{ receta.origen }}</p>
                 <p><strong>Ingredientes:</strong> {{ receta.ingredientes }}</p>
                 <p><strong>Descripción:</strong> {{ receta.descripcion }}</p>
+                <p><strong>Instrucciones:</strong> {{ receta.instrucciones }}</p>
                 <p><strong>Tiempo de preparación:</strong> {{ receta.tiempo_preparacion }}</p>
                 <p><strong>Dificultad:</strong> {{ receta.dificultad }}</p>
+<<<<<<< HEAD
+=======
+
+
+                <!-- Mostrar quién subió la receta -->
+                {% if receta.usuario %}
+                    <p><strong>Subido por:</strong> <i class="fas fa-user"></i> {{ receta.usuario.first_name }} {{ receta.usuario.last_name }}</p>
+                {% else %}
+                <p><strong>Subido por:</strong> <i class="fas fa-user"></i> Sistema Recetarium</p>   
+                {% endif %}
+>>>>>>> c7a39a416de2db75ea86841823a613ee921d34e6
             </div>
         </div>
     </div>

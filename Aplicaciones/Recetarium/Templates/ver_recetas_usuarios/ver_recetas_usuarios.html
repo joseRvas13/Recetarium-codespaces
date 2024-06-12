@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recetas de {{ user.first_name }}  {{ user.last_name }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static 'bootstrap/bootstrap4.5.2.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'ver_recetas_usuarios.css' %}">
+    
+</head>
+<body>
+    <div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+    <header>
+        <div class="encabezado">
+            <div class="logo">
+                <a href="{% url 'index' %}"><i class="bi bi-arrow-left-short"></i><h1>RC</h1></a>
+            </div>
+            <div class="pagina">
+                <h2>Recetas Subidas</h2>
+            </div>
+            <div class="slogan">
+                <h1>Recetarium</h1>
+            </div>
+        </div>
+    </header>
+    <br>
+    <div class="container">
+        <h1>¡Bienvenido <b class="titulo_nombre_usuario">{{ user.first_name }} {{ user.last_name }}</b>!</h1>
+        {% if recetas_usuario %}
+            <h1>Estas son todas tus recetas que has subido a la plataforma</h1>
+            <br>
+            <div class="row">
+                {% for receta in recetas_usuario %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card">
+                            <a href="{% url 'detalle_receta' receta.id_receta %}">
+                                <img src="{{ receta.imagen }}" class="card-img-top" alt="{{ receta.nombre_plato }}">
+                                <div class="card-body">
+                                    <h2 class="card-title">{{ receta.nombre_plato }}</h2>
+                                    <p class="card-text">
+                                        <span><i class="fas fa-folder"></i>  {{ receta.categoria }}</span><br>
+                                        <span><i class="fas fa-clock"></i>  {{ receta.tiempo_preparacion }} minutos</span><br>
+                                        <span><i class="fas fa-star"></i>  {{ receta.dificultad }}</span>
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h2 class="mensaje_error">Oh! No tienes ninguna receta subida, puedes subir una receta <a href="{% url 'receta_crear' %}">Aquí</a></h2>
+        {% endif %}
+    </div>
+</body>
+</html>

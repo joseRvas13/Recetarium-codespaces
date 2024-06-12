@@ -163,7 +163,7 @@
             <tr>
                 <td>
                     <a href="{% url 'mostrar_imagen_grande' imagen_url=consejero.1|urlencode %}" target="_blank">
-                        <img src="{% static 'media/' %}{{ consejero.1 }}" style="width:72px; height: 93px;">
+                        <img src="{{ consejero.1 }}" style="width:72px; height: 93px;">
                     </a>
                 </td>
                 <td>{{ consejero.2 }}</td>
@@ -173,7 +173,7 @@
                 <td>{{ consejero.6 }}</td>
                 <td>{{ consejero.7 }}</td>
                 <td>{{ consejero.8 }}</td>
-                <td>{{ consejero.9 }} Días</td>
+                <td>{{ consejero.9 }} Años</td>
                 <td>
                     <div class="btn-group">
                         <a href="#" class="btn btn-delete" onclick="confirmDelete('{{ consejero.0 }}')"><i class="fas fa-trash"></i> Borrar</a>

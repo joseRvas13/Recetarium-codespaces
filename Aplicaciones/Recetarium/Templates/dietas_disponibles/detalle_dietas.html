@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ dietas.nombre }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static 'bootstrap/bootstrap4.5.2.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'detalle_dietas.css' %}">
+</head>
+<body>
+    <div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+    <header>
+        <div class="encabezado">
+            <div class="logo">
+                <a href="{% url 'index' %}"><i class="bi bi-arrow-left-short"></i><h1>RC</h1></a>
+            </div>
+            <div class="pagina">
+                <h2>{{ dietas.nombre }}</h2>
+            </div>
+            <div class="slogan">
+                <h1>Recetarium</h1>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <img src="{{ dietas.imagen }}" class="card-img-top" alt="{{ dietas.nombre }}" style="max-height: 300px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <br>
+                <!-- Contenido de los detalles de la receta -->
+                <h1>{{ dietas.nombre }}</h1>
+                <p><strong><i class="fas fa-info-circle"></i> Descripción:</strong> {{ dietas.descripcion }}</p>
+                <p><strong><i class="fas fa-bullseye"></i> Objetivo: </strong> {{ dietas.objetivo }}</p>
+                <p><strong><i class="fas fa-fire"></i> Calorias: </strong> {{ dietas.calorias }}</p>
+                <p><strong><i class="fas fa-heartbeat"></i> Condición Medica: </strong> {{ dietas.condicion_medica }}</p>
+                <p><strong><i class="fas fa-utensils"></i> Valor Nutricional:</strong> {{ dietas.valor_nutricional }}</p>
+                <p><strong><i class="fas fa-running"></i> Actividad Fisica:</strong> {{ dietas.actividad_fisica }}</p>
+                <p><strong><i class="fas fa-lightbulb"></i> Consejos: </strong> {{ dietas.consejos }}</p>
+                <p><strong><i class="fas fa-mobile-alt"></i> Dispositivos:</strong> {{ dietas.dispositivos }}</p>
+                <p><strong> <i class="fa fa-book" aria-hidden="true"></i> Bibliografia: </strong> {{ dietas.bibliografia }}</p>
+                
+                <br>
+
+                <h1 style="margin-left: -40px;">Planificador de comidas semanal</h1>
+
+                <br>
+
+                <p>Optimiza tu semana con nuestro Planificador de Comidas Semanal. Organiza fácilmente tus comidas diarias, desde desayunos hasta cenas, asegurando una alimentación balanceada y ahorrando tiempo en la preparación. ¡Simplifica tu vida y disfruta de una semana bien planificada con nuestro práctico calendario de comidas!</p>
+            </div>
+        </div>
+        <br><br>
+        <div class="meal-planner">
+            <div class="header">
+                <div class="meal-type-header"></div>
+                <div class="day">Domingo</div>
+                <div class="day">Lunes</div>
+                <div class="day">Martes</div>
+                <div class="day">Miércoles</div>
+                <div class="day">Jueves</div>
+                <div class="day">Viernes</div>
+                <div class="day">Sábado</div>
+            </div>
+            <div class="meals">
+                <div class="meal">
+                    <div class="meal-type">Desayuno</div>
+                    <div class="meal-plan" id="domingo-desayuno"></div>
+                    <div class="meal-plan" id="lunes-desayuno"></div>
+                    <div class="meal-plan" id="martes-desayuno"></div>
+                    <div class="meal-plan" id="miercoles-desayuno"></div>
+                    <div class="meal-plan" id="jueves-desayuno"></div>
+                    <div class="meal-plan" id="viernes-desayuno"></div>
+                    <div class="meal-plan" id="sabado-desayuno"></div>
+                </div>
+                <div class="meal">
+                    <div class="meal-type">Media Mañana</div>
+                    <div class="meal-plan" id="domingo-media-manana"></div>
+                    <div class="meal-plan" id="lunes-media-manana"></div>
+                    <div class="meal-plan" id="martes-media-manana"></div>
+                    <div class="meal-plan" id="miercoles-media-manana"></div>
+                    <div class="meal-plan" id="jueves-media-manana"></div>
+                    <div class="meal-plan" id="viernes-media-manana"></div>
+                    <div class="meal-plan" id="sabado-media-manana"></div>
+                </div>
+                <div class="meal">
+                    <div class="meal-type">Almuerzo</div>
+                    <div class="meal-plan" id="domingo-almuerzo"></div>
+                    <div class="meal-plan" id="lunes-almuerzo"></div>
+                    <div class="meal-plan" id="martes-almuerzo"></div>
+                    <div class="meal-plan" id="miercoles-almuerzo"></div>
+                    <div class="meal-plan" id="jueves-almuerzo"></div>
+                    <div class="meal-plan" id="viernes-almuerzo"></div>
+                    <div class="meal-plan" id="sabado-almuerzo"></div>
+                </div>
+                <div class="meal">
+                    <div class="meal-type">Merienda</div>
+                    <div class="meal-plan" id="domingo-merienda"></div>
+                    <div class="meal-plan" id="lunes-merienda"></div>
+                    <div class="meal-plan" id="martes-merienda"></div>
+                    <div class="meal-plan" id="miercoles-merienda"></div>
+                    <div class="meal-plan" id="jueves-merienda"></div>
+                    <div class="meal-plan" id="viernes-merienda"></div>
+                    <div class="meal-plan" id="sabado-merienda"></div>
+                </div>
+                <div class="meal">
+                    <div class="meal-type">Cena</div>
+                    <div class="meal-plan" id="domingo-cena"></div>
+                    <div class="meal-plan" id="lunes-cena"></div>
+                    <div class="meal-plan" id="martes-cena"></div>
+                    <div class="meal-plan" id="miercoles-cena"></div>
+                    <div class="meal-plan" id="jueves-cena"></div>
+                    <div class="meal-plan" id="viernes-cena"></div>
+                    <div class="meal-plan" id="sabado-cena"></div>
+                </div>
+            </div>
+        </div>
+        <script src="{% static 'js/calendario.js' %}"></script>
+</body>
+</html>
