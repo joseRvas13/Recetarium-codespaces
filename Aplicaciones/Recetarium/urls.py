@@ -1,19 +1,10 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-<<<<<<< HEAD
 from . import views
-from .views import (
-    Home_Administracion, actualizar_rol, borrar_consejero, borrar_rol,
-    buscar_dietas, consejero_actualizar, consejero_insertar, consejero_listado,
-    insertar_roles, lista_dietas, lista_recetas, buscar_recetas, listado_roles,
-    receta_crear, lista_consejeros, plan_nutricional, Not_Found,
-    bmi_calculator, salud_nutricion, usuarioinsertar, loginusuarios
-)
-=======
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import Home_Administracion, actualizar_rol, borrar_consejero, borrar_rol, buscar_dietas, consejero_actualizar, consejero_insertar, consejero_listado, insertar_roles, lista_dietas, lista_recetas, buscar_recetas, listado_roles, receta_crear, lista_consejeros, ver_recetas_usuarios
->>>>>>> c7a39a416de2db75ea86841823a613ee921d34e6
+from .views import Home_Administracion, actualizar_rol, borrar_consejero, borrar_rol, buscar_dietas, consejero_actualizar, consejero_insertar, consejero_listado, insertar_roles, lista_dietas, lista_recetas, buscar_recetas, listado_roles, receta_crear, lista_consejeros, ver_recetas_usuarios, plan_nutricional, Not_Found, bmi_calculator, salud_nutricion, usuarioinsertar, loginusuarios
+ 
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -54,14 +45,13 @@ urlpatterns = [
     # DIETAS DISPONIBLES - CALENDARIO
     path('salud-nutricion/dietas/', lista_dietas, name='lista_dietas'),
     path('dietas/buscar/', buscar_dietas, name='buscar_dietas'),
-<<<<<<< HEAD
     
     # USUARIO LOGIN REGISTER , LOGOUT
-     path('Usuarios/insertar/', usuarioinsertar, name='insertar_usuario'),
+    path('Usuarios/insertar/', usuarioinsertar, name='insertar_usuario'),
     path('Usuarios/login/', loginusuarios, name='login_usuario'),
-]
-=======
+
     path('salud-nutricion/dietas/dieta=<int:id_dieta_c>/', views.detalle_dietas, name='detalle_dietas'),
+
     #FIN DIETAS DISPONIBLES - CALENDARIO
 
     #VER RECETAS USUARIOS
@@ -69,5 +59,5 @@ urlpatterns = [
 
 
     #FIN VER RECETAS USUARIOS
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
->>>>>>> c7a39a416de2db75ea86841823a613ee921d34e6
+
+]

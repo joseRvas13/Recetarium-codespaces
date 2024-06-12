@@ -1,19 +1,14 @@
 from django.db import connection
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate, login, logout
 from .forms import CustomUserCreationForm, BMICalculatorForm
 from .models import Consejero, Dieta, Receta, Rol
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import re
 from django.db.models import Q
-<<<<<<< HEAD
 from django.core.files.storage import FileSystemStorage
-=======
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.models import User
->>>>>>> c7a39a416de2db75ea86841823a613ee921d34e6
-
 
 #region INDEX
 
