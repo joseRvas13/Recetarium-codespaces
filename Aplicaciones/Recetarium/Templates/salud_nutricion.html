@@ -1,0 +1,34 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'salud_nutricion.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<body>
+
+    {% include "inc/header.html" %}
+
+    <main>
+
+        <div class="contenedor">
+            <div class="card-items">
+                <a href="{% url 'plan_nutricional' %}"><h1>Plan Nutrcional</h1></a>
+                 <p>Con las cosas que tienes a tu alcance puedes generar una receta a partir de las cosas exactas que tienes y unas instrucciones que te pueden ayudar a realizarla y poder aprovechar más la comida de tu alcance para evitar desperdicios.</p>
+                 <h3>Recetarium</h3>
+             </div>
+             <div class="card-items">
+                <a href="{% url 'bmi_calculator' %}"><h1>Calculadora IMC</h1></a>
+                 <p>Puedes ver si tu salud puede estar en riesgo de acuerdo a tu peso y tu estatura, con los resultados de la calculadora te podemos recomentar dietas o sujerencias para poder tener una vida mas saludable o para mantener el peso que requieres.</p>
+                 <h3>Recetarium</h3>
+             </div>
+             <div class="card-items">
+                <a href="#"><h1>Dietas</h1></a>
+                <p>Encuentra dietas para que puedas seguir instrucciones o ayuda para que puedas adapatar nuevos habitos saludables en tu dia a dia, El calendario te puede ayudar a ver en que horarios puedes comer ciertos alimentos y asi seguir paso a paso instrucciones de la dieta que quieres aplicar.</p>
+                 <h3>Recetarium</h3>
+             </div>
+        </div>
+
+    </main>
+
+    {% include "inc/footer.html" %}
+
+</body>

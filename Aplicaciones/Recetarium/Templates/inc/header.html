@@ -5,26 +5,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'header.css' %}">
-
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static 'bootstrap/bootstrap4.5.2.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'head.css' %}">
+    <title>Recetarium</title>
+ 
 </head>
 <body>
-    
     <header>
-        <div class="btn">
-
-            <button type="button" class="close" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-
+        <div class="encabezado">
+            <div class="logo">
+                <a href="{% url 'index' %}">
+                    <i class="bi bi-arrow-left-short"></i>
+                    <h1>RC</h1>
+                </a>
+            </div>
+            <div class="pagina">
+                <h2>
+                    {% if pagina == 'soporte_tecnico' %}
+                        Soporte Técnico
+                    {% elif pagina == 'receta_crear' %}
+                        Crear Tu Receta
+                    {% elif pagina == 'Not_Found' %}
+                        Página No Disponible
+                    {% elif pagina == 'lista_recetas' %}
+                        Recetas Disponibles
+                    {% elif pagina == 'plan_nutricional' %}
+                        Plan Nutricional
+                    {% elif pagina == 'crear_elegir_receta' %}
+                        Expande Tu Mundo
+                    {% elif pagina == 'salud_nutricion' %}
+                        Salud Y Nutrición
+                    {% elif pagina == 'Registro' %}
+                        Crea Tu Cuenta
+                    {% elif pagina == 'bmi_calculator' %}
+                        Prioriza Tu Salud
+                    {% elif pagina == 'login' %}
+                        Iniciar Sesión
+                    {% elif pagina == 'lista_consejeros' %}
+                        Consejeros Disponibles
+                    {% else %}
+                        Recetarium
+                    {% endif %}
+                </h2>
+            </div>
+            <div class="slogan">
+                <a href="{% url 'index' %}">
+                    <h1>Recetarium</h1>
+                </a>
+            </div>
         </div>
-
-        <div class="logo">
-            <h1>RC</h1>
-        </div>
-
-        <div class="slogan">
-            <h1>Recetarium</h1>
-        </div>
-
     </header>
+

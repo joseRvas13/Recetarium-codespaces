@@ -1,43 +1,10 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Recetas Disponibles - Recetarium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="{% static 'bootstrap/bootstrap4.5.2.min.css' %}" rel="stylesheet">
-    <!-- Incluir la biblioteca de iconos Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+
+{% include 'inc/header.html' %}
+
     <link rel="stylesheet" href="{% static 'lista_recetas.css' %}">
-</head>
-<body>
-    <div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
 
-
-     </div>
-    <header>
-       <!--Encabezados --> 
-        <div class="encabezado">
-            <div class="logo">
-                
-              <a href="{% url 'index' %}"> <i class="bi bi-arrow-left-short"></i><h1>RC</h1></a> 
-            
-
-            </div>
-            <div class="pagina">
-                <h2>Recetas Disponibles</h2>
-            </div>
-            <div class="slogan">
-                <h1>Recetarium </h1>
-            </div>
-         </div>
-        <br>
-
+  
        <!--BUSCADOR Y FILTROS -->
 
         <div class="search-container">
@@ -69,7 +36,7 @@
                 </div>
             </form>
         </div>
-    </header>
+   
 
     <div class="container">
         <div class="row">
@@ -111,6 +78,9 @@
             {% endif %}
         </span>
     </div>
+
+    {% include 'inc/footer.html' %}
+
     <script src="{% static 'js/Filtros_Recetas_Disponibles.js' %}"></script>
 </body>
 </html>

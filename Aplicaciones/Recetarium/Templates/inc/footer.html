@@ -1,12 +1,18 @@
 {% load static %}  
-  
-    <footer>
-        <div class="footer">
-            <h1>
-                Recetarium
-            </h1>
-        </div>
-    </footer>
 
+<link rel="stylesheet" href="{% static 'footer.css' %}">
+
+    <footer>
+        <div class="bordeado">
+           <a href="{% url 'index' %}"><h1>RC</h1></a>
+        </div>
+        <p>&copy; 2023 <b>Recetarium</b> Todos los derechos Reservados</p>
+        <div class="social-icons">
+            <a href="#" target="_blank">Facebook</a>
+            <a href="#" target="_blank">Twitter</a>
+            <a href="#" target="_blank">Instagram</a>
+        </div>
+    
+  </footer>
 </body>
 </html>

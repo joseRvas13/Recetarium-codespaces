@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/signin.css">
-    <title>Recetarium - Inicia Sesion o Registrate</title>
-</head>
+{% load static %}
+{% include "inc/header.html" %}
 
-<body>
-    <header>
-        <div class="logo">
-            
-            <a href="{% url 'index' %}"><i class="bi bi-arrow-left-short"></i><h1>RC</h1></a>
-        </div>
-       
-    </header>
+<link rel="stylesheet" href="{% static 'login.css' %}">
+
 
     <main>
         <div class="form">
@@ -28,10 +16,10 @@
          
 
             <div class="contenido">
-
+                {% csrf_token %}
                 <form action="" method="POST">
                     <div class="form-group">
-                        <input type="text" id="email" name="email" placeholder="Correo Electrónico" required>
+                        <input type="text" id="username" name="username" placeholder="Nombre de Usuario" required>
                     </div>
                     <div class="form-group">
                         <input type="password" id="password" name="password" placeholder="Contraseña" required>
@@ -43,16 +31,14 @@
 
                     <h6>¿Aun no tines cuenta?..¡Crea tu cuenta Aqui!</h6>
                     
-                    <a href="{% url 'signup' %}" class="crear">Crear cuenta</a>
+                    <a href="/Usuarios/insertar" class="crear">Crear cuenta</a>
                 </form>
 
             </div>
         </div>
     </main>
 
-    <footer>
-        <p>Recetarium 2024 Todos los derechos reservados</p>
-    </footer>
+    {% include "inc/footer.html" %}
     
 </body>
 </html>

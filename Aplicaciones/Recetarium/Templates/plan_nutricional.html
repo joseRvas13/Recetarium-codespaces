@@ -1,0 +1,123 @@
+{% load static %}
+    
+<link rel="stylesheet" href="{% static 'plan_nutricional.css' %}">
+<body>
+    
+    
+    <main>
+        {% include "inc/header.html" %}
+
+        <br>
+        <div class="container">
+            
+            <div class="calendar">
+
+                <div class="textos">
+                    <h1 class="titulado">Crea Tu Calendario</h1>  
+                    <h2 class="logoRC"><b>Recetarium</b></h2>  
+                </div>
+
+                <br>
+
+                <div class="meal-plan">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Comida</th>
+                                <th>Domingo</th>
+                                <th>Lunes</th>
+                                <th>Martes</th>
+                                <th>Miercoles</th>
+                                <th>Jueves</th>
+                                <th>Viernes</th>
+                                <th>Sabado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Desayuno</td>
+                                <td>Oatmeal with fruits</td>
+                                <td>Scrambled eggs with veggies</td>
+                                <td>Smoothie bowl</td>
+                                <td>Greek yogurt with honey and nuts</td>
+                                <td>Avocado toast</td>
+                                <td>Pancakes with maple syrup</td>
+                                <td>French toast</td>
+                            </tr>
+                            <tr>
+                                <td>Media Mañana</td>
+                                <th><input type="text"></th>
+                                <th><input type="text"></th>
+                                <th><input type="text"></th>
+                                <th><input type="text"></th>
+                                <th><input type="text"></th>
+
+
+                            </tr>
+                            <tr>
+                                <td>Lunch</td>
+                                <td>Grilled chicken salad</td>
+                                <td>Turkey sandwich with veggies</td>
+                                <td>Quinoa and black bean bowl</td>
+                                <td>Veggie wrap with hummus</td>
+                                <td>Chicken Caesar salad</td>
+                                <td>Sushi</td>
+                                <td>Tuna salad</td>
+                            </tr>
+                            <tr>
+                                <td>Dinner</td>
+                                <td>Baked salmon with quinoa</td>
+                                <td>Spaghetti with marinara sauce</td>
+                                <td>Grilled steak with veggies</td>
+                                <td>Stir-fried tofu with rice</td>
+                                <td>Chicken curry with rice</td>
+                                <td>Pizza</td>
+                                <td>Beef tacos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+
+    </main>
+
+    {% include "inc/footer.html" %}
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cells = document.querySelectorAll('#menuTable td');
+            cells.forEach(cell => {
+                cell.addEventListener('click', () => {
+                    let currentText = cell.innerText;
+                    let input = document.createElement('textarea');
+                    input.value = currentText;
+                    input.classList.add('editable');
+                    cell.innerHTML = '';
+                    cell.appendChild(input);
+                    input.focus();
+
+                    input.addEventListener('blur', () => {
+                        cell.innerText = input.value;
+                    });
+
+                    input.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter') {
+                            input.blur();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+
+
+</body>
+
+
+    

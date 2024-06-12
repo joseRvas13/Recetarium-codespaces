@@ -359,7 +359,7 @@ main h2:not(:hover) {
 }
 
 footer:hover {
-    background-color: rgba(23, 104, 57, 0.438);
+    background-color: #28a56b;
 }
 
 footer:not(:hover) {

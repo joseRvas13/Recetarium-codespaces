@@ -1,0 +1,48 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+footer {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    animation: slideInUp 1s ease;
+    transition: background-color 0.5s ease; /* Corrección de 'bacground-color' a 'background-color' */
+}
+
+footer h1{
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    transition: color 0.3s ease, font-size 0.3s ease; 
+}
+
+footer h1:hover{
+    color: #28a56b;
+    font-size: 50px;
+}
+
+footer p{
+    font-family: "Urbanist", sans-serif;
+}
+
+
+footer:hover {
+    background-color: transparent;
+}
+
+footer a{
+    color: white;
+}
+
+footer a:hover{
+    color: black;
+    text-decoration: none;
+}
+
+footer:not(:hover) {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+

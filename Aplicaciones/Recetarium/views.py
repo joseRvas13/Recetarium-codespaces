@@ -1,58 +1,66 @@
 from django.db import connection
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from .forms import CustomUserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from .forms import CustomUserCreationForm, BMICalculatorForm
 from .models import Consejero, Dieta, Receta, Rol
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import re
 from django.db.models import Q
+from django.core.files.storage import FileSystemStorage
+
 
 #region INDEX
-
-from django.core.files.storage import FileSystemStorage
 
 def index(request):
     return render(request, 'index.html')
 #endregion 
 def crear_elegir_receta(request):
+    pagina_actual = "crear_elegir_receta"
     return render(request, 'Crear_Elegir_Receta.html')
  
 def olvido_contraseña(request):
+    pagina_actual = "olvido_contraseña"
     return render(request, 'Olvido_Contraseña.html')
 
-def inicio_sesion_registro(request):
-    return render(request, 'Inicio_Sesion_Registro.html')
-
 def salud_nutricion(request):
-    return render(request, 'Salud_y_Nutricion.html')
+    pagina_actual = "salud_nutricion"
+    return render(request, 'salud_nutricion.html',{'pagina': pagina_actual})
 
-
-def calculadora_salud(request):
-    return render(request, 'Calculadora_De_Salud.html')
-
-def signin(request):
-    return render(request, 'signin.html')
-
+def plan_nutricional(request):
+    pagina_actual = "plan_nutricional"
+    return render(request, 'plan_nutricional.html', {'pagina': pagina_actual})
 
 #region SOPORTE TECNICO 
 def soporte_tecnico(request):
-    return render(request, 'soporte_tecnico.html')
+    pagina_actual = "soporte_tecnico"
+    return render(request, 'soporte.html', {'pagina': pagina_actual})
 #end
+
+#region 404
+
+def Not_Found(request):
+    pagina_actual = "Not_Found"
+    return render(request, '404.html',{'pagina':pagina_actual})
+
+#endrefion
 
 #region FORMULARIO DE CREAR RECETAS (USUARIO)
 def receta_crear(request):
-    return render(request, 'receta_crear.html')
+    pagina_actual = "receta_crear"
+    return render(request, 'receta_crear.html', {'pagina': pagina_actual})
 #endregion
 
 
 def invalid_page(request):
     return render(request, 'invalid_page.html')
 
+
 # PÁGINA RECETAS DISPONIBLES
 def lista_recetas(request):
+    pagina_actual = "lista_recetas"
     recetas = Receta.objects.all()
-    return render(request, 'lista_recetas.html', {'recetas': recetas})
+    return render(request, 'lista_recetas.html', {'recetas': recetas, 'pagina': pagina_actual})
 
 def lista_consejeros(request):
     consejeros = Consejero.objects.all()
@@ -60,6 +68,7 @@ def lista_consejeros(request):
 
 #region paginacion consejeros
 def lista_consejeros(request):
+    pagina_actual = "lista_consejeros"
     consejeros_list = Consejero.objects.all().order_by('id_consejero')  # Asegúrate de que el nombre del modelo es Consejero
     consejeros_por_pagina = 9
     paginator = Paginator(consejeros_list, consejeros_por_pagina)
@@ -72,7 +81,7 @@ def lista_consejeros(request):
     except EmptyPage:
         consejeros = paginator.page(paginator.num_pages)
 
-    return render(request, 'lista_consejeros.html', {'consejeros': consejeros})
+    return render(request, 'lista_consejeros.html', {'consejeros': consejeros, 'pagina':pagina_actual})
 
 #endregion
 
@@ -108,26 +117,27 @@ def lista_recetas(request):
 
 
 #region SIGNUP
-def signup(request):
+def Registro(request):
+    pagina_actual = "Registro"
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             # Verificar si el correo electrónico ya existe en la base de datos
             if User.objects.filter(email=form.cleaned_data['email']).exists():
                 # Si el correo electrónico ya existe, mostrar un mensaje de error
-                return render(request, 'signup.html', {'form': form, 'error_message': 'El correo electrónico ya está en uso. Por favor, utiliza otro.'})
+                return render(request, 'Registro.html', {'form': form, 'error_message': 'El correo electrónico ya está en uso. Por favor, utiliza otro.'})
             else:
                 # Si el correo electrónico es único, guardar el formulario y crear el usuario
                 form.save()
                 email = form.cleaned_data['email']
                 password = form.cleaned_data['password1']
-                user = authenticate(email=email, password=password)
+                user = authenticate(request, email=email, password=password)
                 login(request, user)
                 # No establecer signup_success en la sesión aquí
-                return redirect('/')
+                return redirect('pagina_de_exito')  # Redirigir a la página de éxito después del registro
     else:
         form = CustomUserCreationForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'Registro.html', {'form': form, 'pagina':pagina_actual})
 
 def home(request):
     return render(request, 'index.html')
@@ -338,5 +348,76 @@ def actualizar_rol(request, idroles):
     else:
         roles = Rol.objects.get(id=idroles)
         return render(request, "crud_roles/actualizar.html", {"roles": roles})
+
+#endregion
+    
+
+#region CALCULADORA IMC
+
+def calculate_bmi(weight, height):
+    height_in_meters = height / 100
+    bmi = weight / (height_in_meters ** 2)
+    return bmi
+
+def bmi_result(bmi):
+    if bmi < 18.5:
+        return "Bajo peso"
+    elif 18.5 <= bmi < 24.9:
+        return "Normal"
+    elif 25 <= bmi < 29.9:
+        return "Sobrepeso"
+    else:
+        return "Obesidad"
+
+
+def bmi_calculator(request):
+    pagina_actual = "bmi_calculator"
+    if request.method == 'POST':
+        form = BMICalculatorForm(request.POST)
+        if form.is_valid():
+            weight = form.cleaned_data['weight']
+            height = form.cleaned_data['height']
+            bmi = calculate_bmi(weight, height)
+            result = bmi_result(bmi)
+            return render(request, 'result_calculadora.html', {
+                'bmi': bmi,
+                'result': result
+            })
+    else:
+        form = BMICalculatorForm()
+    return render(request, 'Calculadora_De_Salud.html', {'form': form, 'pagina':pagina_actual})
+
+#endregion 
+
+
+#region INICIO SESION , REGISTRO , LOGOUT
+
+def usuarioinsertar(request):
+    pagina_actual = "usuarioinsertar"
+    if request.method == "POST":
+        if request.POST.get('nombres') and request.POST.get('apellidos') and request.POST.get('username') and request.POST.get('email') and request.POST.get('password'):
+            user = User.objects.create_user(request.POST.get('username'), request.POST.get('email'), request.POST.get('password'))
+            user.first_name = request.POST.get('nombres')
+            user.last_name = request.POST.get('apellidos')
+            user.save()
+            return redirect('/Usuarios/login')
+            
+    return render(request, 'Usuarios/insertar.html')
+
+
+def loginusuarios(request):
+    if request.method == "POST":
+        if request.POST.get('username') and request.POST.get('password'):
+            user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
+            if user is not None:
+                login(request,user)
+                return redirect("/home")
+            else:
+                mensaje = "Usuario o Contraseña incorrectos, Intente de nuevo"
+                return render(request, 'Usuarios/login.html', {'mensaje':mensaje})
+    else:
+        return render(request, 'Usuarios/login.html')
+
+    
 
 #endregion

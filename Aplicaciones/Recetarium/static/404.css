@@ -1,0 +1,151 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+
+*{
+    padding: 0;
+    top: 0;
+}
+
+body {
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background: linear-gradient(315deg, rgb(255, 94, 94) 3%, rgb(179, 0, 0) 38%, rgb(197, 18, 18) 68%, rgb(122, 14, 14) 98%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+}
+
+body.trasparent{
+    background: transparent; /* Fondo transparente */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8); /* Sombra negra en el header transparente */
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+.wave {
+    background: rgb(255 255 255 / 25%);
+    border-radius: 1000% 1000% 0 0;
+    position: fixed;
+    width: 200%;
+    height: 12em;
+    animation: wave 10s -3s linear infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.wave:nth-of-type(2) {
+    bottom: -1.25em;
+    animation: wave 18s linear reverse infinite;
+    opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+    bottom: -2.5em;
+    animation: wave 20s -1s reverse infinite;
+    opacity: 0.9;
+}
+
+@keyframes wave {
+    2% {
+        transform: translateX(1);
+    }
+
+    25% {
+        transform: translateX(-25%);
+    }
+
+    50% {
+        transform: translateX(-50%);
+    }
+
+    75% {
+        transform: translateX(-25%);
+    }
+
+    100% {
+        transform: translateX(1);
+    }
+}
+
+.container{
+    background-color: rgba(19, 14, 14, 0.199);
+    border-radius: 20px;
+    width: 40%;
+    height: 60vh;
+    margin-bottom: 7vh;
+    transition: background-color 0.5s ease;
+    align-items: center;
+}
+
+.container:hover{
+    background-color: rgba(19, 14, 14, 0.63);
+    cursor: pointer;
+}
+
+.contenido{
+    text-align: center;
+    color: white;
+
+}
+
+.contenido i {
+    margin-top: 5vh;
+    text-align: center;
+    font-size: 80px;
+    margin-bottom: 5vh;
+    animation: girar 4s linear infinite; /* Define la animación */
+}
+
+@keyframes girar {
+    0% {
+        transform: rotate(0deg); /* Define la posición inicial */
+    }
+    100% {
+        transform: rotate(360deg); /* Define la posición final */
+    }
+}
+
+
+.contenido h1{
+    text-align: center;
+    font-size: 55px;
+}
+
+.contenido p{
+    font-family: "Urbanist", sans-serif;    
+    font-size: 25px;
+}
+
+.contenido button{
+    margin-top: 2vh;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 25px;
+    height: 35px;
+    width: 135px;
+    color: grey;
+    font-size: 15px;
+}
+
+.contenido button a{
+    text-decoration: none;
+}
+
+
+
+
+
