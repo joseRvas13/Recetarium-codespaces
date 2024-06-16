@@ -1,0 +1,267 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado Ingredientes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            text-align: left;
+        }
+        th {
+            background-color: #6c757d;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        .btn {
+            padding: 2px 7px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+            color: #fff;
+        }
+        .btn-update {
+            background-color: #6c757d;
+            color: #fff;
+            margin-left: 5px;
+        }
+        .btn-update:hover {
+            background-color: #5a6268;
+            color: #fff;
+        }
+        .btn-create {
+            background-color: #28a745;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .btn-create:hover {
+            background-color: #218838;
+            color: #fff;
+        }
+        .btn-view {
+            background-color: #007bff;
+            color: #fff;
+            margin-left: 5px;
+        }
+        .btn-view:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-container form {
+            display: flex;
+            align-items: center;
+        }
+        .search-container input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 570px;
+            border: 2px solid #5f5d5da9;
+        }
+        .search-container button[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        .search-container button[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .search-container button[type="submit"] i {
+            font-size: 18px;
+            margin-right: 5px;
+        }
+
+        .pagination a {
+            color: #fff;
+            background-color: #28a745; /* Color verde */
+            border: 1px solid #28a745; /* Borde verde */
+            padding: 8px 12px; /* Espaciado interior de los botones */
+            margin-right: 5px; /* Margen derecho para separar los botones */
+            border-radius: 5px; /* Bordes redondeados */
+            text-decoration: none; /* Quita subrayado de los enlaces */
+        }
+
+        /* Estilo para el botón de la página actual */
+        .pagination .current {
+            color: #000; /* Color de texto */
+            background-color: #fff; /* Fondo blanco */
+            border: 1px solid #28a745; /* Borde verde */
+            padding: 8px 12px; /* Espaciado interior del botón */
+            margin-right: 5px; /* Margen derecho para separar los botones */
+            border-radius: 5px; /* Bordes redondeados */
+        }
+        .alert {
+            position: relative;
+            padding: 1rem 1.25rem;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            margin-bottom: 10px;
+        }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    .alert-success .close {
+        color: #155724;
+    }
+
+    .alert-danger {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+
+    .alert-danger .close {
+        color: #721c24;
+    }
+
+    .alert-warning {
+        color: #856404;
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+    }
+
+    .alert-warning .close {
+        color: #856404;
+    }
+
+    .alert-info {
+        color: #0c5460;
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+    }
+
+    .alert-info .close {
+        color: #0c5460;
+    }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Listado de Ingredientes</h1>
+    <div class="search-container">
+        <form method="GET" action="{% url 'listado_ingredientes' %}" class="form-inline">
+            <input type="text" name="q" class="form-control" placeholder="Buscar Ingredientes" value="{% if query %}{{ query }}{% endif %}">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Buscar</button>
+        </form>
+        <br>
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-dismissible {% if message.tags == 'success' %}alert-success{% elif message.tags == 'warning' %}alert-warning{% elif message.tags == 'error' %}alert-danger{% else %}alert-info{% endif %}" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+    <br><br>
+    <a href="{% url 'crear_ingrediente' %}" class="btn btn-create float-right"><i class="fas fa-user-plus"></i> Nuevo Ingrediente</a>
+    <table>  
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Receta</th>
+                <th>Calorías</th>
+                <th>Precio</th>
+                <th>Variedad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ingrediente in ingredientes %}
+            <tr>
+                <td>{{ ingrediente.nombre }}</td>
+                <td>{{ ingrediente.cantidad }}</td>
+                <td>{{ ingrediente.receta.nombre_plato }}</td>
+                <td>{{ ingrediente.calorias }}</td>
+                <td>{{ ingrediente.precio }}</td>
+                <td>{{ ingrediente.variedad }}</td>
+                <td>
+                    <div class="btn-group">
+                        <a href="{% url 'borrar_ingrediente' ingrediente.id_ingrediente %}" class="btn btn-delete"><i class="fas fa-trash"></i> Borrar </a>
+                        <a href="{% url 'actualizar_ingrediente' ingrediente.id_ingrediente %}" class="btn btn-update"><i class="fas fa-user-edit"></i> Actualizar</a>
+                        <a href="{% url 'ver_ingrediente' ingrediente.id_ingrediente %}" class="btn btn-view"><i class="fas fa-eye"></i> Ver Más</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if ingredientes.has_previous %}
+                <a href="?page=1">&laquo; Primera</a>
+                <a href="?page={{ ingredientes.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            <span class="current">
+                Página {{ ingredientes.number }} de {{ ingredientes.paginator.num_pages }}.
+            </span>
+
+            {% if ingredientes.has_next %}
+                <a href="?page={{ ingredientes.next_page_number }}">Siguiente</a>
+                <a href="?page={{ ingredientes.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

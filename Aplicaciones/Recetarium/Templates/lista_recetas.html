@@ -45,7 +45,7 @@
                     
                     <div class="card">
                         <a href="{% url 'detalle_receta' receta.id_receta %}">
-                            <img src="{{ receta.imagen }}" class="card-img-top" alt="{{ receta.nombre_plato }}">
+                            <img src="{{ receta.imagen.url }}" class="card-img-top" alt="{{ receta.nombre_plato }}">
                             <div class="card-body">
                                 <h2 class="card-title">{{ receta.nombre_plato }}</h2>
                                 <p class="card-text">

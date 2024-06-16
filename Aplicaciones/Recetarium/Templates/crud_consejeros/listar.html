@@ -28,7 +28,7 @@
         }
         th, td {
             border: 1px solid #dee2e6;
-            padding: 10px;
+            padding: 20px;
             text-align: left;
         }
         th {
@@ -177,7 +177,7 @@
                 <td>
                     <div class="btn-group">
                         <a href="#" class="btn btn-delete" onclick="confirmDelete('{{ consejero.0 }}')"><i class="fas fa-trash"></i> Borrar</a>
-                        <a href="/Administracion/Consejeros/actualizar/{{ consejero.0 }}" class="btn btn-update"><i class="fas fa-user-edit"></i> Actualizar</a>
+                        <a href="/administracion/consejeros/actualizar/{{ consejero.0 }}" class="btn btn-update"><i class="fas fa-user-edit"></i> Actualizar</a>
                     </div>
                 </td>
             </tr>
@@ -218,7 +218,7 @@
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = '/Administracion/Consejeros/borrar/' + consejeroId;
+                window.location.href = '/administracion/consejeros/borrar/' + consejeroId;
             }
         })
     }

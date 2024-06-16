@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Ingrediente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn-create {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .btn-create:hover {
+            background-color: #218838;
+            color: #fff;
+        }
+        .row > .col-md-6 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crear Ingrediente</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.nombre.label_tag }}
+                        {{ form.nombre }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.descripcion.label_tag }}
+                        {{ form.descripcion }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.cantidad.label_tag }}
+                        {{ form.cantidad }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.variedad.label_tag }}
+                        {{ form.variedad }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.usos.label_tag }}
+                        {{ form.usos }}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Plan nutricional:</label>
+                        {{ form.p_nutricional }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.consejos.label_tag }}
+                        {{ form.consejos }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.grasas_saturadas.label_tag }}
+                        {{ form.grasas_saturadas }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.calorias.label_tag }}
+                        {{ form.calorias }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.hidratos_de_carbono.label_tag }}
+                        {{ form.hidratos_de_carbono }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.grasas_trans.label_tag }}
+                        {{ form.grasas_trans }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.total_carbohidratos.label_tag }}
+                        {{ form.total_carbohidratos }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.azucares.label_tag }}
+                        {{ form.azucares }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.precio.label_tag }}
+                        {{ form.precio }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.receta.label_tag }}
+                        {{ form.receta }}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-create">Crear Ingrediente</button>
+        </form>
+    </div>
+</body>
+</html>

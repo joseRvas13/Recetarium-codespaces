@@ -1,14 +1,19 @@
+from django.contrib import messages
 from django.db import connection
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate, login, logout
-from .forms import CustomUserCreationForm, BMICalculatorForm
-from .models import Consejero, Dieta, Receta, Rol
+from django.urls import reverse
+from .forms import CustomUserCreationForm, BMICalculatorForm, IngredienteForm, RecetaForm
+from .models import Consejero, Dieta, Ingrediente, Receta, Rol
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import re
 from django.db.models import Q
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, get_object_or_404
+from django.views import View
+
+
 
 #region INDEX
 
@@ -225,8 +230,6 @@ def ver_recetas_usuarios(request, usuario_id):
     recetas_usuario = Receta.objects.filter(usuario=user)
     return render(request, 'ver_recetas_usuarios/ver_recetas_usuarios.html', {'user': user, 'recetas_usuario': recetas_usuario})
 
-
-
 #endregion
 
 
@@ -251,7 +254,7 @@ def consejero_insertar(request):
             filename = fs.save(imagen.name, imagen)
             imagen_path = fs.url(filename)
             insertar.execute("call insertarconsejeros(%s,%s,%s,%s,%s,%s,%s,%s,%s)", (imagen_path, nombre, apellido, edad, idioma, fecha_nacimiento, titulacion, pais, experiencia))
-            return redirect('/Administracion/Consejeros/listado')
+            return redirect('/administracion/consejeros/listado')
         else:
             return render(request, 'crud_consejeros/insertar.html')
     else:
@@ -285,7 +288,7 @@ def consejero_listado(request):
 def borrar_consejero(request,idconsejeros):
     borrar = connection.cursor()
     borrar.execute("call borrarconsejeros('"+str(idconsejeros)+"')")
-    return redirect('/Administracion/Consejeros/listado')
+    return redirect('/administracion/consejeros/listado')
 
 def consejero_actualizar(request, idconsejeros):
     if request.method == "POST":
@@ -311,7 +314,7 @@ def consejero_actualizar(request, idconsejeros):
                 consejero = unconsejero.fetchone()
                 imagen_path = consejero[1]
             insertar.execute("CALL actualizarconsejeros(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (idconsejeros, imagen_path, nombre, apellido, edad, idioma, fecha_nacimiento, titulacion, pais, experiencia))
-            return redirect('/Administracion/Consejeros/listado')
+            return redirect('/administracion/consejeros/listado')
     else:
         unconsejero = connection.cursor()
         unconsejero.execute("CALL consultarunconsejero(%s)", [idconsejeros])
@@ -323,6 +326,154 @@ def mostrar_imagen_grande(request, imagen_url):
     
 #endregion
 
+#region CRUD RECETAS
+
+def crear_receta(request):
+    if request.method == 'POST':
+        form = RecetaForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Receta creada exitosamente.')
+            return redirect('listar_recetas')
+        else:
+            messages.error(request, 'Por favor, corrija los errores a continuación.')
+    else:
+        form = RecetaForm()
+    return render(request, 'crud_recetas/insertar.html', {'form': form})
+
+def listar_recetas(request):
+    recetas_list = Receta.objects.all()
+
+    # Implementar búsqueda
+    query = request.GET.get('q')
+    if query:
+        recetas_list = recetas_list.filter(
+            Q(nombre_plato__icontains=query) | Q(categoria__icontains=query)
+        )
+
+    # Implementar paginación con un límite de 15 registros por página
+    paginator = Paginator(recetas_list, 15)
+    page = request.GET.get('page')
+    try:
+        recetas = paginator.page(page)
+    except PageNotAnInteger:
+        recetas = paginator.page(1)
+    except EmptyPage:
+        recetas = paginator.page(paginator.num_pages)
+
+    context = {
+        'recetas': recetas,
+        'query': query
+    }
+    return render(request, 'crud_recetas/listar.html', context)
+
+def actualizar_receta(request, pk):
+    receta = get_object_or_404(Receta, pk=pk)
+    
+    if request.method == 'POST':
+        form = RecetaForm(request.POST, request.FILES, instance=receta)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_recetas')
+    else:
+        form = RecetaForm(instance=receta)
+    
+    return render(request, 'crud_recetas/actualizar.html', {'form': form, 'receta': receta})
+
+def borrar_receta(request, pk):
+    # Obtener la receta o devolver un error 404 si no existe
+    receta = get_object_or_404(Receta, pk=pk)
+    
+    if request.method == 'POST':
+        # Si la solicitud es POST, se está confirmando la eliminación
+        receta.delete()
+        messages.success(request, '¡La receta ha sido eliminada correctamente!')
+        return redirect('listar_recetas')
+    
+    # Si la solicitud no es POST, mostrar la página de confirmación de eliminación
+    return render(request, 'crud_recetas/borrar.html', {'receta': receta})
+
+def ver_recetas(request, receta_id):
+    receta = get_object_or_404(Receta, id_receta=receta_id)
+    return render(request, 'crud_recetas/ver_receta.html', {'receta': receta})
+
+def ver_imagen(request, id_receta):
+    receta = get_object_or_404(Receta, id_receta=id_receta)
+    context = {
+        'receta': receta
+    }
+    return render(request, 'crud_recetas/ver_imagen.html', context)
+
+#endregion
+
+#region CRUD INGREDIENTES
+
+def crear_ingrediente(request):
+    if request.method == 'POST':
+        form = IngredienteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('listado_ingredientes'))
+    else:
+        form = IngredienteForm()
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'crud_ingredientes/insertar.html', context)
+
+def crud_listado_ingredientes(request):
+    ingredientes_list = Ingrediente.objects.all()
+
+    # Filtrar por búsqueda si hay parámetro 'q' en la URL
+    query = request.GET.get('q')
+    if query:
+        ingredientes_list = ingredientes_list.filter(nombre__icontains=query)
+
+    # Configurar paginación
+    paginator = Paginator(ingredientes_list, 15)  # 15 registros por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'ingredientes': page_obj,
+        'query': query,
+    }
+    return render(request, 'crud_ingredientes/listar.html', context)
+
+def actualizar_ingrediente(request, pk):
+    ingrediente = get_object_or_404(Ingrediente, pk=pk)
+    
+    if request.method == 'POST':
+        form = IngredienteForm(request.POST, instance=ingrediente)
+        if form.is_valid():
+            form.save()
+            return redirect('listado_ingredientes')
+    else:
+        form = IngredienteForm(instance=ingrediente)
+    
+    return render(request, 'crud_ingredientes/actualizar.html', {'form': form, 'ingrediente': ingrediente})
+
+
+def borrar_ingrediente(request, pk):
+    # Obtener el ingrediente o devolver un error 404 si no existe
+    ingrediente = get_object_or_404(Ingrediente, pk=pk)
+    
+    if request.method == 'POST':
+        # Si la solicitud es POST, se está confirmando la eliminación
+        ingrediente.delete()
+        messages.success(request, '¡El ingrediente ha sido eliminado correctamente!')
+        return redirect('listado_ingredientes')
+    
+    # Si la solicitud no es POST, mostrar la página de confirmación de eliminación
+    return render(request, 'crud_ingredientes/borrar.html', {'ingrediente': ingrediente})
+
+def ver_ingrediente(request, ingrediente_id):
+    ingrediente = get_object_or_404(Ingrediente, id_ingrediente=ingrediente_id)
+    return render(request, 'crud_ingredientes/ver_ingrediente.html', {'ingrediente': ingrediente})
+
+#endregion
+
 #region CRUD ROLES
 def insertar_roles(request):
     if request.method == "POST":
@@ -332,7 +483,7 @@ def insertar_roles(request):
             roles.descripcion = request.POST.get('descripcion')
             roles.permisos = request.POST.get('permisos')
             roles.save()
-            return redirect('/Administracion/Roles/listado')
+            return redirect('/administracion/roles/listado')
         else:
             return render(request, "crud_roles/insertar.html")
     else:
@@ -345,7 +496,7 @@ def listado_roles(request):
 def borrar_rol(request, idroles):
     roles = Rol.objects.filter(id=idroles)
     roles.delete()
-    return redirect('/Administracion/Roles/listado')
+    return redirect('/administracion/roles/listado')
 
 def actualizar_rol(request, idroles):
     if request.method == "POST":
@@ -359,7 +510,7 @@ def actualizar_rol(request, idroles):
             roles.descripcion = descripcion
             roles.permisos = permisos
             roles.save()
-            return redirect('/Administracion/Roles/listado')
+            return redirect('/administracion/roles/listado')
     else:
         roles = Rol.objects.get(id=idroles)
         return render(request, "crud_roles/actualizar.html", {"roles": roles})
@@ -434,5 +585,28 @@ def loginusuarios(request):
         return render(request, 'Usuarios/login.html')
 
     
+
+#endregion
+
+#region PANEL ADMINISTRATIVO
+
+def dashboard(request):
+    total_usuarios = User.objects.count()
+    total_consejeros = Consejero.objects.count()
+    total_recetas = Receta.objects.count()
+    total_dietas = Dieta.objects.count()
+    total_ingredientes = Ingrediente.objects.count()
+    total_roles = Rol.objects.count()
+
+    context = {
+        'total_usuarios': total_usuarios,
+        'total_consejeros': total_consejeros,
+        'total_recetas': total_recetas,
+        'total_dietas': total_dietas,
+        'total_ingredientes': total_ingredientes,
+        'total_roles': total_roles,
+    }
+
+    return render(request, 'Home_Administracion.html', context)
 
 #endregion
