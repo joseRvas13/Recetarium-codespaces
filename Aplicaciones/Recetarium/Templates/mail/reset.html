@@ -1,0 +1,73 @@
+{% extends 'Inc/header.html' %}
+
+{% load static %}
+
+{% block title %}Recuperación de Contraseña en Django{% endblock %}
+
+{% block content %}
+<div class="full-page-background">
+    <div class="white-transparent-container">
+        <div class="container">
+            <section class="small-section border-section border-top-0">
+                <div class="row mt-4">
+                    <div class="subscribe">
+                        <h3>Cambiar Contraseña</h3>
+                        <br>
+                        <!-- Formulario para cambiar la contraseña -->
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <!-- Botón para enviar el formulario -->
+                            <button type="submit">Cambiar Contraseña</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<br><br><br><br>
+
+<footer>
+    <div class="footer-container">
+        <div class="bordeado">
+            <a href="{% url 'index' %}">
+                <h1>RC</h1>
+            </a>
+        </div>
+        <p>&copy; 2023 <b>Recetarium</b> Todos los derechos Reservados</p>
+        <div class="social-icons">
+            <a href="#" target="_blank">Facebook</a>
+            <a href="#" target="_blank">Twitter</a>
+            <a href="#" target="_blank">Instagram</a>
+        </div>
+    </div>
+</footer>
+
+{% block extra_css %}
+<!-- Enlace al archivo CSS adicional para personalización -->
+<link rel="stylesheet" href="{% static 'reset_password.css' %}">
+
+<style>
+    h3{
+        font-family: 'Courgette', cursive;
+        font-family: 'Lobster', sans-serif;
+        margin-left: 43%;
+        font-size: 37px;
+        margin-top: -15px;
+    }
+
+    button {
+    display: block; /* Cambia el botón a un elemento de bloque para que aparezca debajo del campo de correo electrónico */
+    margin-top: 10px; /* Agrega un margen superior para separar el botón del campo de correo electrónico */
+    width: 150px; /* Hace que el ancho del botón se ajuste automáticamente al contenido */
+    height: 60px;
+    background-color: #28a56b;
+    border-radius: 12px;
+    color: white;
+}
+</style>
+{% endblock %}
+
+{% endblock %}

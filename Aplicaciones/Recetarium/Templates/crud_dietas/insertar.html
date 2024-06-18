@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Dieta</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn-create {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .btn-create:hover {
+            background-color: #218838;
+            color: #fff;
+        }
+        .row > .col-md-6 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crear Dieta</h1>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.nombre.label_tag }}
+                        {{ form.nombre }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.descripcion.label_tag }}
+                        {{ form.descripcion }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.objetivo.label_tag }}
+                        {{ form.objetivo }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.calorias.label_tag }}
+                        {{ form.calorias }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.condicion_medica.label_tag }}
+                        {{ form.condicion_medica }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.valor_nutricional.label_tag }}
+                        {{ form.valor_nutricional }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.actividad_fisica.label_tag }}
+                        {{ form.actividad_fisica }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.consejos.label_tag }}
+                        {{ form.consejos }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.dispositivos.label_tag }}
+                        {{ form.dispositivos }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.bibliografia.label_tag }}
+                        {{ form.bibliografia }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.consejero_id.label_tag }}
+                        {{ form.consejero_id }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.usuario_id.label_tag }}
+                        {{ form.usuario_id }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.imagen.label_tag }}
+                        {{ form.imagen }}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-create">Crear Dieta</button>
+        </form>
+    </div>
+</body>
+</html>

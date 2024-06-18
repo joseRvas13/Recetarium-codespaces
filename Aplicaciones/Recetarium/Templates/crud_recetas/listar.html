@@ -1,0 +1,262 @@
+<!-- Tu plantilla -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado Recetas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Estilos existentes */
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #6c757d;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        .btn {
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+            color: #fff;
+        }
+        .btn-update {
+            background-color: #6c757d;
+            color: #fff;
+            margin-left: 5px;
+        }
+        .btn-update:hover {
+            background-color: #5a6268;
+            color: #fff;
+        }
+        .btn-create {
+            background-color: #28a745;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .btn-create:hover {
+            background-color: #218838;
+            color: #fff;
+        }
+        .btn-view {
+            background-color: #007bff;
+            color: #fff;
+            margin-left: 5px;
+        }
+        .btn-view:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-container form {
+            display: flex;
+            align-items: center;
+        }
+        .search-container input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 570px;
+            border: 2px solid #5f5d5da9;
+        }
+        .search-container button[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        .search-container button[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .search-container button[type="submit"] i {
+            font-size: 18px;
+            margin-right: 5px;
+        }
+        .pagination a {
+            color: #fff;
+            background-color: #28a745;
+            border: 1px solid #28a745;
+            padding: 8px 12px;
+            margin-right: 5px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .pagination .current {
+            color: #000;
+            background-color: #fff;
+            border: 1px solid #28a745;
+            padding: 8px 12px;
+            margin-right: 5px;
+            border-radius: 5px;
+        }
+        .alert {
+            position: relative;
+            padding: 1rem 1.25rem;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            margin-bottom: 10px;
+        }
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .alert-success .close {
+            color: #155724;
+        }
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .alert-danger .close {
+            color: #721c24;
+        }
+        .alert-warning {
+            color: #856404;
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+        }
+        .alert-warning .close {
+            color: #856404;
+        }
+        .alert-info {
+            color: #0c5460;
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+        }
+        .alert-info .close {
+            color: #0c5460;
+        }
+        .img-thumbnail {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Listado de Recetas</h1>
+    <div class="search-container">
+        <form method="GET" action="{% url 'listar_recetas' %}" class="form-inline">
+            <input type="text" name="q" class="form-control" placeholder="Buscar Recetas" value="{% if query %}{{ query }}{% endif %}">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Buscar</button>
+        </form>
+    </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-dismissible {% if message.tags == 'success' %}alert-success{% elif message.tags == 'warning' %}alert-warning{% elif message.tags == 'error' %}alert-danger{% else %}alert-info{% endif %}" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <a href="{% url 'crear_receta' %}" class="btn btn-create float-right mb-3"><i class="fas fa-user-plus"></i> Nueva Receta</a>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Imagen</th>
+                <th>Nombre del plato</th>
+                <th>Categoría</th>
+                <th>Tiempo de preparación</th>
+                <th>Dificultad</th>
+                <th>Usuario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for receta in recetas %}
+            <tr>
+                <td>
+                    <a href="{% url 'ver_imagen' receta.id_receta %}">
+                        <img src="{{ receta.imagen.url }}" alt="{{ receta.nombre_plato }}" class="img-thumbnail">
+                    </a>
+                </td>
+                <td>{{ receta.nombre_plato }}</td>
+                <td>{{ receta.categoria }}</td>
+                <td>{{ receta.tiempo_preparacion }} Minutos</td>
+                <td>{{ receta.dificultad }}</td>
+                <td>{{ receta.usuario.first_name }} {% if not receta.usuario.first_name %}Sistema Recetarium{% endif %} {{ receta.usuario.last_name }}</td>
+                <td>
+                    <div class="btn-group">
+                        <a href="{% url 'borrar_receta' receta.id_receta %}" class="btn btn-delete"><i class="fas fa-trash"></i> Borrar</a>
+                        <a href="{% url 'actualizar_receta' receta.id_receta %}" class="btn btn-update"><i class="fas fa-user-edit"></i> Actualizar</a>
+                        <a href="{% url 'ver_receta' receta.id_receta %}" class="btn btn-view"><i class="fas fa-eye"></i> Ver Más</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if recetas.has_previous %}
+                <a href="?page=1">&laquo; Primera</a>
+                <a href="?page={{ recetas.previous_page_number }}">Anterior</a>
+            {% endif %}
+            <span class="current">
+                Página {{ recetas.number }} de {{ recetas.paginator.num_pages }}.
+            </span>
+            {% if recetas.has_next %}
+                <a href="?page={{ recetas.next_page_number }}">Siguiente</a>
+                <a href="?page={{ recetas.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

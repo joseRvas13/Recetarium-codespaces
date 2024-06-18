@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Imagen - {{ receta.nombre_plato }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 30px;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .img-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-height: 90vh; /* Ajustar la altura máxima de la imagen, usando el 90% del alto de la ventana */
+            display: block;
+            margin: 0 auto; /* Centrar la imagen horizontalmente */
+        }
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: #fff;
+            border-radius: 5px;
+            padding: 12px 24px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+        .btn-primary:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Imagen de {{ receta.nombre_plato }}</h2>
+        <div class="img-container">
+            <img src="{{ receta.imagen.url }}" alt="{{ receta.nombre_plato }}">
+        </div>
+        <a href="{% url 'listar_recetas' %}" class="btn btn-primary">Volver al Listado de Recetas</a>
+    </div>
+</body>
+</html>

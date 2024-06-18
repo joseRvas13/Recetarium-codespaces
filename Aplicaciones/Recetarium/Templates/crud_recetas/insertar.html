@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Receta</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn-create {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .btn-create:hover {
+            background-color: #218838;
+            color: #fff;
+        }
+        .row > .col-md-6 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crear Receta</h1>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.nombre_plato.label_tag }}
+                        {{ form.nombre_plato }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.categoria.label_tag }}
+                        {{ form.categoria }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.temporada.label_tag }}
+                        {{ form.temporada }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.origen.label_tag }}
+                        {{ form.origen }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.ingredientes.label_tag }}
+                        {{ form.ingredientes }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.descripcion.label_tag }}
+                        {{ form.descripcion }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.instrucciones.label_tag }}
+                        {{ form.instrucciones }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.tiempo_preparacion.label_tag }}
+                        {{ form.tiempo_preparacion }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.dificultad.label_tag }}
+                        {{ form.dificultad }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.usuario.label_tag }}
+                        {{ form.usuario }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.imagen.label_tag }}
+                        {{ form.imagen }}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-create">Crear Receta</button>
+        </form>
+    </div>
+</body>
+</html>

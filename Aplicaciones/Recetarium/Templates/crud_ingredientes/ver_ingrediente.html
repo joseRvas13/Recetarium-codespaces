@@ -1,0 +1,88 @@
+<!-- ver_ingrediente.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Ingrediente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 30px;
+        }
+        h1 {
+            font-family: 'Courgette', cursive;
+            font-family: 'Lobster', sans-serif;
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        h3 {
+            font-family: 'Courgette', cursive;
+            font-family: 'Lobster', sans-serif;
+            color: #28a56b;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.8;
+        }
+        .btn-primary {
+            background-color: #28a56b;
+            border-color: #28a56b;
+            color: #fff;
+            border-radius: 5px;
+            padding: 12px 24px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 30px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #1e8354;
+            border-color: #1e8354;
+        }
+        .btn-primary:focus {
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalle del Ingrediente</h1>
+        <div>
+            <h3>{{ ingrediente.nombre }}</h3>
+            <p><strong>Descripción:</strong> {{ ingrediente.descripcion }}</p>
+            <p><strong>Cantidad:</strong> {{ ingrediente.cantidad }}</p>
+            <p><strong>Variedad:</strong> {{ ingrediente.variedad }}</p>
+            <p><strong>Usos:</strong> {{ ingrediente.usos }}</p>
+            <p><strong>Plan nutricional:</strong> {{ ingrediente.p_nutricional }}</p>
+            <p><strong>Consejos:</strong> {{ ingrediente.consejos }}</p>
+            <p><strong>Grasas Saturadas:</strong> {{ ingrediente.grasas_saturadas }}</p>
+            <p><strong>Hidratos de Carbono:</strong> {{ ingrediente.hidratos_de_carbono }}</p>
+            <p><strong>Grasas Trans:</strong> {{ ingrediente.grasas_trans }}</p>
+            <p><strong>Total Carbohidratos:</strong> {{ ingrediente.total_carbohidratos }}</p>
+            <p><strong>Azucares:</strong> {{ ingrediente.azucares }}</p>
+            <p><strong>Precio:</strong> {{ ingrediente.precio }}</p>
+            <p><strong>Receta:</strong> {{ ingrediente.receta.nombre_plato }}</p>
+            <!-- Agrega más detalles según sea necesario -->
+        </div>
+        <a href="{% url 'listado_ingredientes' %}" class="btn btn-primary">Volver al Listado</a>
+    </div>
+</body>
+</html>
