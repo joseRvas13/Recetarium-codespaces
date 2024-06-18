@@ -1,7 +1,7 @@
 {% load static %}
 {% include "inc/header.html" %}
 
-<link rel="stylesheet" href="{% static 'login.css' %}">
+<link rel="stylesheet" href="{% static 'Usuarios/login.css' %}">
 
 
     <main>
@@ -16,8 +16,9 @@
          
 
             <div class="contenido">
-                {% csrf_token %}
                 <form action="" method="POST">
+                    {% csrf_token %}
+
                     <div class="form-group">
                         <input type="text" id="username" name="username" placeholder="Nombre de Usuario" required>
                     </div>
@@ -31,7 +32,7 @@
 
                     <h6>¿Aun no tines cuenta?..¡Crea tu cuenta Aqui!</h6>
                     
-                    <a href="/Usuarios/insertar" class="crear">Crear cuenta</a>
+                    <a href="/Usuarios/registro" class="crear">Crear cuenta</a>
                 </form>
 
             </div>

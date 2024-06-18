@@ -14,7 +14,14 @@ from django.shortcuts import render, get_object_or_404
 
 def index(request):
     return render(request, 'index.html')
+
+def bienvenido(request):
+    return render(request, 'recetarium.html')
 #endregion 
+
+def informacion(request):
+    return render(request, 'informacion.html')
+
 def crear_elegir_receta(request):
     pagina_actual = "crear_elegir_receta"
     return render(request, 'Crear_Elegir_Receta.html')
@@ -405,34 +412,43 @@ def bmi_calculator(request):
 #endregion 
 
 
-#region INICIO SESION , REGISTRO , LOGOUT
-
-def usuarioinsertar(request):
-    pagina_actual = "usuarioinsertar"
+#region INICIO SESION , REGISTRO , LOGOUT , USUARIOS
+def registro_usuario(request):
+    pagina_actual = "registro"
     if request.method == "POST":
-        if request.POST.get('nombres') and request.POST.get('apellidos') and request.POST.get('username') and request.POST.get('email') and request.POST.get('password'):
-            user = User.objects.create_user(request.POST.get('username'), request.POST.get('email'), request.POST.get('password'))
-            user.first_name = request.POST.get('nombres')
-            user.last_name = request.POST.get('apellidos')
-            user.save()
-            return redirect('/Usuarios/login')
-            
-    return render(request, 'Usuarios/insertar.html')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirmar_contraseña = request.POST.get('confirmar_contraseña')
+        print(f"Username: {username}, Email: {email}, Password: {password}, Confirmar Contraseña: {confirmar_contraseña}")
+        if username and email and password and password == confirmar_contraseña:
+            try:
+                user = User.objects.create_user(username=username, email=email, password=password)
+                user.save()
+                return redirect('/Usuarios/login')
+            except Exception as e:
+                print(f"Error al crear usuario: {e}")
+        
 
+    return render(request, 'Usuarios/registro.html', {'pagina': pagina_actual})
 
 def loginusuarios(request):
     if request.method == "POST":
         if request.POST.get('username') and request.POST.get('password'):
             user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
             if user is not None:
-                login(request,user)
+                login(request, user)
                 return redirect("/home")
             else:
                 mensaje = "Usuario o Contraseña incorrectos, Intente de nuevo"
-                return render(request, 'Usuarios/login.html', {'mensaje':mensaje})
+                return render(request, 'Usuarios/login.html', {'mensaje': mensaje})
     else:
         return render(request, 'Usuarios/login.html')
-
     
+
+
+def usuario(request):
+    return render(request, 'Usuarios/usuario.html')
+
 
 #endregion

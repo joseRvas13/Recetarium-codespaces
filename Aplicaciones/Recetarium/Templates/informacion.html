@@ -1,0 +1,386 @@
+{% load static %}
+{% include "inc/header.html" %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Glosario de Cocina</title>
+    <link rel="stylesheet" href="{% static 'informacion.css' %}">
+</head>
+<body>
+    
+    <main>
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Aprende algo nuevo</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Novedades</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Glosario</a>
+            </li>
+          </ul>
+
+
+          <div class="tab-content" id="pills-tabContent">
+          
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="textos">
+                    
+                    <h3>Bienvenido: Explica brevemente qué pueden esperar los visitantes de la página.</h3>
+                
+
+                </div>
+                <section class="glossary">
+                    <h3>Cómo Saber si la Carne está Cocida</h3>
+                    <img src="https://images.pexels.com/photos/7613432/pexels-photo-7613432.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Carne">
+                    <p>Utiliza un termómetro de cocina para verificar la temperatura interna de la carne. Por ejemplo, la carne de res debe alcanzar al menos 63°C para estar bien cocida.</p>
+                </section>
+            
+                <section class="glossary">
+                    <h3>Trucos para Cortar Cebolla sin Llorar</h3>
+                    <img src="cebolla.jpg" alt="Cebolla">
+                    <p>Refrigera la cebolla antes de cortarla o mantenla sumergida en agua fría durante unos minutos. También puedes encender una vela cerca para absorber los vapores irritantes.</p>
+                </section>
+            
+                <section class="glossary">
+                    <h3>Cómo Cocinar el Arroz Perfecto</h3>
+                    <img src="arroz.jpg" alt="Arroz">
+                    <p>Para obtener un arroz perfectamente cocido, utiliza una proporción de 1:2 de arroz y agua. Lleva a ebullición, reduce el fuego y cocina tapado durante 15-20 minutos.</p>
+                </section>
+            
+                <section class="glossary">
+                    <h3>Consejos para Utilizar un Cuchillo de Chef</h3>
+                    <img src="cuchillo.jpg" alt="Cuchillo">
+                    <p>Mantén el cuchillo afilado para cortar con precisión. Utiliza la técnica de "balanceo" al cortar: apoya la punta del cuchillo en la tabla y mueve la hoja hacia abajo mientras la guías con la mano.</p>
+                </section>
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+
+
+            </div>
+
+
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="caja">
+                    <div class="tnovedades">
+                        <h1 style="color: white;">¡ lo ultimo en Comida y Cocina !</h1>
+                        <p style="color: white;">Descubre un nuevo mundo de la cocina que se innova cada dia</p>
+                    </div>
+                    <div class="contenido">
+
+                    </div>  
+                </div>
+                
+            </div>
+
+         
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="textosg">
+                    <h1>Glosario de Gastronomía</h1>
+                    <p>¡ Encuentra palabras desconocidas e informate mas !</p>
+                </div>
+                <section class="glossary">
+                    <div class="frases" style="display: flex; justify-content: space-between;
+                    align-items: center;
+                    padding: 10px;">
+                        <h2>Lista Alfabética</h2>
+                        <h1 style="color:#28a56b;">Recetarium</h1>
+                    </div>
+                    
+                    <div class="alphabet-list">
+                        <a href="#A">A</a>
+                        <a href="#B">B</a>
+                        <a href="#C">C</a>
+                        <a href="#D">D</a>
+                        <a href="#E">E</a>
+                        <a href="#F">F</a>
+                        <a href="#G">G</a>
+                        <a href="#H">H</a>
+                        <a href="#L">L</a>
+                        <a href="#M">M</a>
+                        <a href="#N">N</a>
+                        <a href="#P">P</a>
+                        <a href="#R">R</a>
+                        <a href="#S">S</a>
+                        <a href="#T">T</a>
+                        <a href="#V">V</a>
+                    </div>
+                    <div class="search-bar">
+                        <input type="text" id="searchInput" placeholder="Buscar...">
+                        <button type="button" onclick="buscarTerminos() ">Buscar</button>
+                    </div>
+
+                    <div id="A" class="glossary-section">
+                        <h3>A</h3>
+                        <p><strong>Abrillantar:</strong> Dar brillo con gelatina o grasa a un preparado.</p>
+                        <p><strong>Aclarar:</strong> Formar canales o estrías en el exterior de un género crudo, antes de utilizarlo.</p>
+                        <p><strong>Acaramelar:</strong> Bañar con caramelo un pastel u otro preparado.</p>
+                        <p><strong>Aderezar:</strong> Sazonar.</p>
+                        <p><strong>Adobar:</strong> Poner un género crudo con un preparado llamado adobo, con el objeto de conservarlo, ablandarlo o darle un aroma especial.</p>
+                        <p><strong>Agarrarse:</strong> Pegarse por efecto del calor al fondo del recipiente un género, dándole mal sabor y color.</p>
+                        <p><strong>Agitar:</strong> Remover con frecuencia una salsa mediante una espátula o similares para recuperar la homogeneidad.</p>
+                        <p><strong>Albardar:</strong> Envolver en una lámina delgada de tocino un género para evitar que éste se seque al cocinarlo.</p>
+                        <p><strong>Aliñar:</strong> Aderezar o sazonar.</p>
+                        <p><strong>Almíbar:</strong> Azúcar disuelto en agua a fuego muy lento hasta que adquiera una cierta consistencia. Se utiliza para tortitas, caramelizar moldes, glaseados, entre otros.</p>
+                        <p><strong>Al Dente:</strong> Comida que se cocina para que esté firme al morderla.</p>
+                        <p><strong>Amasar:</strong> Trabajar una masa con las manos.</p>
+                        <p><strong>Aplastar:</strong> Reducir el grosor de un producto a mano o mediante algún utensilio.</p>
+                        <p><strong>Aprovechar:</strong> 1. Utilizar restos de comida para otros preparados. 2. Recoger totalmente restos de pastas, cremas, etc.</p>
+                        <p><strong>Aromatizar:</strong> Agregar especias o hierbas a preparados para darles un cierto sabor u olor.</p>
+                        <p><strong>Arreglar o aviar:</strong> Preparar de forma completa un ave para su cocción o asado, etc.</p>
+                        <p><strong>Arropar:</strong> Tratar con un paño un preparado de levadura para facilitar su estufado o fermentación. Sinónimo: estofar y fermentar.</p>
+                        <p><strong>Asar:</strong> Cocinar un alimento a altas temperaturas en un horno, parrilla o similares.</p>
+                        <p><strong>Asustar:</strong> Añadir un líquido frío a un preparado que está en ebullición, para que de forma momentánea deje de cocer.</p>
+                        <p><strong>Atemperar:</strong> Proceso que se lleva a cabo en algunos alimentos como el chocolate. Se funde al baño maría y luego se enfría para que se vuelva más estable.</p>
+                        <p><strong>A punto de nieve:</strong> Se obtiene batiendo únicamente las claras hasta que adquieren una consistencia espumosa.</p>
+                    </div>
+                    <div id="B" class="glossary-section">
+                        <h3>B</h3>
+                        <p><strong>Bañar:</strong> Cubrir totalmente un género con una materia líquida para alcanzar la densidad o grado de amalgamiento deseado.</p>
+                        <p><strong>Batir:</strong> Agitar los ingredientes mediante una varilla o una batidora, hasta adquirir la consistencia deseada.</p>
+                        <p><strong>Blanquear:</strong> Dar un hervor o cocer a medias, para quitar el mal gusto, mal sabor o mal color a ciertos géneros.</p>
+                        <p><strong>Bolear:</strong> Trabajar una masa hasta darle forma redondeada. Obtenemos así panes redondos, albóndigas, trufas de chocolate, entre otros.</p>
+                        <p><strong>Brasear o Bresear:</strong> Cocinar un género (generalmente carnes duras y de gran tamaño), lentamente, durante largo tiempo en compañía de elementos de condimentación, hortalizas, vino, caldo, especias.</p>
+                        <p><strong>Bridar:</strong> Atar aves, carnes o pescado mediante un cordel (bramante) para evitar que pierdan su forma durante la cocción.</p>
+                        <p><strong>Bouquet-garni:</strong> Consiste en atar en un ramillete hierbas aromáticas. Se utiliza para que no queden restos de hierbas en el preparado.</p>
+                    </div>
+                    <div id="C" class="glossary-section">
+                        <h3>C</h3>
+                        <p><strong>Caramelizar:</strong> Derretir el azúcar hasta adquirir un color dorado para luego untar en un preparado o molde.</p>
+                        <p><strong>Clarificar:</strong> Dar limpieza o transparencia a una salsa, caldo o gelatina, ya sea espumándola durante su cocción lenta o por la adición de clarificantes.</p>
+                        <p><strong>Confitar:</strong> Cocinar un alimento a baja temperatura (entre 60 y 90ºC) sumergiéndolo en un medio graso.</p>
+                        <p><strong>Camisar:</strong> Untar un molde con mantequilla, glucosa u otros productos para evitar que el producto del interior se pegue en la cocción.</p>
+                        <p><strong>Cincelar:</strong> Hacer incisiones sobre un pescado para facilitar su cocción.</p>
+                        <p><strong>Clavetear:</strong> Introducir, pinchándolos, clavos (especias muy olorosas) en una cebolla o similar.</p>
+                        <p><strong>Cocer:</strong> 
+                            <ol>
+                                <li>Transformar por la acción de calor el gusto y propiedades de un género.</li>
+                                <li>Ablandar y hacer digeribles los artículos.</li>
+                                <li>Hacer entrar en ebullición un líquido.</li>
+                                <li>Cocinar o guisar.</li>
+                            </ol>
+                        </p>
+                        <p><strong>Cocer al baño-maría:</strong> Cocer lentamente un preparado poniéndole en un recipiente, que a su vez, debe introducirse en otro mayor con agua, poniéndose el todo para su cocción al horno o fogón.</p>
+                        <p><strong>Cocer al vapor:</strong> Cocinar un alimento mediante vapor de agua. Los alimentos se introducen en un recipiente para que no entren en contacto con el medio líquido.</p>
+                        <p><strong>Cocer a la inglesa:</strong> Técnica utilizada normalmente en vegetales, que consiste en hervirlos en agua con abundante sal.</p>
+                        <p><strong>Cocer en blanco:</strong> Cocinar al horno en moldes de pasta sin aderezos sustituyendo estos por legumbres secas, que se han de retirar antes de completar la cocción.</p>
+                        <p><strong>Cocer en papillote:</strong> Cocinar un alimento recubriéndolo con papel de aluminio o papel de horno para conservar todo su sabor y mantener todos sus jugos.</p>
+                        <p><strong>Colar:</strong> Filtrar por un colador o estameña un líquido para privarle de impurezas.</p>
+                        <p><strong>Condimentar o sazonar:</strong> Añadir condimentos a un género para darle sabor.</p>
+                        <p><strong>Cortar en cubos:</strong> Cortar la comida en pequeños cubos.</p>
+                        <p><strong>Cortar en juliana:</strong> Cortar alimentos en tiras finas y parejas.</p>
+                        <p><strong>Coulis:</strong> Salsa de consistencia similar al jarabe obtenida a partir del triturado de alimentos y la concentración de su sabor.</p>
+                    </div>
+                    <div id="D" class="glossary-section">
+                        <h3>D</h3>
+                        <p><strong>Decorar:</strong> Embellecer con adornos un género, para su presentación.</p>
+                        <p><strong>Desalar:</strong> Sumergir un género salado en agua, fría generalmente, para que pierda la sal.</p>
+                        <p><strong>Desangrar:</strong> Sumergir en agua fría una carne o pescado para que pierda la sangre. También se dice desangrar a la operación de despojar a una langosta o similar, de la materia que en crudo tiene en su cabeza, para su posterior empleo.</p>
+                        <p><strong>Desecar:</strong> Secar por evaporación un preparado, poniéndolo con su cacerola al fuego y moviendo con la espátula de madera o similar, para que no se pegue al utensilio. Sinónimo: Reducción.</p>
+                        <p><strong>Desembarazar o desbarasar:</strong> Desocupar el lugar donde se ha trabajado, colocar cada cosa en su lugar habitual.</p>
+                        <p><strong>Desescamar:</strong> Quitar las escamas de un pescado.</p>
+                        <p><strong>Desglasar:</strong> Añadir vino a una asadura recién utilizada para recuperar la grasa o jugo que contenga.</p>
+                        <p><strong>Desgrasar:</strong> Retirar la grasa de un preparado.</p>
+                        <p><strong>Deshuesar:</strong> Separar los huesos de una carne.</p>
+                        <p><strong>Desmoldear:</strong> Sacar un preparado del molde, del que conservará la forma.</p>
+                        <p><strong>Desollar:</strong> Desposeer a una res sacrificada de su piel.</p>
+                        <p><strong>Desplumar:</strong> Despojar de las plumas a los animales sacrificados.</p>
+                        <p><strong>Dorar:</strong> Dar un golpe de calor a un alimento para que adquiera un color dorado en su superficie.</p>
+                    </div>
+                    <div id="E" class="glossary-section">
+                        <h3>E</h3>
+                        <p><strong>Emborrachar:</strong> Empapar de almíbar y licor o vino un postre.</p>
+                        <p><strong>Embridar o Bridar:</strong> Sujetar con un bramante ave, carne o pescados, para apretar su carne y que conserven su forma después de cocinadas.</p>
+                        <p><strong>Empanar:</strong> Pasar por harina, huevo batido y pan rallado un género que resultará cubierto por una especie de costra.</p>
+                        <p><strong>Emplatar:</strong> Poner los preparados terminados en la fuente en que han de servirse.</p>
+                        <p><strong>Encamisar, camisar o forrar:</strong> Cubrir las paredes interiores de un molde con un género, dejando un hueco central para rellenar con otro preparado distinto.</p>
+                        <p><strong>Encolar:</strong> Adicionar gelatina o un preparado líquido para que, al enfriarse, tome cuerpo y brillo.</p>
+                        <p><strong>Enfriar con hielo:</strong> Poner un recipiente dentro de otro recipiente que contenga hielo y sal o agua.</p>
+                        <p><strong>Engrasar:</strong> Embadurnar el interior de un molde con aceite u otra grasa.</p>
+                        <p><strong>Enharinar:</strong> 1. Espolvorear. 2. Cubrir de harina la superficie de un género.</p>
+                        <p><strong>Envejecer:</strong> Dar tiempo a una carne (generalmente caza) para que logre cierto punto de maduración.</p>
+                        <p><strong>Emulsión:</strong> Una mezcla de dos líquidos que normalmente no se unen, como aceite y vinagre. Para emulsionar, bata los dos líquidos juntos hasta que formen una mezcla cremosa.</p>
+                        <p><strong>Escabechar:</strong> Poner un género cociendo en un preparado líquido llamado escabeche para su conservación y toma de sabor característico.</p>
+                        <p><strong>Escaldar:</strong> Sumergir en agua hirviendo un género, manteniéndolo poco tiempo.</p>
+                        <p><strong>Escalfar:</strong> Sumergir y cocinar el alimento (normalmente huevos) en agua a unos 90ºC con un chorrito de vinagre.</p>
+                        <p><strong>Escalonar:</strong> Cortar en láminas gruesas y sesgadas un género.</p>
+                        <p><strong>Escamar o desescamar:</strong> Despojar de las escamas a un pescado.</p>
+                        <p><strong>Escarchar:</strong> Cocer fruta en azúcar. Cuando se seca la fruta queda recubierta por una fina capa brillante parecida a la escarcha.</p>
+                        <p><strong>Escudillar:</strong> Hacer dibujos o trabajar con la manga pastelera.</p>
+                        <p><strong>Espalmar:</strong> Adelgazar un género mediante golpes suaves con la aplastadora o espalmadera.</p>
+                        <p><strong>Espolvorear:</strong> Repartir en forma de lluvia por la superficie de un preparado un género en polvo.</p>
+                        <p><strong>Espumar o desespumar:</strong> Retirar de un preparado, con la espumadera, las impurezas que en forma de espuma floten en él.</p>
+                        <p><strong>Esquinar:</strong> Cortar una res en dos, siguiendo su espina dorsal.</p>
+                        <p><strong>Estirar:</strong> 1. Presionar con el rodillo sobre una pasta para adelgazarla. 2. Conseguir mayor rendimiento del normal en un género al racionarlo.</p>
+                        <p><strong>Estofar:</strong> Cocinar lentamente, con su propio jugo y el que posean los elementos de condimentación o guarnición que acompañan al género principal.</p>
+                        <p><strong>Estufar:</strong> Poner en la estufa o lugar tibio una pasta de levadura bien tapada, para que fermente y desarrolle.</p>
+                    </div>
+                    <div id="F" class="glossary-section">
+                        <h3>F</h3>
+                        <p><strong>Faisandé:</strong> Sabor parecido al del faisán que toma algunas especies de caza cuando se dejan envejecer.</p>
+                        <p><strong>Fermentar:</strong> Propiciar el crecimiento de microorganismos como mohos, bacterias o levaduras, para la obtención de alimentos como yogures, miso, kimchi, entre otros.</p>
+                        <p><strong>Filetear:</strong> Cortar un género en lonchas delgadas y alargadas.</p>
+                        <p><strong>Flamear o llamear:</strong> 1. Pasar por una llama, sin humo, un género para quemarle las plumas o pelos que hayan quedado al desplumar o limpiar. 2. Hacer arder un líquido espirituoso en un preparado (flambear).</p>
+                        <p><strong>Fondearse:</strong> Agarrarse ligeramente.</p>
+                        <p><strong>Fondear:</strong> Adaptar una masa a un molde con ayuda de una porción de masa o con las propias manos.</p>
+                        <p><strong>Freír:</strong> Introducir en una sartén con grasa caliente un género para su cocinado, debiendo formar costra dorada.</p>
+                    </div>
+                    <div id="G" class="glossary-section">
+                        <h3>G</h3>
+                        <p><strong>Gelificar:</strong> Convertir un líquido en gelatina.</p>
+                        <p><strong>Glacear:</strong> 1. Cubrir un género con un almíbar reducido a la mitad de su cantidad inicial, con el objetivo de darle brillo y consistencia. 2. Pasar por una gelatina fundida un género.</p>
+                        <p><strong>Glaseado:</strong> Cubrir con una capa brillante un género, a menudo dulce.</p>
+                        <p><strong>Grano:</strong> Punto y grano de lo cocido.</p>
+                        <p><strong>Grasa:</strong> Cubrir un género con una grasa líquida o untuosa.</p>
+                        <p><strong>Gratinar:</strong> Hacer tostar a horno fuerte o gratinadora las capas superiores granulosas de un preparado (dorar).</p>
+                        <p><strong>Gratinar:</strong> 1. Dar vueltas al arroz con un tenedor, esparciéndolo y mezclándolo con otros ingredientes. 2. Trabajar con una espátula el hojaldre, para conservarlo seco y que no se pegue.</p>
+                        <p><strong>Guarnición:</strong> Adorno que sirve para acompañar el platillo principal.</p>
+                    </div>
+                    <div id="H" class="glossary-section">
+                        <h3>H</h3>
+                        <p><strong>Helar:</strong> Coagular por medio de temperaturas de menos de 0º una mezcla de repostería llamada helado.</p>
+                        <p><strong>Heñir:</strong> Tratar una masa para la elaboración de pan u otros bollos con los puños.</p>
+                        <p><strong>Hermosear:</strong> Suprimir los elementos inútiles a la presentación de un manjar. Ejemplo: suprimir los huesos superfluos de las chuletas.</p>
+                        <p><strong>Hervir:</strong> 1. Cocer un género por inmersión en un líquido en ebullición. 2. Hacer que un líquido entre en ebullición por la acción del calor.</p>
+                        <p><strong>Hornear:</strong> Cocinar alimentos con calor seco dentro del horno.</p>
+                    </div>
+                    <div id="F" class="glossary-section">
+                        <h3>F</h3>
+                        <p><strong>Levantar:</strong> Hervir de nuevo un preparado para evitar una posible fermentación o deterioro.</p>
+                        <p><strong>Ligar:</strong> Espesar un preparado por la acción de un elemento de ligazón, fécula, harina,….</p>
+                        <p><strong>Lustrar:</strong> Espolvorear de azúcar llamado glas o lustre un preparado dulce.</p>
+                    </div>
+                    <div id="M" class="glossary-section">
+                        <h3>M</h3>
+                        <p><strong>Macerar:</strong> Poner frutas peladas y generalmente cortadas en compañía de azúcar, vino, licores, para que tome el sabor de éstos. Por extensión se aplica también a las carnes en adobo o en marinada.</p>
+                        <p><strong>Majar:</strong> Quebrar de forma grosera: machacar de forma imperfecta, generalmente con ayuda del mortero.</p>
+                        <p><strong>Marcar:</strong> Preparar un plato a falta de su cocción.</p>
+                        <p><strong>Marchar:</strong> Empezar la cocción de un plato, previamente preparado o marcado.</p>
+                        <p><strong>Marinar o enmarinar:</strong> Poner géneros, generalmente carnes, en compañía de vino, hierbas aromáticas, etc., para conservar, aromatizar o ablandarlos.</p>
+                        <p><strong>Masa madre:</strong> Masa formada por harina y agua. En la propia harina se encuentran las levaduras y bacterias necesarias para la fermentación de las masas. Gracias a la masa madre se obtiene un sabor y olor muy específico en los alimentos elaborados con esta masa madre.</p>
+                        <p><strong>Mechar:</strong> Introducir a una carne cruda, con ayuda de una mechadora, tiras de tocino en forma de mecha.</p>
+                        <p><strong>Moldear:</strong> Poner un preparado dentro de un molde para que tome las forma de este.</p>
+                        <p><strong>Mojar:</strong> Añadir a un preparado el líquido necesario para su cocción.</p>
+                        <p><strong>Montar:</strong> 1. Colocar los géneros, después de guisados, sobre un zócalo, castrón o simplemente emplatar. 2. Sinónimo de batir y emulsionar.</p>
+                        <p><strong>Mortificar:</strong> Dejar envejecer una carne para que se ablande. (faisande)</p>
+                    </div>
+                    <div id="N" class="glossary-section">
+                        <h3>N</h3>
+                        <p><strong>Napar:</strong> Cubrir totalmente un preparado con un líquido espeso que permanezca.</p>
+                        <p><strong>Neutralizar:</strong> Contrarrestar el sabor ácido o amargo de un alimento mediante la adición de un ingrediente neutral.</p>
+                        <p><strong>Nitrurar:</strong> Proceso por el cual se conserva un género crudo, añadiéndole nitrato o salitres.</p>
+                        <p><strong>Nacarar:</strong> Dar brillo a una preparación por medio de un barniz transparente, el cual se hace con clara de huevo batida y colada con miga de pan.</p>
+                    </div>
+                    <div id="P" class="glossary-section">
+                        <h3>P</h3>
+                        <p><strong>Pasado:</strong> 1. Punto de los géneros crudos que no están frescos y bordean el punto de descomposición, sin llegar a él. 2. Excesivamente crudo. 3. Colado (triturar).</p>
+                        <p><strong>Pasar o colar:</strong> Despojar un preparado de sustancias innecesarias por medio de colador o estameña. 2. Tamizar.</p>
+                        <p><strong>Picar:</strong> 1. Mechar superficialmente un preparado. 2. Cortar finamente un género.</p>
+                        <p><strong>Pinchar:</strong> Dar pequeñas punzadas a una masa para evitar que se hinche o se encoja.</p>
+                        <p><strong>Pochar:</strong> Cocinar un alimento en poco aceite y baja temperatura, de esta manera conseguimos que el alimento se cocine en su propio jugo.</p>
+                        <p><strong>Prensar:</strong> Poner un preparado dentro de un molde-prensa para su enfriamiento dentro de ella o, a falta de este utensilio, poner unos pesos apropiados encima del preparado con el objeto de comprimirlo.</p>
+                        <p><strong>Puesta a Punto:</strong> Preparación y acercamiento de todo lo necesario para empezar a trabajar.</p>
+                        <p><strong>Punto:</strong> Cuando un artículo alcanza un grado justo de cocción o razonamiento, se dice que está a punto para su utilización.</p>
+                    </div>
+                    <div id="R" class="glossary-section">
+                        <h3>R</h3>
+                        <p><strong>Racionar:</strong> Dividir un género en porciones o fracciones para su distribución.</p>
+                        <p><strong>Rallar:</strong> Desmenuzar un determinado género empleando un rallador u otro utensilio similar.</p>
+                        <p><strong>Rebozar:</strong> Cubrir un alimento con harina o pan rallado y huevo, para freírlo posteriormente.</p>
+                        <p><strong>Rectificar:</strong> Poner a punto el razonamiento o color de un preparado.</p>
+                        <p><strong>Reducir:</strong> Disminuir el volumen de un preparado líquido por evaporación al hervir, para que resulte más sustancioso o espeso.</p>
+                        <p><strong>Reforzar:</strong> Añadir a una salsa, sopa o similar, un preparado que intensifique su sabor o color natural.</p>
+                        <p><strong>Refrescar:</strong> 1. Poner en agua fría un género inmediatamente después de cocido o blanqueado, para cortar la cocción de forma rápida. 2. Añadir pasta nueva a una ya trabajada.</p>
+                        <p><strong>Rehogar:</strong> Cocinar total o parcialmente un género, poniéndolo a fuego lento con poca grasa.</p>
+                        <p><strong>Remojar:</strong> Poner un género desecado, para que recupere la humedad, dentro de un líquido frío.</p>
+                        <p><strong>Risolar:</strong> Dorar a fuego vivo, con grasa, un género que resultará totalmente cocinado.</p>
+                    </div>
+                    <div id="S" class="glossary-section">
+                        <h3>S</h3>
+                        <p><strong>Salar:</strong> Poner en salmuera un género crudo para su conservación, toma de sabor o color característico.</p>
+                        <p><strong>Salsear:</strong> Cubrir de salsa un género, generalmente al servicio.</p>
+                        <p><strong>Saltear:</strong> Cocinar totalmente o parcialmente, con grasa y a fuego violento para que no pierda su jugo un preparado que debe salir dorado.</p>
+                        <p><strong>Sazonar:</strong> 1. Añadir condimentos a un género para darle olor o sabor. 2. Añadir sal a un género.</p>
+                        <p><strong>Sofreír:</strong> Rehogar.</p>
+                        <p><strong>Sudar:</strong> Dejar que un alimento expulse su jugo mediante la cocción lenta del mismo.</p>
+                        <p><strong>Sufratar:</strong> Napar una pieza de carne o pescado con una salsa, que al enfriarse, permanece sobre el género.</p>
+                    </div>
+                    <div id="T" class="glossary-section">
+                        <h3>T</h3>
+                        <p><strong>Tamizar:</strong> 1. Separar mediante el uso del tamiz o cedazo la parte gruesa de una harina o similar. 2. Convertir en puré un género sólido, usando un tamiz.</p>
+                        <p><strong>Tornear:</strong> Recortar las aristas de un género para embellecerlo.</p>
+                        <p><strong>Tostar:</strong> Cocinar o dorar un alimento exponiéndolo a una fuente de calor directo.</p>
+                        <p><strong>Trabar:</strong> Ligar una salsa, crema, etc., por medio de huevos, alimentos farináceos, sangre, etc.</p>
+                        <p><strong>Trinchar:</strong> Cortar limpiamente un género cocinado, especialmente grandes piezas de carnes.</p>
+                        <p><strong>Triturar:</strong> Moler un alimento hasta que sea homogéneo.</p>
+                    </div>
+                    <div id="V" class="glossary-section">
+                        <h3>V</h3>
+                        <p><strong>Volcán:</strong> Recopilar una montaña de harina haciendo un agujero en el centro para derramar los diferentes alimentos necesarios y proceder al amasado.</p>
+                        <p><strong>Vinagreta:</strong> Un aderezo para ensalada hecho con un ácido, aceite y condimentos.</p>
+                        <p><strong>Volver a cocer:</strong> Cocinar nuevamente un alimento que ya ha sido cocido previamente.</p>
+                        <p><strong>Volver al fuego:</strong> Continuar la cocción de un preparado después de un reposo o pausa.</p>
+                    </div>                                                                                                                                                                    
+                </section>
+            </div>
+          </div>
+       
+    </main>
+    
+    {% include 'inc/footer.html' %}
+    <script>
+        function buscarTerminos() {
+            var input = document.getElementById("searchInput");
+            var filter = input.value.toUpperCase();
+    
+            var sections = document.getElementsByClassName("glossary-section");
+            var found = false; // Variable para verificar si se encontró al menos una coincidencia
+    
+            for (var i = 0; i < sections.length; i++) {
+                var item = sections[i];
+                var texto = item.textContent || item.innerText;
+                
+                if (texto.toUpperCase().indexOf(filter) > -1) {
+                    item.style.display = "";
+                    found = true; // Se encontró al menos una coincidencia
+                } else {
+                    item.style.display = "none"; // Ocultar las secciones que no coinciden
+                }
+            }
+    
+            // Mostrar un mensaje si no se encontraron resultados
+            if (!found) {
+                alert('No se encontraron resultados para la búsqueda.');
+            }   
+        }
+    </script>
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+   
+</body>
+</html>

@@ -23,7 +23,7 @@
             <div class="slogan">Recetarium</div>
             <nav>
                 <ul>
-                    <li><a href="{% url 'index' %}">Inicio</a></li>
+                    <li><a href="{% url 'informacion' %}">Novedades</a></li>
                     <li><a href="{% url 'soporte_tecnico' %}">Soporte Técnico</a></li>
                     <li><a href="/Usuarios/login">Iniciar sesión</a></li>
                 </ul>
@@ -39,7 +39,10 @@
         <small>La Mejor Manera de Cocinar.</small>
         <br>
         <br>
-        <button type="button">¡Conoce mas aquí!</button>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" onclick="buscarenpagina()" type="submit">Search</button>
+          </form>
     </div>
 
     <section class="section-container">

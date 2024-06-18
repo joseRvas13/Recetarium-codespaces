@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 class Receta(models.Model):
     id_receta = models.AutoField(primary_key=True)
     nombre_plato = models.CharField(max_length=50)
-    imagen = models.CharField(max_length=255)
     categoria = models.CharField(max_length=255)
     temporada = models.CharField(max_length=255)
     origen = models.CharField(max_length=255)
@@ -13,10 +12,35 @@ class Receta(models.Model):
     instrucciones = models.CharField(max_length=255)
     tiempo_preparacion = models.CharField(max_length=10)
     dificultad = models.CharField(max_length=20)
+    imagen =  models.CharField(max_length=10)
     usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         db_table = 'tbl_recetas'
+
+
+class Ingrediente(models.Model):
+    nombre = models.CharField(max_length=255)
+    descripcion = models.CharField(max_length=255, null=True, blank=True)
+    cantidad = models.IntegerField()
+    variedad = models.CharField(max_length=255, null=True, blank=True)
+    usos = models.CharField(max_length=255, null=True, blank=True)
+    p_nutricional = models.CharField(max_length=255, null=True, blank=True)
+    consejos = models.CharField(max_length=255, null=True, blank=True)
+    grasas_saturadas = models.IntegerField(null=True, blank=True)
+    calorias = models.IntegerField(null=True, blank=True)
+    hidratos_de_carbono = models.IntegerField(null=True, blank=True)
+    grasas_trans = models.IntegerField(null=True, blank=True)
+    total_carbohidratos = models.IntegerField(null=True, blank=True)
+    azucares = models.IntegerField(null=True, blank=True)
+    precio = models.FloatField(null=True, blank=True)
+    receta = models.ForeignKey(Receta, on_delete=models.CASCADE)  # Relación con Receta
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        db_table = 'tbl_ingredientes'   
 
 class Consejero(models.Model):
     id_consejero = models.AutoField(primary_key=True)
@@ -89,3 +113,5 @@ class Comida(models.Model):
 
     class Meta:
         db_table = 'tbl_comidas'
+
+

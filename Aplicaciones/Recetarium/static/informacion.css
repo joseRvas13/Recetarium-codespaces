@@ -1,0 +1,138 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+body {
+    font-family: "Urbanist", sans-serif;
+    background: linear-gradient(315deg, rgb(25, 100, 65) 3%, rgba(36, 121, 36, 0.514) 38%, rgb(35, 146, 109) 68%, rgb(33, 71, 54) 98%);    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    padding: 20px;
+}
+
+.intro {
+    margin-bottom: 20px;
+    font-size: 45px;
+    color: white;
+}
+
+.intro p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.glossary {
+    background-color: rgba(248, 247, 247, 0.541);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(58, 2, 2, 0.1);
+}
+
+.glossary h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.alphabet-list {
+    width: 27%;
+    text-decoration: none ;
+    height: 35px;
+    background-color: #28a56b;
+    border-radius: 35px;
+    margin-bottom: 20px;
+    text-align: center; /* Alineación del texto al centro */
+}
+
+
+.alphabet-list a {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 20px;
+    color: white;
+    text-decoration: none !important;
+    transition: color 0.3s ease, background-color 0.3s ease;
+
+}
+
+.alphabet-list a:hover{
+    
+    background-color:white;
+    border: 1px solid GREY;
+    color:#28a56b;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: -45px;
+}
+
+.search-bar input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+}
+
+.search-bar button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 0 4px 4px 0;
+    background-color: #28a56b;
+    color: white;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #036e3c;
+}
+
+.glossary-section {
+    margin-bottom: 20px;
+}
+
+.glossary-section h3 {
+    font-size: 1.5rem;
+    color: #28a56b;
+    margin-bottom: 10px;
+}
+
+.frases h1{
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+}
+
+.glossary-section p {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.glossary-section p strong {
+    font-weight: bold;
+}
+
+.textosg {
+    width: 80%; /* Por ejemplo, ajusta el ancho según tus necesidades */
+    margin: 0 auto; /* Centra el div horizontalmente */
+    text-align: center; /* Centra el contenido dentro del div */
+}
+
+.textosg h1{
+    color: #28a56b;
+    font-size: 45px;
+    
+}
+
+.textosg p{
+    color: #28a56b;
+    font-size: 25px;
+}
+
+.textos {
+    width: 80%; /* Por ejemplo, ajusta el ancho según tus necesidades */
+    margin: 0 auto; /* Centra el div horizontalmente */
+    text-align: center; /* Centra el contenido dentro del div */
+}

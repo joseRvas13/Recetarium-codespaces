@@ -1,0 +1,17 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap');
+
+body{
+    background: linear-gradient(315deg, rgb(25, 100, 65) 3%, rgba(36, 121, 36, 0.514) 38%, rgb(35, 146, 109) 68%, rgb(33, 71, 54) 98%);    color: #333;
+}
+
+.container{
+    color: white;
+    transition: color 0.4s ease;
+}
+
+.container:hover{
+    color: #333;
+}

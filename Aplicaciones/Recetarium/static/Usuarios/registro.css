@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -14,15 +15,32 @@ body {
     align-items: center;
     overflow: hidden;
 }
-.contenedor {
-    border: 1px solid white;
-    border-radius: 15px;
-    display: grid;
-    height: 600px;
-    width: 35%;
-    max-width: 800px; /* Ancho máximo */
-    min-width: 300px; /* Ancho mínimo */
-    margin: auto; /* Centra horizontalmente */
-    margin-top: 15px;
-    margin-bottom: 35px;
+.contact-form h2, p{
+    color: white;
+    font-size: 30px;
+    font-family: "Urbanist", sans-serif;
+
 }
+
+.contact-form h3{
+    color: white;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    font-size: 55px;
+}
+
+.contact-form{
+    max-width: 100%;
+}
+
+.form-group input{
+    font-family: "Urbanist", sans-serif;
+    font-size: 15px;
+    border-radius: 25px;
+}
+
+.form-group button{
+    border-radius: 25px;
+}
+
+

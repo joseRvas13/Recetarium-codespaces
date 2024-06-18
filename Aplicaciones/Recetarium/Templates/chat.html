@@ -1,0 +1,30 @@
+{% load static %}
+{% include 'inc/header.html'%}
+
+    <link rel="stylesheet" href="{% static 'generador.css' %}">
+
+            
+        <form method="post">
+            {% csrf_token %}
+            <label for="ingredientes">Selecciona los ingredientes disponibles:</label><br>
+            {% for ingrediente in ingredientes %}
+                <input type="checkbox" name="ingredientes" value="{{ ingrediente.nombre }}"> {{ ingrediente.nombre }}<br>
+            {% endfor %}
+            <br>
+            <button type="submit">Buscar recetas</button>
+        </form>
+
+        {% if ingredientes_seleccionados %}
+            <h2>Recetas disponibles con los ingredientes seleccionados:</h2>
+            <ul>
+                {% for receta in recetas %}
+                    <li>{{ receta.nombre_plato }}</li>
+                    <p>{{ receta.instrucciones }}</p>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    {% include 'inc/footer.html'%}
+
+</body>
+</html>
