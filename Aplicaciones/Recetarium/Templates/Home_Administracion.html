@@ -1,104 +1,179 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administración Recetarium</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- Custom CSS -->
+    <title>Panel Administrativo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            background-color: #f8f9fa;
-        }
-
-        .sidebar {
-            background-color: #343a40;
-            color: #fff;
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            display: flex;
             height: 100vh;
-            padding-top: 20px;
+            background-color: #f0f2f5;
         }
-
-        .sidebar-heading {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
+        .sidebar {
+            width: 250px;
+            background-color: #1f2937;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
         }
-
-        .sidebar-menu {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar-menu li {
-            padding: 10px 0;
-        }
-
-        .sidebar-menu li a {
+        .sidebar h2 {
             color: #fff;
-            text-decoration: none;
-            font-size: 18px;
-            display: block;
-            padding: 10px 20px;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar-menu li a:hover {
-            background-color: #495057;
-            color: #ccc;
-            text-decoration: none;
-        }
-
-        .content {
-            margin-top: 20px;
-        }
-
-        .content-heading {
-            font-size: 28px;
-            font-weight: bold;
-            text-align: center;
             margin-bottom: 20px;
         }
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: #cbd5e0;
+            padding: 10px;
+            text-decoration: none;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .sidebar a:hover {
+            background-color: #374151;
+            color: #fff;
+        }
+        .sidebar a i {
+            margin-right: 10px;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+            width: calc(100% - 270px);
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card h2, .card h3 {
+            margin-top: 0;
+            color: #1f2937;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #e2e8f0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f7fafc;
+        }
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1d4ed8;
+        }
 
-        .content-text {
-            font-size: 18px;
-            text-align: center;
-            margin-bottom: 50px;
+        .small-img {
+            width: 50px; /* ajusta el tamaño según tu preferencia */
+            height: auto; /* mantiene la proporción de la imagen */
+            border-radius: 5px; /* opcional, para hacer las esquinas redondeadas */
         }
     </style>
 </head>
 <body>
-
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-3 sidebar">
-            <h1 class="sidebar-heading">Admin</h1>
-            <ul class="sidebar-menu">
-                <li><a href="#">Usuarios</a></li>
-                <li><a href="{% url 'listado_consejeros' %}">Consejeros</a></li>
-                <li><a href="#">Recetas</a></li>
-                <li><a href="#">Ingredientes</a></li>
-                <li><a href="{% url 'listado_roles' %}">Roles</a></li>
-                <li><a href="#">Auditoria</a></li>
-
-                <!-- Add more menu items as needed -->
-            </ul>
+    <aside class="sidebar">
+        <h2>Panel de Administración</h2>
+        <a href="/"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+        <a href="#"><i class="fas fa-users"></i>Usuarios</a>
+        <a href="{% url 'listar_consejeros' %}"><i class="fas fa-user-tie"></i>Consejeros</a>
+        <a href="{% url 'listar_recetas' %}"><i class="fas fa-utensils"></i>Recetas</a>
+        <a href="{% url 'listar_dietas' %}"><i class="fas fa-utensils"></i>Dietas</a>
+        <a href="{% url 'listado_ingredientes' %}"><i class="fas fa-pizza-slice"></i>Ingredientes</a>
+        <a href="{% url 'listado_roles' %}"><i class="fas fa-users-cog"></i>Roles</a>
+    </aside>
+    <main class="content">
+        <div class="card">
+            <h2>Recetarium</h2>
+            <p>Bienvenido al panel de administración.</p>
+            <div class="card">
+                <h3>Estadísticas Generales</h3>
+                <p>Total Consejeros: {{ total_consejeros }}</p>
+                <p>Total recetas: {{ total_recetas }}</p>
+                <p>Total dietas: {{ total_dietas }}</p>
+                <p>Total ingredientes: {{ total_ingredientes }}</p>
+                <p>Total Roles: {{ total_roles }}</p>
+            </div>
         </div>
-
-        <!-- Content -->
-        <div class="col-md-9 content">
-            <h2 class="content-heading">Bienvenido a la Administración Recetarium</h2>
-            <p class="content-text">Selecciona una opción del menú lateral para empezar.</p>
+        <div class="card">
+            <h2>Usuarios</h2>
+            <button>Agregar Nuevo Usuario</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo Electrónico</th>
+                        <th>Fecha de Registro</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí puedes añadir un loop para mostrar los usuarios -->
+                </tbody>
+            </table>
         </div>
-    </div>
-</div>
-
-<!-- Bootstrap JS (optional) -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <div class="card">
+            <h2>Consejeros</h2>
+            <p><b>Consejeros más recientes</b></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Fecha de nacimiento</th>
+                        <th>Titulación</th>
+                        <th>País</th>
+                        <th>Experiencia</th>    
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for consejero in consejeros_recientes %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'mostrar_imagen_grande' consejero.id_consejero %}">
+                                <img src="{{ consejero.imagen.url }}" alt="{{ consejero.nombre }}" class="small-img">
+                            </a>
+                        </td>
+                        <td>{{ consejero.nombre }}</td>
+                        <td>{{ consejero.apellido }}</td>
+                        <td>{{ consejero.fecha_nacimiento }}</td>
+                        <td>{{ consejero.titulacion }}</td>
+                        <td>{{ consejero.pais }}</td>
+                        <td>{{ consejero.experiencia }} Años</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="consejeros/listado" class="btn btn-view"><i class="fas fa-eye"></i> Ver Completo</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
 </html>

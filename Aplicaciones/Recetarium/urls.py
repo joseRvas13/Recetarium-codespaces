@@ -3,7 +3,11 @@ from django.contrib.auth import views as auth_views
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+<<<<<<< HEAD
 from .views import Home_Administracion, bienvenido, actualizar_rol, borrar_consejero, borrar_rol, buscar_dietas, consejero_actualizar, consejero_insertar, consejero_listado, insertar_roles, lista_dietas, lista_recetas, buscar_recetas, listado_roles, receta_crear, lista_consejeros, ver_recetas_usuarios, plan_nutricional, Not_Found, bmi_calculator, salud_nutricion, registro_usuario , loginusuarios, usuario , informacion
+=======
+from .views import actualizar_rol, borrar_rol, buscar_dietas, crud_listado_ingredientes, insertar_roles, lista_dietas, lista_recetas, buscar_recetas, listado_roles, lista_consejeros, ver_recetas_usuarios, plan_nutricional, Not_Found, bmi_calculator, salud_nutricion, usuarioinsertar, loginusuarios
+>>>>>>> cf4dd4f581cdcb28a6899a1e0b77785030640e47
  
 
 urlpatterns = [
@@ -41,18 +45,41 @@ urlpatterns = [
     # Generador
     
     # SISTEMA CORREO AUTOMATICO Y OLVIDO DE CONTRASEÑA
-    path('reset_password/', auth_views.PasswordResetView.as_view(template_name='reset_password.html', email_template_name='reset_password_email.html'), name='password_reset'),
-    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name='reset_password_sent.html'), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='reset.html'), name='password_reset_confirm'),
-    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='reset_password_complete.html'), name='password_reset_complete'),
+    path('reset/password_reset/', auth_views.PasswordResetView.as_view(template_name='mail/password_reset_form.html'), name='password_reset'),
+    path('reset/password_reset_sent/', auth_views.PasswordResetDoneView.as_view(template_name='mail/password_reset_sent.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='mail/reset.html'), name='password_reset_confirm'),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='mail/password_reset_complete.html'), name='password_reset_complete'),
 
     # CRUD CONSEJEROS
-    path('administracion/', Home_Administracion, name='home_administracion'),
-    path('administracion/consejeros/listado/', consejero_listado, name='listado_consejeros'),
-    path('administracion/consejeros/insertar/', consejero_insertar, name='consejero_insertar'),
-    path('administracion/consejeros/borrar/<int:idconsejeros>/', borrar_consejero, name='borrar_consejero'),
-    path('administracion/consejeros/actualizar/<int:idconsejeros>/', consejero_actualizar, name='actualizar_consejero'),
-    path('mostrar-imagen-grande/<path:imagen_url>/', views.mostrar_imagen_grande, name='mostrar_imagen_grande'),
+    path('administracion/', views.dashboard , name='home_administracion'),
+    path('administracion/consejeros/listado/', views.listar_consejeros, name='listar_consejeros'),
+    path('administracion/consejeros/insertar/', views.crear_consejero, name='crear_consejero'),
+    path('administracion/consejeros/actualizar/<int:pk>', views.actualizar_consejero, name='actualizar_consejero'),
+    path('administracion/consejeros/borrar/<int:pk>', views.borrar_consejero, name='borrar_consejero'),
+    path('administracion/consejeros/ver/<int:id_consejero>/', views.mostrar_imagen_grande, name='mostrar_imagen_grande'),
+
+    #CRUD RECETAS
+    path('administracion/recetas/listado/', views.listar_recetas, name='listar_recetas'),
+    path('administracion/recetas/insertar/', views.crear_receta, name='crear_receta'),
+    path('administracion/recetas/actualizar/<int:pk>/', views.actualizar_receta, name='actualizar_receta'),
+    path('administracion/recetas/borrar/<int:pk>', views.borrar_receta, name='borrar_receta'),
+    path('administracion/recetas/ver/<int:receta_id>/', views.ver_recetas, name='ver_receta'),
+    path('ver-imagen/<int:id_receta>/', views.ver_imagen, name='ver_imagen'),
+
+    #CRUD DIETAS
+    path('administracion/dietas/listado/', views.listar_dietas, name='listar_dietas'),
+    path('administracion/dietas/insertar/', views.crear_dietas, name='crear_dietas'),
+    path('administracion/dietas/borrar/<int:pk>', views.borrar_dietas, name='borrar_dietas'),
+    path('administracion/dietas/actualizar/<int:pk>/', views.actualizar_dietas, name='actualizar_dietas'),
+    path('administracion/dietas/ver/<int:dieta_id>/', views.ver_dietas, name='ver_dietas'),
+    path('administracion/dietas/ver_imagen/<int:id_dieta_c>/', views.mostrar_imagen_grande_dieta, name='mostrar_imagen_grande_dieta'),
+
+    #CRUD INGREDIENTES
+    path('administracion/ingredientes/listado', crud_listado_ingredientes, name='listado_ingredientes'),
+    path('administracion/ingredientes/insertar/', views.crear_ingrediente, name='crear_ingrediente'),
+    path('administracion/ingredientes/actualizar/<int:pk>/', views.actualizar_ingrediente, name='actualizar_ingrediente'),
+    path('administracion/ingredientes/borrar/<int:pk>/', views.borrar_ingrediente, name='borrar_ingrediente'),
+    path('administracion/ingredientes/ver/<int:ingrediente_id>/', views.ver_ingrediente, name='ver_ingrediente'),
 
     # CRUD ROLES
     path('administracion/roles/listado/', listado_roles, name='listado_roles'),
@@ -74,9 +101,9 @@ urlpatterns = [
     #FIN DIETAS DISPONIBLES - CALENDARIO
 
     #VER RECETAS USUARIOS
-    path('recetas/<int:usuario_id>/tus_recetas/', ver_recetas_usuarios, name="ver_recetas_usuarios")
-
-
+    path('recetas/<int:usuario_id>/tus_recetas/', ver_recetas_usuarios, name="ver_recetas_usuarios"),
     #FIN VER RECETAS USUARIOS
 
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
