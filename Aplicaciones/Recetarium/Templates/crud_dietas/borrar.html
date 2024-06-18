@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Eliminación</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alinea el contenido hacia arriba */
+            min-height: 100vh; /* Asegura que ocupe toda la altura visible */
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            text-align: center; /* Centra el contenido dentro del contenedor */
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Espacio desde la parte superior */
+        }
+        .btn {
+            margin: 0 10px; /* Espacio entre los botones */
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .btn-confirm {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+        }
+        .btn-cancel {
+            background-color: #6c757d;
+            color: #fff;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Confirmar Eliminación</h1>
+    <p>¿Estás seguro de que deseas eliminar la dieta "{{ dieta.nombre }}"?</p>
+    <div class="btn-group">
+        <form method="POST" action="{% url 'borrar_dietas' dieta.id_dieta_c %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-confirm"><i class="fas fa-trash"></i> Sí, Eliminar</button>
+            <a href="{% url 'listar_dietas' %}" class="btn btn-cancel"><i class="fas fa-times"></i> Cancelar</a>
+        </form>
+    </div>
+</div>
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    // No necesitas colocar el código de SweetAlert2 aquí ya que es manejado desde la vista
+</script>
+
+</body>
+</html>

@@ -84,16 +84,22 @@
         button:hover {
             background-color: #1d4ed8;
         }
+
+        .small-img {
+            width: 50px; /* ajusta el tamaño según tu preferencia */
+            height: auto; /* mantiene la proporción de la imagen */
+            border-radius: 5px; /* opcional, para hacer las esquinas redondeadas */
+        }
     </style>
 </head>
 <body>
     <aside class="sidebar">
         <h2>Panel de Administración</h2>
-        <a href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+        <a href="/"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
         <a href="#"><i class="fas fa-users"></i>Usuarios</a>
-        <a href="{% url 'listado_consejeros' %}"><i class="fas fa-user-tie"></i>Consejeros</a>
+        <a href="{% url 'listar_consejeros' %}"><i class="fas fa-user-tie"></i>Consejeros</a>
         <a href="{% url 'listar_recetas' %}"><i class="fas fa-utensils"></i>Recetas</a>
-        <a href="#"><i class="fas fa-utensils"></i>Dietas</a>
+        <a href="{% url 'listar_dietas' %}"><i class="fas fa-utensils"></i>Dietas</a>
         <a href="{% url 'listado_ingredientes' %}"><i class="fas fa-pizza-slice"></i>Ingredientes</a>
         <a href="{% url 'listado_roles' %}"><i class="fas fa-users-cog"></i>Roles</a>
     </aside>
@@ -103,7 +109,9 @@
             <p>Bienvenido al panel de administración.</p>
             <div class="card">
                 <h3>Estadísticas Generales</h3>
+                <p>Total Consejeros: {{ total_consejeros }}</p>
                 <p>Total recetas: {{ total_recetas }}</p>
+                <p>Total dietas: {{ total_dietas }}</p>
                 <p>Total ingredientes: {{ total_ingredientes }}</p>
                 <p>Total Roles: {{ total_roles }}</p>
             </div>
@@ -128,19 +136,41 @@
         </div>
         <div class="card">
             <h2>Consejeros</h2>
-            <button>Agregar Nuevo Consejero</button>
+            <p><b>Consejeros más recientes</b></p>
             <table>
                 <thead>
                     <tr>
+                        <th>Imagen</th>
                         <th>Nombre</th>
-                        <th>Especialidad</th>
-                        <th>Correo Electrónico</th>
-                        <th>Fecha de Registro</th>
+                        <th>Apellido</th>
+                        <th>Fecha de nacimiento</th>
+                        <th>Titulación</th>
+                        <th>País</th>
+                        <th>Experiencia</th>    
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Aquí puedes añadir un loop para mostrar los consejeros -->
+                    {% for consejero in consejeros_recientes %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'mostrar_imagen_grande' consejero.id_consejero %}">
+                                <img src="{{ consejero.imagen.url }}" alt="{{ consejero.nombre }}" class="small-img">
+                            </a>
+                        </td>
+                        <td>{{ consejero.nombre }}</td>
+                        <td>{{ consejero.apellido }}</td>
+                        <td>{{ consejero.fecha_nacimiento }}</td>
+                        <td>{{ consejero.titulacion }}</td>
+                        <td>{{ consejero.pais }}</td>
+                        <td>{{ consejero.experiencia }} Años</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="consejeros/listado" class="btn btn-view"><i class="fas fa-eye"></i> Ver Completo</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

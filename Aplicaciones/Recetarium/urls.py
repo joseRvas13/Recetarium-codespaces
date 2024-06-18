@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import Home_Administracion, actualizar_rol, borrar_consejero, borrar_rol, buscar_dietas, consejero_actualizar, consejero_insertar, consejero_listado, crud_listado_ingredientes, insertar_roles, lista_dietas, lista_recetas, buscar_recetas, listado_roles, lista_consejeros, ver_recetas_usuarios, plan_nutricional, Not_Found, bmi_calculator, salud_nutricion, usuarioinsertar, loginusuarios
+from .views import actualizar_rol, borrar_rol, buscar_dietas, crud_listado_ingredientes, insertar_roles, lista_dietas, lista_recetas, buscar_recetas, listado_roles, lista_consejeros, ver_recetas_usuarios, plan_nutricional, Not_Found, bmi_calculator, salud_nutricion, usuarioinsertar, loginusuarios
  
 
 urlpatterns = [
@@ -30,11 +30,11 @@ urlpatterns = [
 
     # CRUD CONSEJEROS
     path('administracion/', views.dashboard , name='home_administracion'),
-    path('administracion/consejeros/listado/', consejero_listado, name='listado_consejeros'),
-    path('administracion/consejeros/insertar/', consejero_insertar, name='consejero_insertar'),
-    path('administracion/consejeros/borrar/<int:idconsejeros>/', borrar_consejero, name='borrar_consejero'),
-    path('administracion/consejeros/actualizar/<int:idconsejeros>/', consejero_actualizar, name='actualizar_consejero'),
-    path('mostrar-imagen-grande/<path:imagen_url>/', views.mostrar_imagen_grande, name='mostrar_imagen_grande'),
+    path('administracion/consejeros/listado/', views.listar_consejeros, name='listar_consejeros'),
+    path('administracion/consejeros/insertar/', views.crear_consejero, name='crear_consejero'),
+    path('administracion/consejeros/actualizar/<int:pk>', views.actualizar_consejero, name='actualizar_consejero'),
+    path('administracion/consejeros/borrar/<int:pk>', views.borrar_consejero, name='borrar_consejero'),
+    path('administracion/consejeros/ver/<int:id_consejero>/', views.mostrar_imagen_grande, name='mostrar_imagen_grande'),
 
     #CRUD RECETAS
     path('administracion/recetas/listado/', views.listar_recetas, name='listar_recetas'),
@@ -43,6 +43,14 @@ urlpatterns = [
     path('administracion/recetas/borrar/<int:pk>', views.borrar_receta, name='borrar_receta'),
     path('administracion/recetas/ver/<int:receta_id>/', views.ver_recetas, name='ver_receta'),
     path('ver-imagen/<int:id_receta>/', views.ver_imagen, name='ver_imagen'),
+
+    #CRUD DIETAS
+    path('administracion/dietas/listado/', views.listar_dietas, name='listar_dietas'),
+    path('administracion/dietas/insertar/', views.crear_dietas, name='crear_dietas'),
+    path('administracion/dietas/borrar/<int:pk>', views.borrar_dietas, name='borrar_dietas'),
+    path('administracion/dietas/actualizar/<int:pk>/', views.actualizar_dietas, name='actualizar_dietas'),
+    path('administracion/dietas/ver/<int:dieta_id>/', views.ver_dietas, name='ver_dietas'),
+    path('administracion/dietas/ver_imagen/<int:id_dieta_c>/', views.mostrar_imagen_grande_dieta, name='mostrar_imagen_grande_dieta'),
 
     #CRUD INGREDIENTES
     path('administracion/ingredientes/listado', crud_listado_ingredientes, name='listado_ingredientes'),

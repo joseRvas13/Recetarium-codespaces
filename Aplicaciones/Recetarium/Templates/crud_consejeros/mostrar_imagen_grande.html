@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagen</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+            display: flex;
+            flex-direction: column; /* Alinea los elementos verticalmente */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .image-info {
+            text-align: center; /* Alinea el texto al centro */
+            margin-bottom: 20px; /* Espacio debajo del mensaje */
+        }
+        .image-container {
+            max-width: 600px; /* Define el ancho máximo de la imagen */
+            margin: auto; /* Centra la imagen horizontalmente */
+            border: 1px solid #ced4da; /* Cambia el color del borde a gris más suave */
+            padding: 10px; /* Agrega un poco de espacio alrededor de la imagen */
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block; /* Hace que la imagen se centre correctamente */
+            margin: 0 auto; /* Centra la imagen horizontalmente */
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <div class="image-info">
+        <i><h2><b>Imagen del Usuario</b></h2></i>
+    </div>
+    <div class="image-container">
+        <img src="{{ consejero.imagen.url }}" alt="{{ consejero.nombre }}">
+    </div>
+</body>
+</html>

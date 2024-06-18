@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar dieta: {{ dieta.nombre }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+        input[type=text],
+        textarea,
+        select,
+        input[type=file] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s ease-in-out;
+        }
+        input[type=text]:focus,
+        textarea:focus,
+        select:focus,
+        input[type=file]:focus {
+            border-color: #80bdff;
+        }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>');
+            background-repeat: no-repeat;
+            background-position-x: calc(100% - 12px);
+            background-position-y: center;
+        }
+        .btn {
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn-create {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+        }
+        .btn-create:hover {
+            background-color: #218838;
+            color: #fff;
+        }
+        .image-preview {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+        .image-preview img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Actualizar dieta: {{ dieta.nombre }}</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="id_nombre">Nombre:</label>
+                        {{ form.nombre }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_descripcion">Descripción:</label>
+                        {{ form.descripcion }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_objetivo">Objetivo:</label>
+                        {{ form.objetivo }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_calorias">Calorías:</label>
+                        {{ form.calorias }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_condicion_medica">Condición Médica:</label>
+                        {{ form.condicion_medica }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="id_valor_nutricional">Valor Nutricional:</label>
+                        {{ form.valor_nutricional }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_actividad_fisica">Actividad Física:</label>
+                        {{ form.actividad_fisica }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_consejos">Consejos:</label>
+                        {{ form.consejos }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_dispositivos">Dispositivos:</label>
+                        {{ form.dispositivos }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_consejero_id">Consejero:</label>
+                        {{ form.consejero_id }}
+                        {% if dieta.consejero %}
+                            {{ dieta.consejero.nombre }} {{ dieta.consejero.apellido }}
+                        {% else %}
+                            Sistema Recetarium
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_usuario_id">Usuario:</label>
+                        {{ form.usuario_id }}
+                        {% if dieta.usuario %}
+                            {{ dieta.usuario.first_name }} {{ dieta.usuario.last_name }}
+                        {% else %}
+                            Sin asignar
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="id_imagen">Imagen:</label>
+                        {{ form.imagen }}
+                        <div class="image-preview">
+                            {% if dieta.imagen %}
+                                <img src="{{ dieta.imagen.url }}" alt="Imagen de {{ dieta.nombre }}">
+                            {% else %}
+                                No hay imagen disponible.
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-create">Actualizar Dieta</button>
+        </form>
+    </div>
+</body>
+</html>

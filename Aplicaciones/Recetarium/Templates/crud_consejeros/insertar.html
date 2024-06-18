@@ -3,148 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insertar Consejero</title>
+    <title>Crear Consejero</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
     <style>
-                body {
+        body {
             background-color: #f8f9fa;
             padding: 20px;
         }
-
         .container {
             max-width: 800px;
             margin: 0 auto;
         }
-
         h1 {
             text-align: center;
             margin-bottom: 30px;
         }
-
-        label {
-            font-weight: bold;
-            color: #6c757d; /* Gris */
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
+        .form-group {
             margin-bottom: 20px;
-            border: 1px solid #ced4da; /* Gris claro */
-            border-radius: 5px;
         }
-
-        button[type="submit"] {
-            padding: 10px 20px;
-            background-color: #007bff; /* Azul */
+        .btn {
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn-create {
+            background-color: #28a745;
             color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
         }
-
-        button[type="submit"]:hover {
-            background-color: #0056b3; /* Azul más oscuro */
-        }
-
-        .btn-back {
-            padding: 10px 20px;
-            background-color: #6c757d; /* Gris */
+        .btn-create:hover {
+            background-color: #218838;
             color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
         }
-
-        .btn-back:hover {
-            background-color: #5a6268; /* Gris más oscuro */
+        .row > .col-md-6 {
+            padding-left: 10px;
+            padding-right: 10px;
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>Insertar Nuevo Consejero</h1>
-    <form action="{% url 'consejero_insertar' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese un nombre" required>
+    <div class="container">
+        <h1>Crear Consejero</h1>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.imagen.label_tag }}
+                        {{ form.imagen }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.nombre.label_tag }}
+                        {{ form.nombre }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.apellido.label_tag }}
+                        {{ form.apellido }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.edad.label_tag }}
+                        {{ form.edad }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.descripcion.label_tag }}
+                        {{ form.descripcion }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.idioma.label_tag }}
+                        {{ form.idioma }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.fecha_nacimiento.label_tag }}
+                        {{ form.fecha_nacimiento }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.titulacion.label_tag }}
+                        {{ form.titulacion }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.pais.label_tag }}
+                        {{ form.pais }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.experiencia.label_tag }}
+                        {{ form.experiencia }}
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="apellido">Apellido:</label>
-                    <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese uno(s) apellidos" required>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="edad">Edad:</label>
-                    <input type="number" class="form-control" name="edad" id="edad" placeholder="Ingrese una edad" required>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="idioma">Idioma:</label>
-                    <input type="text" class="form-control" name="idioma" id="idioma" placeholder="Ingrese un idioma" required>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                    <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" placeholder="Ingrese fecha (YY-MM-DD)" required>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="titulacion">Titulación:</label>
-                    <input type="text" class="form-control" name="titulacion" id="titulacion" placeholder="Ingrese una titulacion" required>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="pais">País:</label>
-                    <input type="text" class="form-control" name="pais" id="pais" placeholder="Ingrese un pais" required>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="experiencia">Experiencia (En Años):</label>
-                    <input type="number" class="form-control" name="experiencia" id="experiencia" placeholder="Ingrese una experiencia (En Años)" required>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="pais">Imagen:</label>
-                    <input type="file" class="form-control" name="imagen" id="imagen" required>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <a href="{% url 'listado_consejeros' %}" class="btn btn-back">Volver al Listado</a>
-            </div>
-        </div>
-    </form>
-</div>
-
-<!-- Bootstrap JS (optional) -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
+            <button type="submit" class="btn btn-create">Crear Consejero</button>
+        </form>
+    </div>
 </body>
 </html>

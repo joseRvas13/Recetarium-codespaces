@@ -20,9 +20,10 @@ class Receta(models.Model):
 
 class Consejero(models.Model):
     id_consejero = models.AutoField(primary_key=True)
-    imagen = models.CharField(max_length=255)
+    imagen = models.ImageField(upload_to='consejeros/')
     nombre = models.CharField(max_length=225)
     apellido = models.CharField(max_length=225)
+    descripcion = models.CharField(max_length=255)
     edad = models.IntegerField()
     idioma = models.CharField(max_length=225)
     fecha_nacimiento = models.DateField()
@@ -30,6 +31,7 @@ class Consejero(models.Model):
     pais = models.TextField()
     experiencia = models.CharField(max_length=225)
     descripcion = models.CharField(max_length=225)
+    fecha_registro = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'tbl_consejeros'
@@ -45,7 +47,7 @@ class Rol(models.Model):
 
 class Dieta(models.Model):
     id_dieta_c = models.AutoField(primary_key=True)
-    imagen = models.CharField(max_length=255)
+    imagen = models.ImageField(upload_to='dietas/')
     nombre = models.CharField(max_length=255)
     descripcion = models.CharField(max_length=255)
     objetivo = models.CharField(max_length=255)
@@ -56,17 +58,20 @@ class Dieta(models.Model):
     consejos = models.CharField(max_length=255)
     dispositivos = models.CharField(max_length=255)
     bibliografia = models.CharField(max_length=255)
-    consejero_id = models.IntegerField(null=True)
-    dia_semana = models.CharField(max_length=20, null=True)
-    desayuno = models.CharField(max_length=255, null=True)
-    media_manana = models.CharField(max_length=255, null=True)
-    almuerzo = models.CharField(max_length=255, null=True)
-    merienda = models.CharField(max_length=255, null=True)
-    cena = models.CharField(max_length=255, null=True)
-    usuario_id = models.IntegerField(null=True, blank=True)
+    consejero = models.ForeignKey(Consejero, on_delete=models.CASCADE, null=True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    
+    # Campos de comidas opcionales
+    dia_semana = models.CharField(max_length=20, null=True, blank=True)
+    desayuno = models.CharField(max_length=255, null=True, blank=True)
+    media_manana = models.CharField(max_length=255, null=True, blank=True)
+    almuerzo = models.CharField(max_length=255, null=True, blank=True)
+    merienda = models.CharField(max_length=255, null=True, blank=True)
+    cena = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         db_table = 'tbl_dieta_calendario'
+
 
 class Ingrediente(models.Model):
     id_ingrediente = models.AutoField(primary_key=True)

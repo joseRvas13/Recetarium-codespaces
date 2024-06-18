@@ -135,6 +135,11 @@
                     <div class="form-group">
                         <label for="id_usuario">Usuario:</label>
                         {{ form.usuario }}
+                        {% if receta.usuario %}
+                            {{ receta.usuario.first_name }} {{ receta.usuario.last_name }}
+                        {% else %}
+                            Sin asignar
+                        {% endif %}
                     </div>
                 </div>
             </div>

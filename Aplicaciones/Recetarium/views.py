@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
-from .forms import CustomUserCreationForm, BMICalculatorForm, IngredienteForm, RecetaForm
+from .forms import ConsejeroForm, CustomUserCreationForm, BMICalculatorForm, DietaForm, IngredienteForm, RecetaForm
 from .models import Consejero, Dieta, Ingrediente, Receta, Rol
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import re
@@ -233,97 +233,77 @@ def ver_recetas_usuarios(request, usuario_id):
 #endregion
 
 
+
 #region CRUD CONSEJEROS
-def Home_Administracion(request):
-    return render(request, 'Home_Administracion.html')
 
-def consejero_insertar(request):
-    if request.method == "POST":
-        if request.FILES.get('imagen') and request.POST.get('nombre') and request.POST.get('apellido') and request.POST.get('edad') and request.POST.get('idioma') and request.POST.get('fecha_nacimiento') and request.POST.get('titulacion') and request.POST.get('pais') and request.POST.get('experiencia'):
-            insertar = connection.cursor()
-            imagen = request.FILES.get('imagen')
-            nombre = request.POST.get('nombre')
-            apellido = request.POST.get('apellido')
-            edad = request.POST.get('edad')
-            idioma = request.POST.get('idioma')
-            fecha_nacimiento = request.POST.get('fecha_nacimiento')
-            titulacion = request.POST.get('titulacion')
-            pais = request.POST.get('pais')
-            experiencia = request.POST.get('experiencia')
-            fs = FileSystemStorage()
-            filename = fs.save(imagen.name, imagen)
-            imagen_path = fs.url(filename)
-            insertar.execute("call insertarconsejeros(%s,%s,%s,%s,%s,%s,%s,%s,%s)", (imagen_path, nombre, apellido, edad, idioma, fecha_nacimiento, titulacion, pais, experiencia))
-            return redirect('/administracion/consejeros/listado')
+def crear_consejero(request):
+    if request.method == 'POST':
+        form = ConsejeroForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Consejero creado exitosamente.')
+            return redirect('listar_consejeros')
         else:
-            return render(request, 'crud_consejeros/insertar.html')
+            messages.error(request, 'Por favor, corrija los errores a continuación.')
     else:
-        return render(request, 'crud_consejeros/insertar.html')
+        form = ConsejeroForm()
+    return render(request, 'crud_consejeros/insertar.html', {'form': form})
 
-def consejero_listado(request):
-    query = request.GET.get('q', '')
-    page_number = request.GET.get('page', 1)  # Obtiene el número de página, si no hay, es la primera página.
+def listar_consejeros(request):
+    consejeros = Consejero.objects.all().order_by('-fecha_registro')
 
-    with connection.cursor() as cursor:
-        if query:
-            sql_query = """
-                SELECT * FROM tbl_consejeros
-                WHERE nombre LIKE %s
-                OR apellido LIKE %s
-                OR titulacion LIKE %s
-                OR pais LIKE %s
-            """
-            cursor.execute(sql_query, [f'%{query}%', f'%{query}%', f'%{query}%', f'%{query}%'])
-        else:
-            cursor.execute('CALL listadoconsejeros()')
-        
-        consejeros = cursor.fetchall()
+    # Filtrado por búsqueda
+    query = request.GET.get('q')
+    if query:
+        consejeros = consejeros.filter(nombre__icontains=query)
+
+    # Paginación
+    paginator = Paginator(consejeros, 15)  # 15 consejeros por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'consejeros': page_obj,  # Cambia a 'page_obj' para usar la paginación en la plantilla
+        'query': query,
+        'paginator': paginator,  # Incluye el paginador en el contexto
+    }
+    return render(request, 'crud_consejeros/listar.html', context)
+
+def actualizar_consejero(request, pk):
+    consejero = get_object_or_404(Consejero, pk=pk)
     
-    # Crear un objeto Paginator con los resultados y el número deseado de elementos por página.
-    paginator = Paginator(consejeros, 15)
-    page_obj = paginator.get_page(page_number)  # Obtener la página solicitada.
-
-    return render(request, 'crud_consejeros/listar.html', {'consejeros': page_obj, 'query': query})
-
-def borrar_consejero(request,idconsejeros):
-    borrar = connection.cursor()
-    borrar.execute("call borrarconsejeros('"+str(idconsejeros)+"')")
-    return redirect('/administracion/consejeros/listado')
-
-def consejero_actualizar(request, idconsejeros):
-    if request.method == "POST":
-        imagen_nueva = request.FILES.get('imagen')
-        if all([request.POST.get('nombre'), request.POST.get('apellido'), request.POST.get('edad'), request.POST.get('idioma'), request.POST.get('fecha_nacimiento'), request.POST.get('titulacion'), request.POST.get('pais'), request.POST.get('experiencia')]):
-            insertar = connection.cursor()
-            nombre = request.POST.get('nombre')
-            apellido = request.POST.get('apellido')
-            edad = request.POST.get('edad')
-            idioma = request.POST.get('idioma')
-            fecha_nacimiento = request.POST.get('fecha_nacimiento')
-            titulacion = request.POST.get('titulacion')
-            pais = request.POST.get('pais')
-            experiencia = request.POST.get('experiencia')
-            if imagen_nueva:
-                fs = FileSystemStorage()
-                filename = fs.save(imagen_nueva.name, imagen_nueva)
-                imagen_path = fs.url(filename)
-            else:
-                # Si no se cargó una nueva imagen, utiliza la imagen existente en la base de datos
-                unconsejero = connection.cursor()
-                unconsejero.execute("CALL consultarunconsejero(%s)", [idconsejeros])
-                consejero = unconsejero.fetchone()
-                imagen_path = consejero[1]
-            insertar.execute("CALL actualizarconsejeros(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (idconsejeros, imagen_path, nombre, apellido, edad, idioma, fecha_nacimiento, titulacion, pais, experiencia))
-            return redirect('/administracion/consejeros/listado')
+    if request.method == 'POST':
+        form = ConsejeroForm(request.POST, request.FILES, instance=consejero)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '¡El consejero ha sido actualizado correctamente!')
+            return redirect('listar_consejeros')
     else:
-        unconsejero = connection.cursor()
-        unconsejero.execute("CALL consultarunconsejero(%s)", [idconsejeros])
-        consejero = unconsejero.fetchone()
-        return render(request, 'crud_consejeros/actualizar.html', {"consejero": consejero})
+        form = ConsejeroForm(instance=consejero)
     
-def mostrar_imagen_grande(request, imagen_url):
-    return render(request, 'mostrar_imagen_grande.html', {'imagen_url': imagen_url})
+    return render(request, 'crud_consejeros/actualizar.html', {'form': form, 'consejero': consejero})
+
+def borrar_consejero(request, pk):
+    # Obtener el consejero o devolver un error 404 si no existe
+    consejero = get_object_or_404(Consejero, pk=pk)
     
+    if request.method == 'POST':
+        # Si la solicitud es POST, se está confirmando la eliminación
+        consejero.delete()
+        messages.success(request, '¡El consejero ha sido eliminado correctamente!')
+        return redirect('listar_consejeros')
+    
+    # Si la solicitud no es POST, mostrar la página de confirmación de eliminación
+    return render(request, 'crud_consejeros/borrar.html', {'consejero': consejero})
+
+def mostrar_imagen_grande(request, id_consejero):
+    consejero = get_object_or_404(Consejero, id_consejero=id_consejero)
+    context = {
+        'consejero': consejero
+    }
+    return render(request, 'crud_consejeros/mostrar_imagen_grande.html', context)
+
+
 #endregion
 
 #region CRUD RECETAS
@@ -342,28 +322,9 @@ def crear_receta(request):
     return render(request, 'crud_recetas/insertar.html', {'form': form})
 
 def listar_recetas(request):
-    recetas_list = Receta.objects.all()
-
-    # Implementar búsqueda
-    query = request.GET.get('q')
-    if query:
-        recetas_list = recetas_list.filter(
-            Q(nombre_plato__icontains=query) | Q(categoria__icontains=query)
-        )
-
-    # Implementar paginación con un límite de 15 registros por página
-    paginator = Paginator(recetas_list, 15)
-    page = request.GET.get('page')
-    try:
-        recetas = paginator.page(page)
-    except PageNotAnInteger:
-        recetas = paginator.page(1)
-    except EmptyPage:
-        recetas = paginator.page(paginator.num_pages)
-
+    recetas = Receta.objects.all()
     context = {
-        'recetas': recetas,
-        'query': query
+        'recetas': recetas
     }
     return render(request, 'crud_recetas/listar.html', context)
 
@@ -402,7 +363,116 @@ def ver_imagen(request, id_receta):
     context = {
         'receta': receta
     }
-    return render(request, 'crud_recetas/ver_imagen.html', context)
+    return render(request, 'ver_imagen.html', context)
+
+#endregion
+
+#region CRUD DIETAS
+
+def crear_dietas(request):
+    if request.method == 'POST':
+        form = DietaForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Guarda la instancia de Dieta sin commit para poder asignar consejero y usuario manualmente
+            nueva_dieta = form.save(commit=False)
+            
+            # Asigna el consejero y usuario seleccionados desde el formulario
+            consejero_id = form.cleaned_data['consejero_id']
+            usuario_id = form.cleaned_data['usuario_id']
+            
+            # Asigna los objetos correspondientes a los campos de la dieta
+            nueva_dieta.consejero = consejero_id
+            nueva_dieta.usuario = usuario_id
+            
+            # Guarda la dieta completa con los campos actualizados
+            nueva_dieta.save()
+            messages.success(request, 'Dieta creada exitosamente.')
+            return redirect('listar_dietas')  # Redirige a la vista de listado de dietas después de guardar
+    else:
+        form = DietaForm()
+    
+    context = {
+        'form': form,
+    }
+    return render(request, 'crud_dietas/insertar.html', context)
+
+def listar_dietas(request):
+    dietas = Dieta.objects.select_related('consejero', 'usuario').all()
+
+    # Manejo de búsqueda
+    query = request.GET.get('q')
+    if query:
+        dietas = dietas.filter(nombre__icontains=query)
+
+    # Paginación
+    paginator = Paginator(dietas, 15)  # Mostrar 15 registros por página
+    page = request.GET.get('page')
+    try:
+        dietas_pagina = paginator.page(page)
+    except PageNotAnInteger:
+        dietas_pagina = paginator.page(1)
+    except EmptyPage:
+        dietas_pagina = paginator.page(paginator.num_pages)
+
+    context = {
+        'dietas': dietas_pagina,
+        'query': query,  # Para mantener el valor de búsqueda en el formulario
+    }
+    return render(request, 'crud_dietas/listar.html', context)
+
+def actualizar_dietas(request, pk):
+    dieta = get_object_or_404(Dieta, pk=pk)
+    
+    if request.method == 'POST':
+        form = DietaForm(request.POST, request.FILES, instance=dieta)
+        if form.is_valid():
+            # Guardar los cambios en la instancia de Dieta
+            dieta = form.save(commit=False)
+            
+            # Actualizar usuario_id si se seleccionó uno nuevo
+            if form.cleaned_data['usuario_id'] == 'Sistema Recetarium':
+                dieta.usuario_id = None
+            else:
+                dieta.usuario_id = form.cleaned_data['usuario_id']
+            
+            # Actualizar consejero_id si se seleccionó uno nuevo
+            if form.cleaned_data['consejero_id'] == 'Sistema Recetarium':
+                dieta.consejero_id = None
+            else:
+                dieta.consejero_id = form.cleaned_data['consejero_id']
+            
+            dieta.save()
+            return redirect('listar_dietas')
+    else:
+        form = DietaForm(instance=dieta)
+    
+    return render(request, 'crud_dietas/actualizar.html', {'form': form, 'dieta': dieta})
+
+def borrar_dietas(request, pk):
+    # Obtener la receta o devolver un error 404 si no existe
+    dieta = get_object_or_404(Dieta, pk=pk)
+    
+    if request.method == 'POST':
+        # Si la solicitud es POST, se está confirmando la eliminación
+        dieta.delete()
+        messages.success(request, '¡La dieta ha sido eliminada correctamente!')
+        return redirect('listar_dietas')
+    
+    # Si la solicitud no es POST, mostrar la página de confirmación de eliminación
+    return render(request, 'crud_dietas/borrar.html', {'dieta': dieta})
+
+def ver_dietas(request, dieta_id):
+    dieta = get_object_or_404(Dieta, id_dieta_c=dieta_id)
+    return render(request, 'crud_dietas/ver_dietas.html', {'dieta': dieta})
+
+def mostrar_imagen_grande_dieta(request, id_dieta_c):
+    dieta = get_object_or_404(Dieta, id_dieta_c=id_dieta_c)
+    context = {
+        'dieta': dieta
+    }
+    return render(request, 'crud_dietas/mostrar_imagen_grande_dieta.html', context)
+
+
 
 #endregion
 
@@ -590,6 +660,9 @@ def loginusuarios(request):
 
 #region PANEL ADMINISTRATIVO
 
+def Home_Administracion(request):
+    return render(request, 'Home_Administracion.html')
+
 def dashboard(request):
     total_usuarios = User.objects.count()
     total_consejeros = Consejero.objects.count()
@@ -598,6 +671,8 @@ def dashboard(request):
     total_ingredientes = Ingrediente.objects.count()
     total_roles = Rol.objects.count()
 
+    consejeros_recientes = Consejero.objects.order_by('-fecha_registro')[:3]
+
     context = {
         'total_usuarios': total_usuarios,
         'total_consejeros': total_consejeros,
@@ -605,6 +680,8 @@ def dashboard(request):
         'total_dietas': total_dietas,
         'total_ingredientes': total_ingredientes,
         'total_roles': total_roles,
+
+        'consejeros_recientes': consejeros_recientes,
     }
 
     return render(request, 'Home_Administracion.html', context)
