@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+
+body {
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background: url('https://images.pexels.com/photos/14785919/pexels-photo-14785919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+}
+
+.mensaje {
+    margin: 0 auto;
+    width: 75%;
+}
+
+.contenido {
+    border: 3px solid rgb(0, 123, 255);
+    align-content: center;
+    color: white;
+    border-radius: 25px;
+    background: rgba(233, 217, 217, 0.797);
+    margin: 0 auto;
+    margin-bottom: 54px;
+    width: 75%;
+    height: 530px;
+    text-align: center;
+    transition: border 0.4s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
+        0 6px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px;
+}
+
+.contenido:hover {
+    border: 5px solid #28a56b;
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2),
+        0 14px 28px rgba(0, 0, 0, 0.25);
+}
+
+.contenido h1 {
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    font-size: 100px;
+}
+
+.contenido p {
+    font-size: 74px;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+}
+
+.contenido h2 {
+    color: rgb(0, 123, 255);
+}
+
+.contenido h2:hover {
+    color: #28a56b;
+}
+
+.contenido h3,
+h4 {
+    font-size: 30px;
+    font-family: "Urbanist", sans-serif;
+
+}
+
+.btn {
+    background-color: rgb(0, 123, 255);
+    border: 1px solid #fff;
+    border-radius: 25px;
+    width: 17vh;
+    height: 7vh;
+    font-size: 24px;
+
+    transition: font-family 0.4s ease, background-color 0.4s ease;
+    /* Corrección aquí */
+}
+
+.btn:hover {
+    background-color: #28a56b;
+    border: 1px solid #fff;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+}
