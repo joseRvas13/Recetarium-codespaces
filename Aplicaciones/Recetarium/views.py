@@ -448,6 +448,11 @@ def listar_recetas(request):
     context = {"recetas": recetas}
     return render(request, "crud_recetas/listar.html", context)
 
+    recetas = Receta.objects.all().order_by('-fecha_registro_receta')
+    context = {
+        'recetas': recetas
+    }
+    return render(request, 'crud_recetas/listar.html', context)
 
 def actualizar_receta(request, pk):
     receta = get_object_or_404(Receta, pk=pk)
@@ -526,7 +531,8 @@ def crear_dietas(request):
 
 
 def listar_dietas(request):
-    dietas = Dieta.objects.select_related("consejero", "usuario").all()
+
+    dietas = Dieta.objects.select_related('consejero', 'usuario').all().order_by('-fecha_registro_dieta')
 
     # Manejo de búsqueda
     query = request.GET.get("q")
@@ -625,7 +631,7 @@ def crear_ingrediente(request):
 
 
 def crud_listado_ingredientes(request):
-    ingredientes_list = Ingrediente.objects.all()
+    ingredientes_list = Ingrediente.objects.all().order_by('-fecha_registro_ingredientes')
 
     # Filtrar por búsqueda si hay parámetro 'q' en la URL
     query = request.GET.get("q")
@@ -850,7 +856,6 @@ def loginusuarios(request):
 def usuario(request):
     return render(request, "Usuarios/usuario.html")
 
-
 # endregion
 
 # region PANEL ADMINISTRATIVO
@@ -867,7 +872,6 @@ def dashboard(request):
     total_dietas = Dieta.objects.count()
     total_ingredientes = Ingrediente.objects.count()
     total_roles = Rol.objects.count()
-
     consejeros_recientes = Consejero.objects.order_by("-fecha_registro")[:3]
 
     context = {
@@ -881,6 +885,27 @@ def dashboard(request):
     }
 
     return render(request, "Home_Administracion.html", context)
+    consejeros_recientes = Consejero.objects.order_by('-fecha_registro')[:3]
+    recetas_recientes = Receta.objects.order_by('-fecha_registro_receta')[:3]
+    dietas_recientes = Dieta.objects.order_by('-fecha_registro_dieta')[:3]
+    ingredientes_recientes = Ingrediente.objects.order_by('-fecha_registro_ingredientes')[:3]
+
+
+    context = {
+        'total_usuarios': total_usuarios,
+        'total_consejeros': total_consejeros,
+        'total_recetas': total_recetas,
+        'total_dietas': total_dietas,
+        'total_ingredientes': total_ingredientes,
+        'total_roles': total_roles,
+
+        'consejeros_recientes': consejeros_recientes,
+        'recetas_recientes': recetas_recientes,
+        'dietas_recientes': dietas_recientes,
+        'ingredientes_recientes': ingredientes_recientes,
+    }
+
+    return render(request, 'Home_Administracion.html', context)
 
 
 # endregion

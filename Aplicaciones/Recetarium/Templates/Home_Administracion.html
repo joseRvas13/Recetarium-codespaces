@@ -171,8 +171,143 @@
                         </td>
                     </tr>
                     {% endfor %}
+                </tbody>   
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Recetas</h2>
+            {% if recetas_recientes %}
+            <p><b>Recetas mas recientes</b></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre del Plato</th>
+                        <th>Categoria</th>
+                        <th>Tiempo de preparacion</th>
+                        <th>Dificultad</th>
+                        <th>Usuario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for receta in recetas_recientes %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'ver_imagen' receta.id_receta %}">
+                                <img src="{{ receta.imagen.url }}" alt="{{ receta.nombre_plato }}" class="small-img">
+                            </a>
+                        </td>
+                        <td>{{ receta.nombre_plato }}</td>
+                        <td>{{ receta.categoria }}</td>
+                        <td>{{ receta.tiempo_preparacion }} Minuto(s)</td>
+                        <td>{{ receta.dificultad }}</td>
+                        <td>{{ receta.usuario.first_name }} {% if not receta.usuario.first_name %}Sistema Recetarium{% endif %} {{ receta.usuario.last_name }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="recetas/listado" class="btn btn-view"><i class="fas fa-eye"></i> Ver Completo</a>
+                            </div>
+                        </td>                            
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
+            {% else %}
+                <p>No hay recetas aún.</p>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h2>Dietas</h2>
+            {% if dietas_recientes %}
+            <p><b>Dietas Más Recientes</b></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Objetivo</th>
+                        <th>Calorias</th>
+                        <th>Condición Medica</th>
+                        <th>Actividad Fisica</th>
+                        <th>Consejero</th>
+                        <th>Usuario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dieta in dietas_recientes %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'mostrar_imagen_grande_dieta' dieta.id_dieta_c %}">
+                                <img src="{{ dieta.imagen.url }}" alt="{{ dieta.nombre }}" class="small-img">
+                            </a>
+                        </td>
+                        <td>{{ dieta.nombre }}</td>
+                        <td>{{ dieta.objetivo }}</td>
+                        <td>{{ dieta.calorias }}</td>
+                        <td>{{ dieta.condicion_medica }}</td>
+                        <td>{{ dieta.actividad_fisica }}</td>
+                        <td>
+                        {% if dieta.consejero %}
+                            {{ dieta.consejero.nombre }} {{ dieta.consejero.apellido }}
+                        {% else %}
+                            Sistema Recetarium
+                        {% endif %}
+                        </td>
+                        <td>{{ dieta.usuario.first_name }} {% if not dieta.usuario.first_name %}Sistema Recetarium{% endif %} {{ dieta.usuario.last_name }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="dietas/listado" class="btn btn-view"><i class="fas fa-eye"></i> Ver Completo</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No hay Dietas aún.</p>
+        {% endif %}
+        </div>
+
+        <div class="card">
+            <h2>Ingredientes</h2>
+            {% if ingredientes_recientes %}
+            <p><b>Ingredientes Más Recientes</b></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Receta</th>
+                        <th>Calorias</th>
+                        <th>Precio</th>
+                        <th>Variedad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ingrediente in ingredientes_recientes %}
+                    <tr>
+                        <td>{{ ingrediente.nombre }}</td>
+                        <td>{{ ingrediente.cantidad }}</td>
+                        <td>{{ ingrediente.receta.nombre_plato }}</td>
+                        <td>{{ ingrediente.calorias }}</td>
+                        <td>{{ ingrediente.precio }}</td>
+                        <td>{{ ingrediente.variedad }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="ingredientes/listado" class="btn btn-view"><i class="fas fa-eye"></i> Ver Completo</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No hay Dietas aún.</p>
+        {% endif %}
         </div>
     </main>
 </body>
