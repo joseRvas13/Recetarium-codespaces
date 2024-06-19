@@ -3,11 +3,9 @@ from django.contrib.auth import views as auth_views
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
-<<<<<<< HEAD
-from .views import Home_Administracion, bienvenido, actualizar_rol, borrar_consejero, borrar_rol, buscar_dietas, consejero_actualizar, consejero_insertar, consejero_listado, insertar_roles, lista_dietas, lista_recetas, buscar_recetas, listado_roles, receta_crear, lista_consejeros, ver_recetas_usuarios, plan_nutricional, Not_Found, bmi_calculator, salud_nutricion, registro_usuario , loginusuarios, usuario , informacion
-=======
-from .views import actualizar_rol, borrar_rol, buscar_dietas, crud_listado_ingredientes, insertar_roles, lista_dietas, lista_recetas, buscar_recetas, listado_roles, lista_consejeros, ver_recetas_usuarios, plan_nutricional, Not_Found, bmi_calculator, salud_nutricion, usuarioinsertar, loginusuarios
->>>>>>> cf4dd4f581cdcb28a6899a1e0b77785030640e47
+from .views import Home_Administracion, bienvenido, actualizar_rol, borrar_consejero, borrar_rol, buscar_dietas, insertar_roles, lista_dietas, lista_recetas, buscar_recetas, listado_roles, receta_crear, lista_consejeros, ver_recetas_usuarios, plan_nutricional, Not_Found, bmi_calculator, salud_nutricion, registro_usuario , loginusuarios, usuario , informacion
+
+from .views import actualizar_rol, borrar_rol, buscar_dietas, crud_listado_ingredientes, insertar_roles, lista_dietas, lista_recetas, buscar_recetas, listado_roles, lista_consejeros, ver_recetas_usuarios, plan_nutricional, Not_Found, bmi_calculator, salud_nutricion, loginusuarios
  
 
 urlpatterns = [

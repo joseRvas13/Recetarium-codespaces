@@ -329,7 +329,7 @@ def crear_receta(request):
     return render(request, 'crud_recetas/insertar.html', {'form': form})
 
 def listar_recetas(request):
-    recetas = Receta.objects.all()
+    recetas = Receta.objects.all().order_by('-fecha_registro_receta')
     context = {
         'recetas': recetas
     }
@@ -404,7 +404,7 @@ def crear_dietas(request):
     return render(request, 'crud_dietas/insertar.html', context)
 
 def listar_dietas(request):
-    dietas = Dieta.objects.select_related('consejero', 'usuario').all()
+    dietas = Dieta.objects.select_related('consejero', 'usuario').all().order_by('-fecha_registro_dieta')
 
     # Manejo de búsqueda
     query = request.GET.get('q')
@@ -500,7 +500,7 @@ def crear_ingrediente(request):
     return render(request, 'crud_ingredientes/insertar.html', context)
 
 def crud_listado_ingredientes(request):
-    ingredientes_list = Ingrediente.objects.all()
+    ingredientes_list = Ingrediente.objects.all().order_by('-fecha_registro_ingredientes')
 
     # Filtrar por búsqueda si hay parámetro 'q' en la URL
     query = request.GET.get('q')
@@ -667,12 +667,10 @@ def loginusuarios(request):
         return render(request, 'Usuarios/login.html')
     
 
-<<<<<<< HEAD
 
 def usuario(request):
     return render(request, 'Usuarios/usuario.html')
 
-=======
 #endregion
 
 #region PANEL ADMINISTRATIVO
@@ -689,6 +687,10 @@ def dashboard(request):
     total_roles = Rol.objects.count()
 
     consejeros_recientes = Consejero.objects.order_by('-fecha_registro')[:3]
+    recetas_recientes = Receta.objects.order_by('-fecha_registro_receta')[:3]
+    dietas_recientes = Dieta.objects.order_by('-fecha_registro_dieta')[:3]
+    ingredientes_recientes = Ingrediente.objects.order_by('-fecha_registro_ingredientes')[:3]
+
 
     context = {
         'total_usuarios': total_usuarios,
@@ -699,9 +701,11 @@ def dashboard(request):
         'total_roles': total_roles,
 
         'consejeros_recientes': consejeros_recientes,
+        'recetas_recientes': recetas_recientes,
+        'dietas_recientes': dietas_recientes,
+        'ingredientes_recientes': ingredientes_recientes,
     }
 
     return render(request, 'Home_Administracion.html', context)
->>>>>>> cf4dd4f581cdcb28a6899a1e0b77785030640e47
 
 #endregion
