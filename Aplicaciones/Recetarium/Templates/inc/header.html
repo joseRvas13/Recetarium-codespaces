@@ -2,17 +2,20 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="{% static 'bootstrap/bootstrap4.5.2.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+        rel="stylesheet">
     <link rel="stylesheet" href="{% static 'head.css' %}">
     <title>Recetarium</title>
- 
+
 </head>
+
 <body>
     <header>
         <div class="encabezado">
@@ -25,31 +28,33 @@
             <div class="pagina">
                 <h2>
                     {% if pagina == 'soporte_tecnico' %}
-                        Soporte Técnico
+                    Soporte Técnico
                     {% elif pagina == 'receta_crear' %}
-                        Crear Tu Receta
+                    Crear Tu Receta
                     {% elif pagina == 'Not_Found' %}
-                        Página No Disponible
+                    Página No Disponible
                     {% elif pagina == 'lista_recetas' %}
-                        Recetas Disponibles
+                    Recetas Disponibles
                     {% elif pagina == 'plan_nutricional' %}
-                        Plan Nutricional
+                    Plan Nutricional
                     {% elif pagina == 'crear_elegir_receta' %}
-                        Expande Tu Mundo
+                    Expande Tu Mundo
                     {% elif pagina == 'salud_nutricion' %}
-                        Salud Y Nutrición
+                    Salud Y Nutrición
                     {% elif pagina == 'Registro' %}
-                        Crea Tu Cuenta
+                    Crea Tu Cuenta
                     {% elif pagina == 'bmi_calculator' %}
-                        Prioriza Tu Salud
+                    Prioriza Tu Salud
                     {% elif pagina == 'loginusuarios' %}
-                        Iniciar Sesión
+                    Iniciar Sesión
                     {% elif pagina == 'registro' %}
-                        Crear Cuenta
+                    Crear Cuenta
                     {% elif pagina == 'lista_consejeros' %}
-                        Consejeros Disponibles
+                    Consejeros Disponibles
+                    {% elif pagina == 'soporte_send' %}
+                    ¡ Gracias !
                     {% else %}
-                        Recetarium
+                    Recetarium
                     {% endif %}
                 </h2>
             </div>

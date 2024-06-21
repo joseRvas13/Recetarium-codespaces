@@ -1,58 +1,79 @@
 {% load static %}
-{% include 'inc/header.html' %} 
+{% include 'inc/header.html' %}
 
- <link rel="stylesheet" href="{% static 'Usuarios/registro.css' %}">
- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'Usuarios/registro.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 
 
-    <main>
-        <div class="container">
-            <div class="contact-form my-1 p-3">
-                <h2 class="text-center">Crea Tu Cuenta</h2>
-                <h3 class="text-center">Recetarium</h3>
-                <p class="text-center">Cocinar Nunca Fue Tan Facil</p>
-                <form action="{% url 'registro_usuario' %}" method="POST" class="ui form" onsubmit="return validarContraseñas();" style="max-width: 600px; margin: 0 auto;">
-                    {% csrf_token %}
-                    
-                    <div class="form-group position-relative">
-                        <i class="fas fa-user position-absolute" style="left: 15px; top: 50%; transform: translateY(-50%);"></i>
-                        <input type="text" class="form-control pl-5" placeholder="Nombre usuario" id="username" name="username" required>
-                    </div>
-                    <div class="form-group position-relative">
-                        <i class="fas fa-envelope position-absolute" style="left: 15px; top: 50%; transform: translateY(-50%);"></i>
-                        <input type="email" class="form-control pl-5" placeholder="Correo Electrónico" id="email" name="email" required>
-                    </div>
-                    <div class="form-group position-relative">
-                        <i class="fas fa-lock position-absolute" style="left: 15px; top: 50%; transform: translateY(-50%);"></i>
-                        <input type="password" class="form-control pl-5" placeholder="Contraseña" id="password" name="password" required>
-                    </div>
-                    <div class="form-group position-relative">
-                        <i class="fas fa-lock position-absolute" style="left: 15px; top: 50%; transform: translateY(-50%);"></i>
-                        <input type="password" class="form-control pl-5" placeholder="Confirmar Contraseña" id="confirmar_contraseña" name="confirmar_contraseña" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Crear Cuenta</button><br>
-                    <p class="text-center">¿Ya Tienes una Cuenta? <a href="/Usuarios/login"><b>Iniciar Sesion</b></a></p>
-                    
-                </form>
+<main>
+    <div class="container">
+        <div class="contact-form my-1 p-3">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-dismissible {% if message.tags == 'success' %}alert-success{% elif message.tags == 'warning' %}alert-warning{% elif message.tags == 'error' %}alert-danger{% else %}alert-info{% endif %}"
+                role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
             </div>
+            {% endfor %}
+            {% endif %}
+            <h2 class="text-center">Crea Tu Cuenta</h2>
+            <h3 class="text-center">Recetarium</h3>
+            <p class="text-center">Cocinar Nunca Fue Tan Facil</p>
+            <form action="{% url 'registro_usuario' %}" method="POST" class="ui form"
+                onsubmit="return validarContraseñas();" style="max-width: 600px; margin: 0 auto;">
+                {% csrf_token %}
+
+                <div class="form-group position-relative">
+                    <i class="fas fa-user position-absolute"
+                        style="left: 15px; top: 50%; transform: translateY(-50%);"></i>
+                    <input type="text" class="form-control pl-5" placeholder="Nombre usuario" id="username"
+                        name="username" required>
+                </div>
+                <div class="form-group position-relative">
+                    <i class="fas fa-envelope position-absolute"
+                        style="left: 15px; top: 50%; transform: translateY(-50%);"></i>
+                    <input type="email" class="form-control pl-5" placeholder="Correo Electrónico" id="email"
+                        name="email" required>
+                </div>
+                <div class="form-group position-relative">
+                    <i class="fas fa-lock position-absolute"
+                        style="left: 15px; top: 50%; transform: translateY(-50%);"></i>
+                    <input type="password" class="form-control pl-5" placeholder="Contraseña" id="password"
+                        name="password" required>
+                </div>
+                <div class="form-group position-relative">
+                    <i class="fas fa-lock position-absolute"
+                        style="left: 15px; top: 50%; transform: translateY(-50%);"></i>
+                    <input type="password" class="form-control pl-5" placeholder="Confirmar Contraseña"
+                        id="confirmar_contraseña" name="confirmar_contraseña" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Crear Cuenta</button><br>
+                <p class="text-center">¿Ya Tienes una Cuenta? <a href="/Usuarios/login"><b>Iniciar Sesion</b></a></p>
+
+            </form>
         </div>
-    </main>
+    </div>
+</main>
 
-    <script>
-        function validarContraseñas() {
-            var password = document.getElementById("password").value;
-            var confirmarContraseña = document.getElementById("confirmar_contraseña").value;
+<script>
+    function validarContraseñas() {
+        var password = document.getElementById("password").value;
+        var confirmarContraseña = document.getElementById("confirmar_contraseña").value;
 
-            if (password !== confirmarContraseña) {
-                alert("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.");
-                return false;
-            }
-            return true;
+        if (password !== confirmarContraseña) {
+            alert("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.");
+            return false;
         }
-    </script>
+        return true;
+    }
+</script>
 
 {% include "inc/footer.html" %}
 
 </body>
+
 </html>

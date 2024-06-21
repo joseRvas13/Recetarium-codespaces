@@ -4,42 +4,45 @@
 <link rel="stylesheet" href="{% static 'Usuarios/login.css' %}">
 
 
-    <main>
-        <div class="form">
-            <div class="encabezado">
-                <h1>Iniciar Sesion</h1>
-            </div>
-            <div class="slogan">
-                <h1>Recetarium</h1>
-                <h2>La Mejor Manera De Cocinar</h2>
-            </div>
-         
-
-            <div class="contenido">
-                <form action="" method="POST">
-                    {% csrf_token %}
-
-                    <div class="form-group">
-                        <input type="text" id="username" name="username" placeholder="Nombre de Usuario" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" id="password" name="password" placeholder="Contraseña" required>
-                    </div>
-                    
-                    <h5>¿Olvidaste tu contraseña?</h5>
-
-                    <button class="red" type="submit">Iniciar Sesión</button>
-
-                    <h6>¿Aun no tines cuenta?..¡Crea tu cuenta Aqui!</h6>
-                    
-                    <a href="/Usuarios/registro" class="crear">Crear cuenta</a>
-                </form>
-
-            </div>
+<main>
+    <div class="form">
+        <div class="encabezado">
+            <h1>Iniciar Sesion</h1>
         </div>
-    </main>
+        <div class="slogan">
+            <h1>Recetarium</h1>
+            <h2>La Mejor Manera De Cocinar</h2>
+        </div>
 
-    {% include "inc/footer.html" %}
-    
+
+        <div class="contenido">
+            <form action="" method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <input type="text" id="username" name="username" placeholder="Nombre de Usuario" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                </div>
+
+                <a href="{% url 'password_reset' %}">
+                    <h5>¿Olvidaste tu contraseña?</h5>
+                </a>
+
+                <button class="red" type="submit">Iniciar Sesión</button>
+
+                <h6>¿Aun no tines cuenta?..¡Crea tu cuenta Aqui!</h6>
+
+                <a href="/Usuarios/registro" class="crear">Crear cuenta</a>
+            </form>
+            
+        </div>
+    </div>
+</main>
+
+{% include "inc/footer.html" %}
+
 </body>
+
 </html>
