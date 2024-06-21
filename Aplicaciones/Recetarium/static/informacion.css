@@ -136,3 +136,60 @@ main {
     margin: 0 auto; /* Centra el div horizontalmente */
     text-align: center; /* Centra el contenido dentro del div */
 }
+
+.glossary2 {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: rgba(248, 247, 247, 0.541);
+    width: 70%;
+    text-align: center;
+    margin-left: 15%;
+    
+}
+
+.glossary2 h3 {
+    font-size: 28px; /* Aumenté el tamaño de fuente para los títulos */
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.glossary2 p {
+    font-size: 24px; /* Aumenté el tamaño de fuente para los párrafos */
+    line-height: 1.6;
+    color: #666;
+}
+
+.glossary2 img {
+    width: 100%; /* Ajuste del ancho */
+    max-width: 450px;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Transiciones de transformación y opacidad */
+    margin-left: 34%;
+}
+
+.glossary2 img:hover {
+    transform: scale(1.1); /* Aumenta la escala al 110% */
+    opacity: 0.8; /* Reduce la opacidad al 80% */
+}
+
+.pagination {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination .page-link {
+    color: #333;
+    border: none;
+    background-color: transparent;
+}
+
+.pagination .page-link:hover {
+    color: #0069d9;
+}
