@@ -1,0 +1,102 @@
+{% load static %}
+{% include "inc/header.html" %}
+
+    <link rel="stylesheet" href="{% static 'Usuarios/plan_nutricional.css' %}">
+
+    <main>
+        <div class="container">
+            <h1>Crea Tu Calendario</h1>
+            <table id="mealTable">
+                <thead>
+                    <tr>
+                        <th>Comida</th>
+                        <th>Domingo</th>
+                        <th>Lunes</th>
+                        <th>Martes</th>
+                        <th>Miércoles</th>
+                        <th>Jueves</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Desayuno</td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                    </tr>
+                    <tr>
+                        <td>Media Mañana</td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                    </tr>
+                    <tr>
+                        <td>Lunch</td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                    </tr>
+                    <tr>
+                        <td>Dinner</td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-primary" id="saveButton">Guardar PDF</button>
+        </div>
+    </main>
+
+    {% include "inc/footer.html" %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const { jsPDF } = window.jspdf;
+    
+        const saveButton = document.getElementById("saveButton");
+        saveButton.addEventListener("click", () => {
+            const doc = new jsPDF();
+
+            doc.setFontSize(18);
+            doc.text("Calendario de Comidas", 14, 22);
+            doc.setFontSize(12);
+            doc.setTextColor(100);
+
+            const table = document.getElementById("mealTable");
+            const headers = [];
+            for (const th of table.querySelectorAll("thead th")) {
+                headers.push(th.textContent.trim());
+            }
+
+            const data = [];
+            for (const tr of table.querySelectorAll("tbody tr")) {
+                const rowData = [];
+                for (const td of tr.querySelectorAll("td")) {
+                    rowData.push(td.textContent.trim());
+                }
+                data.push(rowData);
+            }
+
+            doc.autoTable({
+                head: [headers],
+                body: data,
+                startY: 30,
+            });
+
+            doc.save("calendario_de_comidas.pdf");
+        });
+    });
+    </script>
+</body>
+</html>

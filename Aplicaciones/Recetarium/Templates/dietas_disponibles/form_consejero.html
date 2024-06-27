@@ -1,0 +1,76 @@
+{% load static %}
+{% include 'inc/header.html' %}
+
+    <link rel="stylesheet" href="{% static 'Dietas/consejeros_form.css' %}">
+
+    <main>
+    
+        <div class="container">
+            <form>
+                <div class="text">
+                    <h2 class="rc">Recetarium</h2>
+                    <h1 class="crear">Crea tu Dieta</h1>
+                    <h3 class="dieta">Crea tus propias dietas para que los usuarios puedan aplicarlas y ver tu perfil</h3>
+                </div>
+                <hr>
+                <div class="form-group mb-1">
+                    <label for="">Ponle un Nombre a tu Dieta</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre de la Dieta" required >
+                </div>
+                <div class="form-group">
+                    <label for="">Ingresa la descripcion de tu Dieta </label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Descripcion de la dieta Y Aspectos a tomar en cuenta" required></textarea>
+                  </div>
+                <div class="form-group">
+                    <label for="">Cual es el objetivo</label>
+                    <input type="text" class="form-control" id="objetivo" name="objetivo" placeholder="Describe el objetivo" required>
+                </div>
+                <div class="row">
+                <div class="col">
+                    <label for="">Ingresa el numero de calorias</label>
+                    <input type="number" class="form-control"  placeholder="Calorias" id="calorias" name="calorias" required>
+                </div>
+                <div class="col">
+                    <label for="">Condicion Medica</label>
+                    <input type="text" class="form-control" id="condicion_medica" name="condicion_medica" placeholder="(Este campo no es necesario si no se requiere)" >
+                </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Ingresa El valor Nutricional</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Ejemplo..Calorías, Proteínas, Carbohidrato Grasas " required></textarea>
+                </div>
+                <select class="custom-select" id="actividad_fisica" name="actividad_fisica" required>
+                    <option selected disabled value="">Actividad Fisica</option>
+                    <option value="Moderada">Moderada</option>
+                    <option value="ligera">Ligera</option>
+                    <option value="alta_intensidad"> Alta intensidad</option>
+                </select>
+                <div class="row mt-3 mb-4">
+                    <div class="col">
+                        <label for="">Consejos</label>
+                        <input type="text" class="form-control" id="consejos" name="consejos" placeholder="Ej: Consumir alimentos ricos en fibra, como frutas y verduras frescas." required>
+                    </div>
+                    <div class="col">
+                        <label for="">Dispositivos Sugeridos</label>
+                        <input type="text" class="form-control" id="dispositivos" name="dispositivos" placeholder="Ej: Relojes inteligentes" required>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Bibliografia</label>
+                        <input type="text" class="form-control" id="bibliografia" name="bibliografia" placeholder="Donde sacaste tu informacion ej: https://www.elconfidencial.com/alma-corazon-vida/2014-10-11/tres-de-las-dietas-mas-efectivas-para-bajar-peso-y-sus-menus-diarios_235583/" required>
+                    </div>
+
+                    <button  class="btn btn-primary" type="submit">Guardar Dieta</button>
+
+
+              </form>
+        </div>
+      
+    </main>
+    {% include 'inc/footer.html' %}
+
+    
+  
+
+</body>
+</html>

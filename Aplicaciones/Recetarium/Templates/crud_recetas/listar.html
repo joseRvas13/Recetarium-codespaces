@@ -185,7 +185,10 @@
 </head>
 <body>
 <div class="container">
-    <h1>Listado de Recetas</h1>
+    <div class="textos">
+        <h1>listado de Recetas</h1>
+        <a href="{% url 'home_administracion' %}">Volver</a>
+    </div>
     <div class="search-container">
         <form method="GET" action="{% url 'listar_recetas' %}" class="form-inline">
             <input type="text" name="q" class="form-control" placeholder="Buscar Recetas" value="{% if query %}{{ query }}{% endif %}">

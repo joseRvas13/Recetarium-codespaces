@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 body {
@@ -23,11 +22,21 @@ main {
     line-height: 1.6;
 }
 
+.tab-pane .info{
+    color: white;
+}
+
 .glossary {
+    margin-bottom: 30px;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     background-color: rgba(248, 247, 247, 0.541);
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(58, 2, 2, 0.1);
+    width: 84%;
+    text-align: center;
+    margin-left: 7%;
+    
 }
 
 .glossary h2 {
@@ -35,8 +44,30 @@ main {
     margin-bottom: 20px;
 }
 
+.glossary img {
+    max-width: 100%; /* Ajuste del ancho máximo */
+    height: auto; /* Altura automática para mantener la proporción */
+    display: block;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Transiciones de transformación y opacidad */
+    margin-left: auto; /* Centra horizontalmente */
+    margin-right: auto; /* Centra horizontalmente */
+}
+
+.glossary img:hover {
+    transform: scale(1.1); /* Aumenta la escala al 110% */
+    opacity: 0.9; /* Reduce la opacidad al 90% */
+}
+
+.glossary p {
+    font-size: 20px; /* Aumenté el tamaño de fuente para los párrafos */
+    line-height: 1.6;
+}
+
 .alphabet-list {
-    width: 27%;
+    width: 50%;
     text-decoration: none ;
     height: 35px;
     background-color: #28a56b;
@@ -57,7 +88,6 @@ main {
 }
 
 .alphabet-list a:hover{
-    
     background-color:white;
     border: 1px solid GREY;
     color:#28a56b;
@@ -112,6 +142,10 @@ main {
 
 .glossary-section p strong {
     font-weight: bold;
+}
+
+.textos p{
+    color: white;
 }
 
 .textosg {
@@ -179,6 +213,19 @@ main {
     opacity: 0.8; /* Reduce la opacidad al 80% */
 }
 
+.glossary3 {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: rgba(248, 247, 247, 0.541);
+    width: 74%;
+    text-align: justify;
+    margin-left: 11%;
+    
+}
+
 .pagination {
     justify-content: center;
     margin-top: 20px;
@@ -192,4 +239,30 @@ main {
 
 .pagination .page-link:hover {
     color: #0069d9;
+}
+
+@media (max-width: 768px) {
+    .textos{
+        color: white;
+    }
+    .textos h3{
+        font-size: 15px;
+    }
+    .tab-pane{
+        background-color: #036e3c;
+        width: 100%;
+
+    }
+    .glossary {
+        margin-bottom: 30px;
+        padding: 25px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        background-color: rgba(248, 247, 247, 0.541);
+        width: auto;
+        text-align: center;
+        margin-left: 7%;
+        
+    }
 }

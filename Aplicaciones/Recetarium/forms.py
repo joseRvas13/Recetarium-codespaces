@@ -181,4 +181,5 @@ class DietaForm(forms.ModelForm):
         self.fields['consejero_id'].label_from_instance = lambda obj: f'{obj.nombre} {obj.apellido}'
         self.fields['consejero_id'].empty_label = 'Sistema Recetarium'
 
+
 #FIN CRUD DIETAS

@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+body {
+    background: url('https://images.pexels.com/photos/262918/pexels-photo-262918.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+    height: 100vh;
+    overflow: auto;
+}
+
+body.trasparent{
+    background: transparent; /* Fondo transparente */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8); /* Sombra negra en el header transparente */
+}
+
+
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+
+.contenido{
+    margin: 0 auto;
+    width: 70%;
+    height: 770px;
+    border-radius: 20px;
+    font-family: "Urbanist", sans-serif;
+    background-color: #ffffffd3;
+    border: 2px solid #28a56b69;
+
+}
+.encabezados {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 35px;
+}
+
+.encabezados .titulo {
+    margin: 0;
+    flex: 1;
+    color: #28a56b;
+    text-align: left;
+    transition: color 0.5s ease;
+}
+
+.encabezados .titulo:hover{
+    color: #007bff;
+}
+
+.encabezados .nombre {
+    margin: 0;
+    color: rgb(15, 133, 64);
+    text-align: right;
+    flex: 1;
+    transition: color 0.3s ease;
+}
+
+.encabezados .nombre:hover {
+    color: #28a56b;
+}
+
+
+.ui-w-80 {
+    width : 80px !important;
+    height: auto;
+}
+
+.btn-default {
+    border-color: rgba(24, 28, 33, 0.1);
+    background  : rgba(0, 0, 0, 0);
+    color       : #4E5155;
+}
+
+label.btn {
+    margin-bottom: 0;
+}
+
+.btn-outline-primary {
+    border-color: #26B4FF;
+    background  : transparent;
+    color       : #26B4FF;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.text-light {
+    color: #babbbc !important;
+}
+
+.btn-facebook {
+    border-color: rgba(0, 0, 0, 0);
+    background  : #3B5998;
+    color       : #fff;
+}
+
+.btn-instagram {
+    border-color: rgba(0, 0, 0, 0);
+    background  : #000;
+    color       : #fff;
+}
+
+.card {
+    border-radius: 25px;
+    background-color: #f0f0f0;
+    background-clip: padding-box;
+    box-shadow     : 0 1px 4px rgba(24, 28, 33, 0.012);
+    transition: transform 0.3s ease; /* Transición suave para la propiedad transform */
+
+}
+
+.card:hover{
+    transform: scale(1.05); /* Escala el contenedor al 105% cuando se pasa el cursor */
+
+}
+
+.row-bordered {
+    overflow: hidden;
+}
+
+.account-settings-fileinput {
+    position  : absolute;
+    visibility: hidden;
+    width     : 1px;
+    height    : 1px;
+    opacity   : 0;
+}
+
+.account-settings-links .list-group-item.active {
+    font-weight: bold !important;
+}
+
+html:not(.dark-style) .account-settings-links .list-group-item.active {
+    background: transparent !important;
+}
+
+.account-settings-multiselect~.select2-container {
+    width: 100% !important;
+}
+
+.light-style .account-settings-links .list-group-item {
+    padding     : 0.85rem 1.5rem;
+    border-color: rgba(24, 28, 33, 0.03) !important;
+}
+
+.light-style .account-settings-links .list-group-item.active {
+    color: #4e5155 !important;
+}
+
+.material-style .account-settings-links .list-group-item {
+    padding     : 0.85rem 1.5rem;
+    border-color: rgba(24, 28, 33, 0.03) !important;
+}
+
+.material-style .account-settings-links .list-group-item.active {
+    color: #4e5155 !important;
+}
+
+.dark-style .account-settings-links .list-group-item {
+    padding     : 0.85rem 1.5rem;
+    border-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.dark-style .account-settings-links .list-group-item.active {
+    color: #fff !important;
+}
+
+.light-style .account-settings-links .list-group-item.active {
+    color: #4E5155 !important;
+}
+
+.light-style .account-settings-links .list-group-item {
+    padding     : 0.85rem 1.5rem;
+    border-color: rgba(24, 28, 33, 0.03) !important;
+}
+
+
+@media (max-width: 768px) {
+    body {
+        background: url('https://images.pexels.com/photos/19119796/pexels-photo-19119796/free-photo-of-vegetales-verduras-mujer-cena.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center fixed; /* 'fixed' evita que la imagen brinque */
+        background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+        width: 100%;
+        height: auto; /* Ajusta la altura para permitir el desplazamiento */
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto; /* Permitir desplazamiento vertical en la página */
+        overflow-x: hidden; /* Evita el desplazamiento horizontal */
+    }
+    .contenido {
+        width: 100%;
+        min-height: 100vh; /* Asegura que el contenido tenga al menos la altura de la ventana */
+        background-color: transparent;
+        border: none;
+        margin-bottom: 100px; /* Espacio inferior para permitir desplazamiento */
+    }
+    .nombre , .titulo {
+        color: white;
+    }
+}

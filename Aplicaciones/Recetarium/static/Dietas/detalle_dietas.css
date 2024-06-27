@@ -1,0 +1,240 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+/* Estilo personalizado */
+body {
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background: linear-gradient(315deg, rgb(40, 165, 107) 3%, rgb(82, 161, 125) 38%, rgb(40, 165, 107) 68%, rgb(40, 165, 107) 98%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+.wave {
+    background: rgb(255 255 255 / 25%);
+    border-radius: 1000% 1000% 0 0;
+    position: fixed;
+    width: 200%;
+    height: 12em;
+    animation: wave 10s -3s linear infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.wave:nth-of-type(2) {
+    bottom: -1.25em;
+    animation: wave 18s linear reverse infinite;
+    opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+    bottom: -2.5em;
+    animation: wave 20s -1s reverse infinite;
+    opacity: 0.9;
+}
+
+@keyframes wave {
+    2% {
+        transform: translateX(1);
+    }
+
+    25% {
+        transform: translateX(-25%);
+    }
+
+    50% {
+        transform: translateX(-50%);
+    }
+
+    75% {
+        transform: translateX(-25%);
+    }
+
+    100% {
+        transform: translateX(1);
+    }
+}
+
+
+.encabezado {
+    display: flex;
+    justify-content: space-between; /* Ajusta la distribución horizontal */
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+    font-size: 3.5vw; /* Tamaño de fuente responsive */
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+.logo{
+    margin-left: 25px;
+}
+
+.logo h1 , .pagina h2{
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    color: rgb(255, 255, 255);
+    transition: color 0.3s ease, font-size 0.3s ease;
+    text-align: center;
+    
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.logo i {
+    color: white;
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+ 
+}
+
+.slogan h1 {
+    margin-right: 115px;
+    color: #ffffff;
+    font-family: "Urbanist", sans-serif;
+    font-size: 20px;
+}
+
+.logo:hover h1, .pagina h2  :hover{
+    font-size: 45px;
+}
+
+.container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 60px; /* Aumentamos el espacio interno */
+    margin: 30px auto; /* Centramos el contenedor */
+    max-width: 1050px; /* Limitamos el ancho máximo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh; /* Ajustamos la altura mínima para centrar verticalmente */
+    text-align: center; /* Alinea el texto al centro */
+}
+
+.container h1 {
+    font-family: 'Lobster', sans-serif;
+    font-size: 2.5rem;
+    color: #333333;
+    margin-bottom: 40px;
+}
+
+.container p {
+    font-size: 1.1rem;
+    color: #555555;
+    margin-bottom: 13px;
+    max-width: 80%; /* Limitar el ancho máximo para que no se extienda demasiado */
+    text-align: justify; /* Alinea el texto al centro */
+    margin-left: 65px;
+}
+
+.container p strong {
+    color: #333333;
+}
+
+.container img{
+    width: 500px;
+    border-radius: 45px;
+}
+
+.meal-planner {
+    width: 900px; /* Reducir el ancho del calendario */
+    max-width: 100%; /* Ajustar para que sea responsive */
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    padding: 10px; /* Reducir el padding para dar más espacio */
+}
+
+.meal-planner:hover {
+    transform: scale(1.05);
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr repeat(7, 1fr);
+    padding: 10px; /* Reducir el padding */
+    background: linear-gradient(135deg, #5a67d8, #67b26f);
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+    font-weight: 600;
+    font-size: 16px; /* Reducir el tamaño del texto */
+}
+
+.meal-type-header {
+    text-align: center;
+}
+
+.day {
+    text-align: center;
+}
+
+.meals {
+    display: grid;
+    grid-template-columns: 1fr repeat(7, 1fr);
+    gap: 5px; /* Reducir el espacio entre las casillas */
+    padding: 10px; /* Reducir el padding */
+    background: #f9fafb;
+}
+
+.meal {
+    display: contents;
+}
+
+.meal-type {
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px; /* Reducir el tamaño del texto */
+    color: #555;
+    padding: 5px; /* Reducir el padding */
+}
+
+.meal-plan {
+    text-align: center;
+    padding: 10px; /* Reducir el padding */
+    background: #e2e8f0;
+    border-radius: 10px;
+    transition: background 0.3s, color 0.3s;
+    font-size: 14px; /* Reducir el tamaño del texto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.meal-plan:hover {
+    background: #28a56b;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Estilos para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .logo h1 {
+        font-size: 8vw; /* Tamaño de fuente responsive */
+    }
+    .logo h2 {
+        font-size: 6vw; /* Tamaño de fuente responsive */
+    }
+}

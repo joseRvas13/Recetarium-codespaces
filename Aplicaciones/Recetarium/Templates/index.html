@@ -7,16 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetarium</title>
-    <!-- Enlace al archivo CSS de Bootstrap 4 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Enlace a tu archivo CSS personalizado -->
-    <link rel="stylesheet" href="{% static 'Index.css' %}">
+    <link rel="stylesheet" href="{% static 'index/Index.css' %}">
 </head>
 
 <body>
     <header class="transparent">
         <div class="container">
-        
             <div class="logo">
                 <a href="{% url 'index' %}">RC</a>
             </div>
@@ -25,12 +22,30 @@
                 <ul>
                     <li><a href="{% url 'informacion' %}">Novedades</a></li>
                     <li><a href="{% url 'soporte_tecnico' %}">Soporte Técnico</a></li>
-                    <li><a href="/Usuarios/login">Iniciar sesión</a></li>
+                    {% if user.is_authenticated %}
+                        <li>
+                            <div class="dropdown">
+                                <button class="btn btn-primary text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius: 25px; background-color: #16794b; border: 1px solid white;">
+                                    {{ user.username }}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <h3 style="color: #16794b; font-size: 20px; margin-left: 23px;">Opciones</h3>
+                                    <hr style="background-color: #16794b; width: 95%; height: 3px; margin: auto; border-radius: 24px;">
+                                    <a class="dropdown-item" href="{% url 'perfil_usuario' user.id %}">Ver mi perfil</a>
+                                    <a class="dropdown-item" href="{% url 'ver_recetas_usuarios' user.id %}">Mis recetas</a>
+                                    <a class="dropdown-item" href="{% url 'receta_crear' %}">Crear Receta</a>
+                                    <a class="dropdown-item" href="{% url 'logoutusuarios' %}">Cerrar sesión</a>
+                                </div>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'loginusuarios' %}">Iniciar sesión</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>
     </header>
-
+    
 
   
 
@@ -39,10 +54,6 @@
         <small>La Mejor Manera de Cocinar.</small>
         <br>
         <br>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" onclick="buscarenpagina()" type="submit">Search</button>
-          </form>
     </div>
 
     <section class="section-container">
@@ -64,7 +75,7 @@
             <small></small>
         </div>
         <div class="card-items">
-           <a href="#"><h1>Generador de Recetas</h1></a>
+           <a href="{% url 'not_found' %}"><h1>Generador de Recetas</h1></a>
             <p>Con las cosas que tienes a tu alcance puedes generar una receta a partir de las cosas exactas que tienes y unas instrucciones que te pueden ayudar a realizarla y poder aprovechar más la comida de tu alcance para evitar desperdicios.</p>
             <small></small>
         </div>

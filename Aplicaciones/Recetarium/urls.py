@@ -3,37 +3,29 @@ from django.contrib.auth import views as auth_views
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+from Aplicaciones.Recetarium.views import Not_Found  # Importa la vista Not_Found
 
 from .views import (
     Home_Administracion,
-    bienvenido,
     actualizar_rol,
-    borrar_consejero,
     borrar_rol,
     buscar_dietas,
     insertar_roles,
     lista_dietas,
-    lista_recetas,
-    buscar_recetas,
     listado_roles,
-    receta_crear,
-    lista_consejeros,
     ver_recetas_usuarios,
-    plan_nutricional,
-    Not_Found,
-    bmi_calculator,
-    salud_nutricion,
     registro_usuario,
     loginusuarios,
     usuario,
-    informacion,
+    principal_usuario,
+    perfil_usuario,
+    perfil_config,
 )
 
 
 urlpatterns = [
     # INDEX
     path("", views.index, name="index"),
-    # Bienvenido
     path("Bienvenido", views.bienvenido, name="bienvenido"),
     # Crear o ver recetas ( Apartado Usuario )
     path(
@@ -49,7 +41,7 @@ urlpatterns = [
     path("soporte-tecnico/", views.soporte_tecnico, name="soporte_tecnico"),
     path("reporte-enviado/", views.soporte_send, name="soporte_send"),
     # Calculadora IMC de salud
-    path("calculadora-salud/", views.bmi_calculator, name="bmi_calculator"),
+    path("calculadora/", views.calculadoraB, name="calculadoraB"),
     # Lista de Recetas
     path("recetas/", views.lista_recetas, name="lista_recetas"),
     # visualizacion de cada una de las recetas  o ( recetas ampliadas )
@@ -204,10 +196,20 @@ urlpatterns = [
     # DIETAS DISPONIBLES - CALENDARIO
     path("salud-nutricion/dietas/", lista_dietas, name="lista_dietas"),
     path("dietas/buscar/", buscar_dietas, name="buscar_dietas"),
+
     # USUARIO LOGIN REGISTER , LOGOUT , USUARIO
     path("Usuarios/registro/", registro_usuario, name="registro_usuario"),
-    path("Usuarios/login/", loginusuarios, name="login_usuario"),
+    path('Usuarios/login/', views.loginusuarios, name='loginusuarios'),
     path("Usuarios/usuario/", usuario, name="usuario"),
+    path('Usuarios/logout', views.logoutusuarios, name='logoutusuarios'),
+    path('principal/', principal_usuario, name='principal_usuario'),
+    path('perfil/<int:user_id>/', perfil_usuario, name='perfil_usuario'),  
+    path('config/<int:user_id>/', perfil_config , name='perfil_config'),
+
+
+    path("consejeros_dietas/", views.consejeros_dietas, name='consejeros_dietas'),
+
+
     path(
         "salud-nutricion/dietas/dieta=<int:id_dieta_c>/",
         views.detalle_dietas,
@@ -215,12 +217,13 @@ urlpatterns = [
     ),
     # FIN DIETAS DISPONIBLES - CALENDARIO
     # VER RECETAS USUARIOS
-    path(
-        "recetas/<int:usuario_id>/tus_recetas/",
-        ver_recetas_usuarios,
-        name="ver_recetas_usuarios",
-    ),
+        path('recetas/<int:usuario_id>/tus_recetas/', views.ver_recetas_usuarios, name='ver_recetas_usuarios'),
+
     # FIN VER RECETAS USUARIOS
+
+    #api de openia
+    
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

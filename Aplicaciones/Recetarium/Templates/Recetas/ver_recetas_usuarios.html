@@ -1,0 +1,57 @@
+{% load static %}
+{% include 'inc/header.html' %}
+    <link rel="stylesheet" href="{% static 'Recetas/lista_recetas.css' %}">
+    <style>
+        .container h1{
+            color: white;
+            font-family: "Urbanist", sans-serif;
+
+        }
+        .container hr{
+            background-color: white;
+            border-radius: 25px;
+        }
+        .card-body h2{
+            font-family: 'Courgette', cursive;
+  
+            font-family: 'Lobster', sans-serif;
+        }
+    </style>
+
+    <br>
+    <div class="container">
+        <h1>¡Bienvenido <b class="titulo_nombre_usuario">{{ user.first_name }} {{ user.last_name }}</b>!</h1>
+        {% if recetas_usuario %}
+            <h1>Estas son todas tus recetas que has subido a la plataforma</h1>
+            <br><hr>
+            <div class="row">
+                {% for receta in recetas_usuario %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card">
+                            <a href="{% url 'detalle_receta' receta.id_receta %}">
+                                {% if receta.imagen %}
+                                    <img src="{{ receta.imagen.url }}" class="card-img-top" alt="{{ receta.nombre_plato }}">
+                                {% else %}
+                                    <img src="{% static 'path/a/una/imagen_por_defecto.jpg' %}" class="card-img-top" alt="{{ receta.nombre_plato }}">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h2 class="card-title">{{ receta.nombre_plato }}</h2>
+                                    <p class="card-text">
+                                        <span><i class="fas fa-folder"></i>  {{ receta.categoria }}</span><br>
+                                        <span><i class="fas fa-clock"></i>  {{ receta.tiempo_preparacion }} minutos</span><br>
+                                        <span><i class="fas fa-star"></i>  {{ receta.dificultad }}</span>
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="else">¡ No has subido ninguna receta aún !. ¿ Quieres subir una receta ? </p>
+            <a href="{% url 'receta_crear' %}"><button type="button" class="btn btn-primary">Crear Una Receta</button></a> 
+        {% endif %}
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% load static %}
+{% include 'inc/header.html' %}
+
+<link rel="stylesheet" href="{% static 'Recetas/detalle_recetas.css' %}">
+    
+    <div class="container">
+        <img src="{{ consejero.imagen.url }}" class="card-img-top" alt="{{ consejero.nombre }}" style="max-height: 300px; border-radius: 25px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>{{ consejero.nombre_plato }}</h1>
+                <p><strong>Categoría:</strong> {{ consejero.categoria }}</p>
+                <p><strong>Temporada:</strong> {{ receta.temporada }}</p>
+                <p><strong>Origen:</strong> {{ receta.origen }}</p>
+                <p><strong>Ingredientes:</strong> {{ receta.ingredientes }}</p>
+                <p><strong>Descripción:</strong> {{ receta.descripcion }}</p>
+                <p><strong>Instrucciones:</strong> {{ receta.instrucciones }}</p>
+                <p><strong>Tiempo de preparación:</strong> {{ receta.tiempo_preparacion }}</p>
+                <p><strong>Dificultad:</strong> {{ receta.dificultad }}</p>
+
+
+
+                <!-- Mostrar quién subió la receta -->
+                {% if receta.usuario %}
+                    <p><strong>Subido por:</strong> <i class="fas fa-user"></i> {{ receta.usuario.first_name }} {{ receta.usuario.last_name }}</p>
+                {% else %}
+                <p><strong>Subido por:</strong> <i class="fas fa-user"></i> Sistema Recetarium</p>   
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+
+    {% include 'inc/footer.html' %}
+</body>
+</html>

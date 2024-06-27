@@ -2,28 +2,29 @@
 {% include "inc/header.html" %}
 
 <link rel="stylesheet" href="{% static 'Usuarios/login.css' %}">
-
+<!-- Incluye los estilos de Bootstrap si aún no los has hecho -->
 
 <main>
     <div class="form">
-        <div class="encabezado">
-            <h1>Iniciar Sesion</h1>
+        <div class="texts">
+            <h2 class="iniciar">Iniciar sesión</h2>
+            <h1 class="rc">Recetarium</h1>
+            <h3 class="frase">¡La Mejor Manera De Cocinar!</h3>
         </div>
-        <div class="slogan">
-            <h1>Recetarium</h1>
-            <h2>La Mejor Manera De Cocinar</h2>
-        </div>
-
 
         <div class="contenido">
-            <form action="" method="POST">
+            <form action="" method="POST" id="loginForm">
                 {% csrf_token %}
 
                 <div class="form-group">
-                    <input type="text" id="username" name="username" placeholder="Nombre de Usuario" required>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Correo electrónico" required>
+                    <!-- Alerta de validación para el correo electrónico -->
+                    <div id="emailHelp" class="form-text text-danger d-none">Ingresa un correo electrónico válido.</div>
                 </div>
                 <div class="form-group">
-                    <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
+                    <!-- Alerta de validación para la contraseña -->
+                    <div id="passwordHelp" class="form-text text-danger d-none">La contraseña debe tener al menos 8 caracteres.</div>
                 </div>
 
                 <a href="{% url 'password_reset' %}">
@@ -31,18 +32,41 @@
                 </a>
 
                 <button class="red" type="submit">Iniciar Sesión</button>
+                <br>
 
-                <h6>¿Aun no tines cuenta?..¡Crea tu cuenta Aqui!</h6>
-
+                <h6>¿Aún no tienes cuenta? ¡Crea tu cuenta aquí!</h6>
                 <a href="/Usuarios/registro" class="crear">Crear cuenta</a>
             </form>
-            
         </div>
     </div>
 </main>
 
 {% include "inc/footer.html" %}
 
-</body>
+<!-- Scripts de Bootstrap para alertas de validación -->
+<script>
+    // Validación de correo electrónico
+    document.getElementById("email").addEventListener("input", function () {
+        var emailField = document.getElementById("email");
+        var emailHelp = document.getElementById("emailHelp");
+        if (emailField.validity.typeMismatch || emailField.value === "") {
+            emailHelp.classList.remove("d-none");
+        } else {
+            emailHelp.classList.add("d-none");
+        }
+    });
 
+    // Validación de contraseña
+    document.getElementById("password").addEventListener("input", function () {
+        var passwordField = document.getElementById("password");
+        var passwordHelp = document.getElementById("passwordHelp");
+        if (passwordField.value.length < 8) {
+            passwordHelp.classList.remove("d-none");
+        } else {
+            passwordHelp.classList.add("d-none");
+        }
+    });
+</script>
+
+</body>
 </html>

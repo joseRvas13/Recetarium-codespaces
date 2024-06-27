@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,16 +10,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
         rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'head.css' %}">
+    <link rel="stylesheet" href="{% static 'inc/head.css' %}">
     <title>Recetarium</title>
-
 </head>
 
 <body>
     <header>
         <div class="encabezado">
             <div class="logo">
-                <a href="{% url 'index' %}">
+                <a href="#" class="back-button">
                     <i class="bi bi-arrow-left-short"></i>
                     <h1>RC</h1>
                 </a>
@@ -33,26 +31,39 @@
                     Crear Tu Receta
                     {% elif pagina == 'Not_Found' %}
                     Página No Disponible
-                    {% elif pagina == 'lista_recetas' %}
+                    {% elif pagina == 'lista_recetastas' %}
                     Recetas Disponibles
+                    {% elif pagina == 'detalle_receta' %}
+                    {{ receta.nombre_plato }}
+                    {% elif pagina == 'detalle_dietas' %}
+                    {{ dietas.nombre }}
                     {% elif pagina == 'plan_nutricional' %}
                     Plan Nutricional
+                    {% elif pagina == 'informacion' %}
+                    ¡ Lo Que Necesites Esta Aqui !
                     {% elif pagina == 'crear_elegir_receta' %}
                     Expande Tu Mundo
                     {% elif pagina == 'salud_nutricion' %}
                     Salud Y Nutrición
                     {% elif pagina == 'Registro' %}
                     Crea Tu Cuenta
-                    {% elif pagina == 'bmi_calculator' %}
-                    Prioriza Tu Salud
+                    {% elif pagina == 'calculadoraB' %}
+                     Prioriza Tu Salud
                     {% elif pagina == 'loginusuarios' %}
                     Iniciar Sesión
                     {% elif pagina == 'registro' %}
                     Crear Cuenta
+                    {% elif pagina == 'lista_dietas' %}
+                    {{ dietas.nombre }}
+                    Dietas Disponibles
                     {% elif pagina == 'lista_consejeros' %}
                     Consejeros Disponibles
+                    {% elif pagina == 'receta_crear' %}
+                    Crea Tu Receta
                     {% elif pagina == 'soporte_send' %}
                     ¡ Gracias !
+                    {% elif pagina == 'consejeros_dietas' %}
+                    Crear tu Dieta
                     {% else %}
                     Recetarium
                     {% endif %}
@@ -69,3 +80,19 @@
         {% block content %}
         {% endblock %}
     </div>
+
+    <!-- Asegúrate de que jQuery esté incluido -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        // Script para manejar clic en el icono de flecha izquierda
+        $(document).ready(function() {
+            $('.bi-arrow-left-short').click(function(event) {
+                event.preventDefault();
+                history.back();
+            });
+        });
+    </script>
+</body>
+
+</html>

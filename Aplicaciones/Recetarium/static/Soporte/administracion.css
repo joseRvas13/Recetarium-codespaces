@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+body {
+    font-family: "Urbanist", sans-serif;
+    font-weight: 500;
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    background-color: #f0f2f5;
+
+}
+.sidebar {
+    width: 250px;
+    background-color: #156a43;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
+}
+.sidebar h2 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+.sidebar a {
+    display: flex;
+    align-items: center;
+    color: #cbd5e0;
+    padding: 10px;
+    text-decoration: none;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    transition: color 0.5s ease;
+}
+.sidebar a:hover {
+    background-color: rgba(255, 255, 255, 0.37);
+    color: #fff;
+}
+.sidebar a i {
+    margin-right: 10px;
+}
+
+.sidebar h1{
+    color: white;
+    font-size: 35px;
+    font-weight: 100;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+}
+
+.content {
+    margin-left: 270px;
+    padding: 20px;
+    width: calc(100% - 270px);
+}
+.card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+.text h2{
+    text-align: center;
+    font-size: 35px;
+}
+.text p{
+    text-align: center;
+    font-size: 20px;
+}
+.card h2, .card h3 {
+    margin-top: 0;
+    color: #1f2937;
+}
+.card h2{
+    color: #155939  ;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+table, th, td {
+    border: 2px solid #72767c7f;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+th {
+    background-color: #f7fafc;
+}
+button {
+    background-color: #28a56b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.4s ease;
+}
+button:hover {
+    background-color: #195639;
+}
+
+.small-img {
+    width: 50px; /* ajusta el tamaño según tu preferencia */
+    height: auto; /* mantiene la proporción de la imagen */
+    border-radius: 5px; /* opcional, para hacer las esquinas redondeadas */
+}
+
+.btn-group a{
+    color: #155939;
+    text-decoration: none;
+}

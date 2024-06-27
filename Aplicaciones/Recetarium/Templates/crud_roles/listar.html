@@ -20,13 +20,24 @@
             text-align: center;
             margin-bottom: 30px;
         }
+        a{
+            font-weight: 500;
+            font-size: 20px;
+            text-decoration: none;
+            color: #218838;
+        }
+        a:hover{
+            color: #343ad6;
+            text-decoration: none;
+        }
+        
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 30px;
         }
         th, td {
-            border: 1px solid #dee2e6;
+            border: 2px solid #dee2e6;
             padding: 10px;
             text-align: left;
         }
@@ -78,7 +89,10 @@
 <body>
 
 <div class="container">
-    <h1>Listado de Roles</h1>
+    <div class="textos">
+        <h1>listado de Roles</h1>
+        <a href="{% url 'home_administracion' %}">Volver</a>
+    </div>
     <a href="{% url 'insertar_roles' %}" class="btn btn-create float-right"><i class="fas fa-user-plus"></i> Nuevo Rol</a>
     <table>
         <thead>

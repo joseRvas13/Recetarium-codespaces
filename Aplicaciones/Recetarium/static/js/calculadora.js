@@ -1,40 +1,43 @@
-// scripts.js
+function calcularIMC() {
+    var estatura = document.getElementById('estatura').value;
+    var peso = document.getElementById('peso').value;
+    var alertas = document.getElementById('alertas');
 
-document.addEventListener('DOMContentLoaded', function() {
-    var form = document.getElementById('imc-form');
+    // Limpiar alertas anteriores
+    alertas.innerHTML = '';
 
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Evitar que el formulario se envíe por defecto
+    // Validar entrada
+    if (estatura === '' || peso === '') {
+        alertas.innerHTML = '<div class="alert alert-danger">Por favor, completa ambos campos.</div>';
+        return;
+    }
 
-        var estatura = parseFloat(document.getElementById('Estatura').value);
-        var peso = parseFloat(document.getElementById('Peso').value);
+    // Convertir valores
+    estatura = estatura.replace(',', '.'); // Convertir coma a punto decimal
+    peso = peso.replace(',', '.');
 
-        if (!isNaN(estatura) && !isNaN(peso)) {
-            // Realizar solicitud AJAX a la vista de Django
-            var formData = new FormData();
-            formData.append('estatura', estatura);
-            formData.append('peso', peso);
+    estatura = parseFloat(estatura);
+    peso = parseFloat(peso);
 
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/calcular_imc/', true);
+    if (isNaN(estatura) || isNaN(peso)) {
+        alertas.innerHTML = '<div class="alert alert-danger">Por favor, ingresa valores numéricos válidos.</div>';
+        return;
+    }
 
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    var resultado = JSON.parse(xhr.responseText);
-                    var resultadoElement = document.getElementById('resultado-imc');
-                    resultadoElement.innerHTML = '<h2>Resultado del IMC:</h2><p>Tu IMC es ' + resultado.imc.toFixed(2) + '</p>';
-                } else {
-                    alert('Hubo un problema al calcular el IMC. Inténtalo de nuevo más tarde.');
-                }
-            };
+    // Calcular IMC
+    var imc = peso / (estatura * estatura);
 
-            xhr.onerror = function() {
-                alert('Hubo un error de red al calcular el IMC. Inténtalo de nuevo más tarde.');
-            };
+    // Mostrar resultado
+    var resultado = '';
+    if (imc < 18.5) {
+        resultado = 'Bajo peso';
+    } else if (imc >= 18.5 && imc <= 24.9) {
+        resultado = 'Normal';
+    } else if (imc >= 25 && imc <= 29.9) {
+        resultado = 'Sobrepeso';
+    } else {
+        resultado = 'Jmmm papi vaya buscando funeraria le digo .';
+    }
 
-            xhr.send(formData);
-        } else {
-            alert('Por favor ingresa números válidos para estatura y peso.');
-        }
-    });
-});
+    alertas.innerHTML = '<div class="alert alert-success">Tu IMC es ' + imc.toFixed(2) + ' (' + resultado + ').</div>';
+}

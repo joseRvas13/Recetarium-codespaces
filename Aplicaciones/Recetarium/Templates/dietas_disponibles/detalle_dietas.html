@@ -1,39 +1,11 @@
 {% load static %}
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ dietas.nombre }}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="{% static 'bootstrap/bootstrap4.5.2.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'detalle_dietas.css' %}">
-</head>
-<body>
-    <div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-    </div>
-    <header>
-        <div class="encabezado">
-            <div class="logo">
-                <a href="{% url 'index' %}"><i class="bi bi-arrow-left-short"></i><h1>RC</h1></a>
-            </div>
-            <div class="pagina">
-                <h2>{{ dietas.nombre }}</h2>
-            </div>
-            <div class="slogan">
-                <h1>Recetarium</h1>
-            </div>
-        </div>
-    </header>
+{% include 'inc/header.html' %}
+<link rel="stylesheet" href="{% static 'Dietas/detalle_dietas.css' %}">
 
     <div class="container">
-        <img src="{{ dietas.imagen }}" class="card-img-top" alt="{{ dietas.nombre }}" style="max-height: 300px;">
+        <div class="tel">
+        <img src="{{ dietas.imagen.url }}" class="card-img-top" alt="{{ dietas.nombre }}" style="max-height: 300px;">
+        </div>
         <div class="row">
             <div class="col-lg-12">
                 <br>
@@ -124,6 +96,10 @@
                 </div>
             </div>
         </div>
-        <script src="{% static 'js/calendario.js' %}"></script>
+    </div>
+    {% include 'inc/footer.html' %}
+
+    <script src="{% static 'js/calendario.js' %}"></script>
+    
 </body>
 </html>

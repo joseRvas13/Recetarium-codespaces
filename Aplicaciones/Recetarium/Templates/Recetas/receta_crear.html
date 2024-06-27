@@ -1,0 +1,160 @@
+{% load static %}
+{% include 'inc/header.html' %}
+
+<link rel="stylesheet" href="{% static 'Recetas/crear_receta.css' %}">
+
+<main>
+    <div class="container">
+        <form action="{% url 'receta_crear' %}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="text">
+                <h2 class="rc">Recetarium</h2>
+                <h1 class="crear">Crear tu receta</h1>
+                <h3 class="dieta">¡Tus propias recetas a tu gusto!</h3>
+            </div>
+            <hr>
+
+            <div class="form-group">
+                <label for="imagen">Imagen</label>
+                <div id="drop-area" class="drop-area">
+                    <i class="bi bi-cloud-upload-fill"></i>
+                    <p>Arrastra y suelta fotos aquí<br>o haz clic para seleccionar fotos y subirlas</p>
+                    <input type="file" id="fileElem" name="imagen" class="file-input" accept="image/*" onchange="previewImage(event)" required>
+                    <img id="preview" src="" alt="Previsualización de la imagen" style="display:none; width: 100%; max-width: 600px; margin: 0 auto; border-radius: 25px;">
+                    <div class="invalid-feedback">
+                        Por favor, selecciona una imagen.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="nombre">Ponle un Nombre a tu Receta</label>
+                <input type="text" class="form-control" id="nombre" name="nombre_plato" placeholder="Nombre de Tu Receta" required>
+                <div class="invalid-feedback">
+                    Por favor, completa este campo.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Describe tu Receta</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Descripción de la receta y aspectos a tomar en cuenta" required></textarea>
+                <div class="invalid-feedback">
+                    Por favor, completa este campo.
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="calorias">Categoria</label>
+                    <select class="custom-select" id="calorias" name="categoria" required>
+                        <option selected disabled value="">Selecciona una categoría</option>
+                        <option value="Plato principal">Plato Principal</option>
+                        <option value="Desayunos">Desayunos</option>
+                        <option value="Entrada">Entrada</option>
+                        <option value="Postres">Postres</option>
+                        <option value="Aperitivos">Aperitivos</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor, selecciona una categoría.
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="temporada">Temporada</label>
+                    <select class="custom-select" id="temporada" name="temporada" required>
+                        <option selected disabled value="">Selecciona una temporada</option>
+                        <option value="fechas especiales">Fechas especiales</option>
+                        <option value=""></option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor, selecciona una temporada.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mt-2">
+                <label for="origen">Origen</label>
+                <input type="text" class="form-control" id="origen" name="origen" placeholder="Origen de tu receta, ej: Colombia, mi región o creación propia" required>
+                <div class="invalid-feedback">
+                    Por favor, completa este campo.
+                </div>
+            </div>
+            <div class="form-group mt-2">
+                <label for="ingredientes">Ingredientes</label>
+                <input type="text" class="form-control" id="ingredientes" name="ingredientes" placeholder="Ej: plátanos, arepas, aguacate, mantequilla, los que tú quieras" required>
+                <div class="invalid-feedback">
+                    Por favor, completa este campo.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="instrucciones">Instrucciones</label>
+                <textarea class="form-control" id="instrucciones" name="instrucciones" rows="3" placeholder="Instrucciones que deben seguirse para realizar la receta" required></textarea>
+                <div class="invalid-feedback">
+                    Por favor, completa este campo.
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="tiempo_preparacion">Tiempo de preparación (minutos)</label>
+                    <input type="number" class="form-control" id="tiempo_preparacion" name="tiempo_preparacion" placeholder="Tiempo de preparación en minutos" required>
+                    <div class="invalid-feedback">
+                        Por favor, completa este campo con un valor numérico.
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="dificultad">Dificultad</label>
+                    <select class="custom-select" id="dificultad" name="dificultad" required>
+                        <option selected disabled value="">Selecciona una dificultad</option>
+                        <option value="alta">Alta</option>
+                        <option value="media">Media</option>
+                        <option value="baja">Baja</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor, selecciona una dificultad.
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary mt-3" type="submit">Guardar Receta</button>
+        </form>
+    </div>
+</main>
+
+    
+
+    {% include 'inc/footer.html' %}
+
+    <script>
+        const dropArea = document.getElementById('drop-area');
+        const fileElem = document.getElementById('fileElem');
+    
+        dropArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropArea.classList.add('dragover');
+        });
+    
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('dragover');
+        });
+    
+        dropArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropArea.classList.remove('dragover');
+            const files = event.dataTransfer.files;
+            if (files.length) {
+                fileElem.files = files;
+                previewImage({ target: { files: files } });
+            }
+        });
+    
+        dropArea.addEventListener('click', () => {
+            fileElem.click();
+        });
+    
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</body>
+</html>

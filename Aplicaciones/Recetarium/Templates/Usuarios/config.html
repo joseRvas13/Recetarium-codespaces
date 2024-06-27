@@ -1,0 +1,237 @@
+{% load static %}
+{% include 'inc/header.html' %}
+    <link rel="stylesheet" href="{% static 'Usuarios/usuariso.css' %}">
+    
+    <div class="contenido">
+
+    <div class="container light-style flex-grow-1 container-p-y">
+       <div class="encabezados">
+        <h1 class="titulo">Configuración de la Cuenta </h1>
+        <h2 class="nombre">{{ user.username }}</h2>
+        <br>
+        </div>
+        
+        <div class="card overflow-hidden">
+            <div class="row no-gutters row-bordered row-border-light">
+                <div class="col-md-3 pt-0">
+                    <div class="list-group list-group-flush account-settings-links">
+                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">General</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Cambiar Contraseña</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">Información</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-social-links">Enlaces Sociales</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-connections">Conexiones</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-notifications">Notificaciones</a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="account-general">
+                            <div class="card-body media align-items-center">
+                                <img src="https://isobarscience.com/wp-content/uploads/2020/09/default-profile-picture1.jpg" alt class="d-block ui-w-80" style="border-radius: 50%;">
+                                <div class="media-body ml">
+                                    <label class="btn btn-outline-primary">
+                                        Subir nueva foto
+                                        <input type="file" class="account-settings-fileinput">
+                                    </label> &nbsp;
+                                    <button type="button" class="btn btn-default md-btn-flat">Restablecer</button>
+                                    <div class="text-light small mt-1">Permitido JPG, GIF o PNG. Tamaño máximo de 800K</div>
+                                </div>
+                            </div>
+                            <hr class="border-light m-0">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="form-label">Nombre de Usuario</label>
+                                    <input type="text" class="form-control mb-1" value="{{ user.username }}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" value="{{ user.first_name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Correo Electrónico</label>
+                                    <input type="email" class="form-control mb-1" value="{{ user.email }}">
+                                    <div class="alert alert-warning mt-3">
+                                        Tu correo electrónico no está confirmado. Por favor revisa tu bandeja de entrada.<br>
+                                        <a href="javascript:void(0)">Reenviar confirmación</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="account-change-password">
+                            <div class="card-body pb-2">
+                                <div class="form-group">
+                                    <label class="form-label">Contraseña Actual</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Nueva Contraseña</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Repetir Nueva Contraseña</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="account-info">
+                            <div class="card-body pb-2">
+                                <div class="form-group">
+                                    <label class="form-label">Biografía</label>
+                                    <textarea class="form-control" rows="5">Ingresa tu Biografía</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Cumpleaños</label>
+                                    <input type="text" class="form-control" value="May 3, 1995">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">País</label>
+                                    <select class="custom-select">
+                                        <option selected>Colombia</option>
+                                        <option>Mexico</option>
+                                        <option>España</option>
+                                        <option>dad</option>
+                                        <option>Francia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr class="border-light m-0">
+                            <div class="card-body pb-2">
+                                <h6 class="mb-4">Contactos</h6>
+                                <div class="form-group">
+                                    <label class="form-label">Teléfono</label>
+                                    <input type="text" class="form-control" value="+0 (123) 456 7891">
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="account-social-links">
+                            <div class="card-body pb-2">
+                                <div class="form-group">
+                                    <label class="form-label">Twitter</label>
+                                    <input type="text" class="form-control" value="https://twitter.com/user">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Facebook</label>
+                                    <input type="text" class="form-control" value="https://www.facebook.com/user">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Google+</label>
+                                    <input type="text" class="form-control" value>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">LinkedIn</label>
+                                    <input type="text" class="form-control" value>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Instagram</label>
+                                    <input type="text" class="form-control" value="https://www.instagram.com/user">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="account-connections">
+                            <div class="card-body">
+                                <button type="button" class="btn btn-twitter">Conectar a <strong>Twitter</strong></button>
+                            </div>
+                            <hr class="border-light m-0">
+                            <div class="card-body">
+                                <h5 class="mb-2">
+                                    <a href="javascript:void(0)" class="float-right text-muted text-tiny"><i class="ion ion-md-close"></i> Eliminar</a>
+                                    <i class="ion ion-logo-google text-google"></i>
+                                    Estás conectado a Google:
+                                </h5>
+                                <a href="#" class="__cf_email__" data-cfemail="...">[email&#160;protected]</a>
+                            </div>
+                            <hr class="border-light m-0">
+                            <div class="card-body">
+                                <button type="button" class="btn btn-facebook">Conectar a <strong>Facebook</strong></button>
+                            </div>
+                            <hr class="border-light m-0">
+                            <div class="card-body">
+                                <button type="button" class="btn btn-instagram">Conectar a <strong>Instagram</strong></button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="account-notifications">
+                            <div class="card-body pb-2">
+                                <h6 class="mb-4">Actividad</h6>
+                                <div class="form-group">
+                                    <label class="switcher">
+                                        <input type="checkbox" class="switcher-input" checked>
+                                        <span class="switcher-indicator">
+                                            <span class="switcher-yes"></span>
+                                            <span class="switcher-no"></span>
+                                        </span>
+                                        <span class="switcher-label">Enviarme un correo cuando alguien comente en mi artículo</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="switcher">
+                                        <input type="checkbox" class="switcher-input" checked>
+                                        <span class="switcher-indicator">
+                                            <span class="switcher-yes"></span>
+                                            <span class="switcher-no"></span>
+                                        </span>
+                                        <span class="switcher-label">Enviarme un correo cuando alguien responda en mi hilo del foro</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="switcher">
+                                        <input type="checkbox" class="switcher-input">
+                                        <span class="switcher-indicator">
+                                            <span class="switcher-yes"></span>
+                                            <span class="switcher-no"></span>
+                                        </span>
+                                        <span class="switcher-label">Enviarme un correo cuando alguien me siga</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <hr class="border-light m-0">
+                            <div class="card-body pb-2">
+                                <h6 class="mb-4">Aplicación</h6>
+                                <div class="form-group">
+                                    <label class="switcher">
+                                        <input type="checkbox" class="switcher-input" checked>
+                                        <span class="switcher-indicator">
+                                            <span class="switcher-yes"></span>
+                                            <span class="switcher-no"></span>
+                                        </span>
+                                        <span class="switcher-label">Noticias y anuncios</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="switcher">
+                                        <input type="checkbox" class="switcher-input">
+                                        <span class="switcher-indicator">
+                                            <span class="switcher-yes"></span>
+                                            <span class="switcher-no"></span>
+                                        </span>
+                                        <span class="switcher-label">Actualizaciones de productos semanales</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="switcher">
+                                        <input type="checkbox" class="switcher-input" checked>
+                                        <span class="switcher-indicator">
+                                            <span class="switcher-yes"></span>
+                                            <span class="switcher-no"></span>
+                                        </span>
+                                        <span class="switcher-label">Resumen semanal del blog</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="text-right mt-3">
+            <button type="button" class="btn btn-primary">Guardar Cambios</button>&nbsp;
+            <button type="button" class="btn btn-default">Cancelar</button>
+        </div>
+        <br><br>
+    </div>
+</div>
+    {% include 'inc/footer.html' %}
+</body>
+
+</html>

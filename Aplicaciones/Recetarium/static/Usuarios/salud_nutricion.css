@@ -1,0 +1,200 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(315deg, rgb(25, 100, 65) 3%, rgba(36, 121, 36, 0.514) 38%, rgb(35, 146, 109) 68%, rgb(33, 71, 54) 98%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+    min-height: 100vh; /* Asegura que el cuerpo ocupe al menos toda la altura de la ventana */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+.wave {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 1000% 1000% 0 0;
+    position: fixed;
+    width: 200%;
+    height: 12em;
+    animation: wave 10s -3s linear infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.wave:nth-of-type(2) {
+    bottom: -1.25em;
+    animation: wave 18s linear reverse infinite;
+    opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+    bottom: -2.5em;
+    animation: wave 20s -1s reverse infinite;
+    opacity: 0.9;
+}
+
+@keyframes wave {
+    2% {
+        transform: translateX(1);
+    }
+
+    25% {
+        transform: translateX(-25%);
+    }
+
+    50% {
+        transform: translateX(-50%);
+    }
+
+    75% {
+        transform: translateX(-25%);
+    }
+
+    100% {
+        transform: translateX(1);
+    }
+}
+
+.contenedor {
+    padding: 30px;
+    border-radius: 15px;
+    width: 85%;
+    height: auto; 
+    max-width: 85%; /* Ancho máximo para evitar que el contenido se extienda demasiado */
+    justify-content: center; /* Centra los elementos flexibles horizontalmente */
+    gap: 30px; /* Espacio entre los elementos */
+    text-align: center;
+    margin: auto;
+}
+
+.c{
+    display: none;
+}
+
+.col {
+    flex: 1 1 300px; /* Flex-grow, flex-shrink, flex-basis */
+    max-width: calc(50% - 20px); /* Ancho máximo del 50% menos el espacio entre columnas */
+    height: 390px;
+    margin: 10px; /* Margen entre las columnas */
+    padding: 20px; /* Espacio interno */
+    border-radius: 25px; /* Borde redondeado */
+    border: 2px solid rgba(255, 255, 255, 0.209);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
+    background-size: cover; /* Ajusta la imagen de fondo */
+    background-position: center; /* Centra la imagen de fondo */
+    text-align: center; /* Alineación del texto */
+    color: white; /* Color del texto */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones */
+}
+
+.col::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.53);
+    border-radius: 15px;
+}
+
+.col:hover {
+    transform: scale(1.05); /* Escala el contenedor al 105% cuando se pasa el cursor */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.579); /* Sombra aumentada al pasar el ratón */
+}
+.col h1 {
+    color: white;
+    margin-top: auto;
+    text-align: center;
+    font-size: 35px;
+    position: relative;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    text-decoration: none;
+    z-index: 1;
+}
+.col a:hover{
+    text-decoration: none;
+}
+.col h1:hover{
+    text-decoration: none;
+    color: #28a56b;
+    transition: color 0.7s ease ;
+}
+
+.col p {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    position: relative;
+    font-family: "Urbanist", sans-serif;
+    z-index: 1;
+}
+
+.col h3{
+    font-size: 25px;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    color: white;
+    box-shadow: rgb(255, 255, 255);
+}
+
+.col:nth-child(1) {
+    background: url('https://images.pexels.com/photos/6062042/pexels-photo-6062042.jpeg?auto=compress&cs=tinysrgb&w=600') no-repeat center center/cover;
+    position: relative;
+}
+
+.col:nth-child(2) {
+    background: url('https://images.pexels.com/photos/1833335/pexels-photo-1833335.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+}
+
+.col:nth-child(3) {
+    background: url('https://images.pexels.com/photos/7613555/pexels-photo-7613555.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 10px;
+        width: 90%; /* Ancho máximo ajustado para dispositivos pequeños */
+        margin-top: 1em; /* Espacio superior reducido */
+    }
+
+    .col {
+        max-width: calc(100% - 20px); /* Ancho completo menos el margen entre columnas */
+        height: auto;
+        padding: 10px;
+        width: auto;
+    }
+
+    .col::before{
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
+
+    }
+    
+    .c{
+        display: block;
+        font-size: 5px;
+        color: white;
+        font-family: 'Courgette', cursive;
+        font-family: 'Lobster', sans-serif;
+    }
+}

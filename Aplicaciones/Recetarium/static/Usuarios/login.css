@@ -7,12 +7,12 @@
 }
 
 body {
-    background: url('https://images.pexels.com/photos/5794876/pexels-photo-5794876.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+    background: url('https://images.pexels.com/photos/14785919/pexels-photo-14785919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
     width: 100%;
     height: 100vh;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow: auto; /* Permitir desplazamiento en la página */
 }
 
 main {
@@ -21,6 +21,39 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 25px;
+}
+
+.texts{
+    text-align: center;
+}
+
+.iniciar{
+    display:none;
+}
+
+.rc , .frase{
+    color: white;
+
+}
+
+.rc{
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+}
+
+.iniciar ,.frase{
+    font-family: "Urbanist", sans-serif;
+
+}
+
+a {
+    color: #007bff;
+    text-decoration: none !important;
+    transition: color 0.4s ease;
+}
+a:hover{
+    color: #28a56b;
 }
 
 .form {
@@ -28,15 +61,16 @@ main {
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 520px;
+    width: 620px;
     max-width: 90%;
     height: 560px;
     border: 4px solid transparent; /* Agrega el borde */
-    transition: border-color 0.3s ease; /* Aplica la transición al cambio de color del borde */
+    transition: border-color 0.3s ease , transform 0.5s ease; /* Aplica la transición al cambio de color del borde */
 }
 
 .form:hover {
     border-color: #28a56b; /* Cambia el color del borde al pasar el ratón por encima */
+    transform: scale(1.05); /* Escala el contenedor al 105% cuando se pasa el cursor */
 }
 
 
@@ -57,7 +91,7 @@ form .form-group {
     text-align: left;
 }
 
-form input[type="text"],
+form input[type="email"],
 form input[type="password"] {
     width: calc(100% - 10px);
     padding: 10px;
@@ -116,3 +150,41 @@ form button:hover {
 
 
 
+@media (max-width: 768px) {
+    body {
+        background: url('https://images.pexels.com/photos/4686826/pexels-photo-4686826.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        overflow: auto; 
+    }
+
+    .iniciar{
+        display: block;
+        font-family: "Urbanist", sans-serif;
+        color: white;
+    }
+
+    main {
+        width: 100%;
+        height: 50%; 
+    }
+
+    .form:hover {
+        border: none; 
+    }
+    
+}
+
+@media (max-width: 381px) {
+    body {
+        background: url('https://images.pexels.com/photos/7613549/pexels-photo-7613549.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        overflow: auto; /* Permitir desplazamiento en la página */
+        
+    }
+}

@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    top: 0;
+}
+
+header{
+    top: 5px;
+}
+
+.encabezado {
+    display: flex;
+    justify-content: space-between; /* Ajusta la distribución horizontal */
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+    font-size: 3.5vw; /* Tamaño de fuente responsive */
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    position: relative; /* Necesario para el posicionamiento absoluto de .pagina */
+}
+
+.logo {
+    margin-left: 30px;
+}
+
+.logo h1, .pagina h2 {
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    color: rgb(255, 255, 255);
+    transition: color 0.3s ease, font-size 0.3s ease;
+    text-align: center;
+}
+
+.pagina {
+    position: absolute; /* Posiciona .pagina de forma absoluta */
+    left: 50%; /* Mueve horizontalmente el centro del elemento */
+    transform: translateX(-50%); /* Ajusta el desplazamiento para centrar */
+    text-align: center; /* Asegura que el texto esté centrado */
+}
+
+.pagina h2 {
+    font-size: 50px;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo i {
+    color: white;
+    margin-right: 8px;
+    transition: color 0.4s ease;
+}
+
+.logo i:hover {
+    color: #28a56b;
+}
+
+.slogan a {
+    text-decoration: none;
+}
+
+.slogan h1 {
+    text-decoration: none;
+    margin-right: 115px;
+    color: #ffffff;
+    font-family: "Urbanist", sans-serif;
+    font-size: 24px;
+    transition: color 0.3s ease;
+}
+
+.logo:hover h1, .pagina h2:hover {
+    font-size: 45px;
+}
+
+.slogan h1:hover {
+    color: #28a56b !important;
+}
+
+@media (max-width: 768px) {
+    .pagina {
+        display: none; /* Oculta el elemento con clase "pagina" en dispositivos móviles */
+    }
+    .logo i {
+        font-size: 55px;
+       
+    }
+}
+
+@media (max-width: 381px) {
+    .slogan h1 {
+        text-decoration: none;
+        margin-right: 20px;
+        color: white;
+        font-family: "Urbanist", sans-serif;
+        font-size: 24px;
+        transition: color 0.3s ease;
+    }
+    .slogan h1:hover{
+        color: #28a56b;
+    }
+}

@@ -1,0 +1,36 @@
+{% load static %}
+
+{% include "inc/header.html" %}
+
+<link rel="stylesheet" href="{% static 'Calculadora/calculadora.css' %}">
+
+<body>
+    <main>
+        <div class="container">
+            <form id="imcForm" method="POST">
+                <div class="alertas" id="alertas"></div>        
+                <div class="text">
+                    <h1 class="rc">Recetarium</h1>
+                    <h3 class="place">Calculadora Imc</h3>
+                    <h2>¡ Ingresa tus datos y recomendaremos las mejores !</h2>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label for="estatura">Ingresa Tu Estatura</label>
+                    <input type="number" class="form-control" id="estatura" name="estatura" placeholder="Ej: 1,68 (Mt)">
+                </div>
+                <div class="form-group">
+                    <label for="peso">Ingresa Tu Peso</label>
+                    <input type="number" class="form-control" id="peso" name="peso" placeholder="Ej: 80 (kl)">
+                </div>
+                <button type="button" class="btn btn-primary" onclick="calcularIMC()">Calcular</button>
+                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Inicio</button>
+            </form> 
+        </div>
+    </main>
+
+    {% include "inc/footer.html" %}
+
+    <script src="{% static 'js/calculadora.js' %}"></script>
+</body>
+</html>

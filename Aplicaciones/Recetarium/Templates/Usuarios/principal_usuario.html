@@ -1,0 +1,205 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recetarium</title>
+    <!-- Enlace al archivo CSS de Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Enlace a tu archivo CSS personalizado -->
+    <link rel="stylesheet" href="{% static 'Usuarios/principal_usuario.css' %}">
+</head>
+
+<body>
+    <header class="transparent">
+        <div class="container">
+            <div class="logo">
+                 <a href="/" onclick="confirmLogout()">RC</a>
+            </div>
+            <div class="slogan">Recetarium</div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'informacion' %}">Novedades</a></li>
+                    <li><a href="{% url 'soporte_tecnico' %}">Soporte Técnico</a></li>
+                    <li>
+                        {% if user.is_authenticated %}
+                        <div class="dropdown">
+                            <button class="btn btn-primary text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius: 25px; background-color: #16794b; border: 1px solid white;" > 
+                                {{ user.username }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <h3 style="color: #16794b; font-size: 20px; margin-left: 23px;">Opciones</h3>
+                                <hr style="background-color: #16794b; width: 95%; height: 3px; margin: auto; border-radius: 24px;">
+                                <a class="dropdown-item" href="{% url 'perfil_usuario' user.id %}">Ver mi perfil</a>
+                                <a class="dropdown-item" href="{% url 'ver_recetas_usuarios' request.user.id %}">Mis recetas</a>
+                                <a class="dropdown-item" href="{% url 'receta_crear' %}" >Crear Receta</a>
+                                <a class="dropdown-item" href="{% url 'logoutusuarios' %}">Cerrar sesión</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+     </header>
+
+  
+
+    <div class="content">
+        <h1 style="font-family: 'Courgette', cursive, 'Lobster', sans-serif ">Bienvenido a Recetarium</h1>
+        <small>La Mejor Manera de Cocinar.</small>
+        <br>
+        <br>
+    </div>
+
+    <section class="section-container">
+
+        <div class="card-items">
+           <a href="{% url 'lista_recetas' %}"><h1>Recetas Disponibles</h1></a>
+            <p>Podrás encontrar todas las recetas disponibles en la página al momento y las calificaciones o tendencias que hay en el momento junto con una búsqueda que puedes hacer sobre tu receta favorita para empezar a elaborarla.</p>
+            <small></small>
+        </div>
+        <div class="card-items">
+           <a href="{% url 'salud_nutricion' %}"> <h1>Salud Y Nutricion</h1></a>
+            <p>En este apartado puedes encontrar Planes Nutricionales y Dietas que puedes ajustar o seleccionar de acuerdo a tus necesidades alimenticias y rutinas a la hora de comer para poder seguir o crear un hábito.</p>
+            <small></small>
+        </div>
+        <div class="card-items">
+            <a href="{% url 'crear_elegir_receta' %}"> <h1>Crea tus Propias Recetas</h1></a>
+            <p>En Recetarium puedes crear tus recetas y guardarlas o poder publicarlas con las demás personas para que sean calificadas y comentadas por expertos o por la comunidad de usuarios existente en la plataforma.</p>
+            <small></small>
+        </div>
+        <div class="card-items">
+           <a href="#"><h1>Generador de Recetas</h1></a>
+            <p>Con las cosas que tienes a tu alcance puedes generar una receta a partir de las cosas exactas que tienes y unas instrucciones que te pueden ayudar a realizarla y poder aprovechar más la comida de tu alcance para evitar desperdicios.</p>
+            <small></small>
+        </div>
+        <div class="card-items">
+            <a href="{% url 'lista_consejeros' %}"><h1>Consejeros</h1></a>
+             <p>Con las cosas que tienes a tu alcance puedes generar una receta a partir de las cosas exactas que tienes y unas instrucciones que te pueden ayudar a realizarla y poder aprovechar más la comida de tu alcance para evitar desperdicios.</p>
+             <small></small>
+         </div>
+  </section>
+  <hr>
+  <main>
+
+    <h2>¡ La Delicia Esta En Tus Manos !</h2>
+    <div class="container2">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row">
+                    <div class="col-md-6 order-md-last">
+                        <h1>Explora Nuevos Sabores
+                        </h1>
+                        <p class="int">Descubre una variedad de recetas deliciosas y experimenta con sabores que deleitarán tus sentidos para alimentar tu creatividad a la hora de cocinar. podras esperimentar con combinaciones de recetas que nunca habias visto o recrear alguna de tu preferencia basada en tus gustos mas deliciosos </p>
+                        <small>Recetarium</small>
+                    </div>
+                    <div class="col-md-6">
+                        <img class="d-block w-100" src="https://images.pexels.com/photos/5645050/pexels-photo-5645050.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Primera imagen">
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    <div class="col-md-6 order-md-last">
+                        <h1> Expertos En Gastronomía</h1>
+                        <p class="init3">¿ Necesitas Ayuda ? Contamos con nuestros Consejeros que te van ayudar en tu proceso de preparacion de Recetas que quieras descubrir , se adecuen a tus gustos  o enseñarte a cocinar desde cero para que puedas desarrollar un gusto por la Cocina desde Tu Hogar.</p>
+                        <small>Recetarium</small>
+
+                    </div>
+                    <div class="col-md-6">
+                        <img class="d-block w-100" src="https://images.pexels.com/photos/8629077/pexels-photo-8629077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Segunda imagen">
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    <div class="col-md-6 order-md-last">
+                        <h1>Crea una nueva Receta</h1>
+                        <p class="int1">¡Crea tus propias recetas y compártelas con la comunidad! Aprovecha esta oportunidad para compartir tus recetas favoritas y descubrir nuevas. Descubre Recetas de los demas usuarios y dar tus opiniones para que todos tengamos ese conociiento al alcance. </p>
+                        <small>Recetarium</small>
+
+                    </div>
+                    <div class="col-md-6">
+                        <img class="d-block w-100" src="https://images.pexels.com/photos/5677302/pexels-photo-5677302.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Tercera imagen">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Siguiente</span>
+        </a>
+    </div>
+</div>
+
+    <div class="informacion">
+        <h1>Recetarium</h1>
+        <p> El proyecto Recetarium busca solucionar problemas que tienen las personas al momento de cocinar, como la inexperiencia, problemas económicos, falta de creatividad o algunos más que pueden ocurrir. Hace el mayor énfasis en el aprovechamiento de la comida, tiempo y dinero, haciendo que el desperdicio y las sobras de comida en la casa se resuelvan en casi su totalidad y fomentando el gusto por la cocina o en un campo más avanzado de la gastronomía. <br><br>Mejora de la salud y asesoramiento Puede mejorar la salud de las personas a través de recetas especiales que aumenten las vitaminas o recetas que sean recomendadas para personas que padecen de ciertas enfermedades o que quieren tener mejores hábitos alimenticios. Brinda la opción de un servicio a parte donde habrá una persona que sea un consejero a la hora de cocinar algo con ciertos ingredientes, ingredientes precisos que necesite algún plato o receta en concreto o los ingredientes disponibles por el cliente en ese momento. <br><br>
+        </p>
+        <h6>¡La mejor Manera de Cocinar!</h6>
+    </div>
+  </main>
+  <footer>
+    <div class="bordeado">
+        <h1>RC</h1>
+    </div>
+    <p>&copy; 2023 <b>Recetarium</b> Todos los derechos Reservados</p>
+    <div class="social-icons">
+      <a href="#" target="_blank">Facebook</a>
+      <a href="#" target="_blank">Twitter</a>
+      <a href="#" target="_blank">Instagram</a>
+    </div>
+  </footer>
+
+  <!-- Scripts de Bootstrap 4 y jQuery -->
+
+  <script>
+        function confirmLogout() {
+            
+            if (confirm("¿Desea cerrar sesión?")) {
+                fetch("{% url 'logoutusuarios' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '{% url "loginusuarios" %}';
+                    } else {
+                        alert("Error al cerrar sesión. Inténtalo de nuevo.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Error al cerrar sesión. Inténtalo de nuevo.");
+                });
+            }
+        }
+    </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        
+
+</body>
+
+</html>

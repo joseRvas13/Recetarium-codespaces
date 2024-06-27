@@ -7,12 +7,12 @@
 
 
 <main>
-    <div class="container">
+    <div class="containers">
         <div class="contact-form my-1 p-3">
             {% if messages %}
             {% for message in messages %}
             <div class="alert alert-dismissible {% if message.tags == 'success' %}alert-success{% elif message.tags == 'warning' %}alert-warning{% elif message.tags == 'error' %}alert-danger{% else %}alert-info{% endif %}"
-                role="alert">
+                role="alert" style="border-radius: 15px; background-color: #38a56b; color: white; border: none;">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -51,6 +51,7 @@
                     <input type="password" class="form-control pl-5" placeholder="Confirmar Contraseña"
                         id="confirmar_contraseña" name="confirmar_contraseña" required>
                 </div>
+                <hr>
                 <button type="submit" class="btn btn-primary btn-block">Crear Cuenta</button><br>
                 <p class="text-center">¿Ya Tienes una Cuenta? <a href="/Usuarios/login"><b>Iniciar Sesion</b></a></p>
 

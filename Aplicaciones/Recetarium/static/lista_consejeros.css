@@ -77,9 +77,6 @@ body.trasparent{
     }
 }
 
-
-
-
 .encabezado {
     display: flex;
     justify-content: space-between; /* Ajusta la distribución horizontal */
@@ -252,7 +249,7 @@ body.trasparent{
     background-color: #000000; /* Color de fondo al pasar el cursor */
 }
 
- q 
+    
 .pagination {
     text-align: center;
     margin-top: 20px;
@@ -284,7 +281,6 @@ body.trasparent{
 
 
 .card {
-    border: 3px solid #d6e6e0;
     background: rgba(243, 243, 243, 0.918);
     margin-top: 35px ;
     max-width: 360px;
@@ -303,12 +299,19 @@ body.trasparent{
     transform: scale(1.05); 
 }
 
-
 .card-img-top {
-    border-radius: 25px;
-    width: 100%;
+    border-top-left-radius: 20px; /* Radio de borde para la esquina superior izquierda */
+    border-top-right-radius: 20px;    width: 100%;
     height: 300px;
     object-fit: cover;
+}
+
+.card hr{
+    border-radius: 25px;
+    background-color: #28a56b;
+    width: 100%;
+    height: 3px;
+    margin:  0 auto;
 }
 
 .card h1{

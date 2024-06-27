@@ -8,14 +8,30 @@
 }
 
 body {
-    background: url('https://images.pexels.com/photos/12674029/pexels-photo-12674029.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
-    width: 100%;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    background: url('https://images.pexels.com/photos/7594969/pexels-photo-7594969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+    overflow: auto;
 }
-.contact-form h2, p{
+
+
+.contact-form{
+    border-radius: 25px;
+    padding: 20px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.486);
+    width: 620px;
+    border-radius: 15px;
+    transition: transform 0.4s ease;
+
+}
+    
+.contact-form:hover{
+    transform: scale(1.05); /* Escala el contenedor al 105% cuando se pasa el cursor */}
+
+.contact-form h2{
+    display: none;
+}
+
+.contact-form  p{
     color: white;
     font-size: 30px;
     font-family: "Urbanist", sans-serif;
@@ -29,18 +45,65 @@ body {
     font-size: 55px;
 }
 
-.contact-form{
-    max-width: 100%;
+.containers{
+    margin-bottom: 29px;
 }
+
 
 .form-group input{
     font-family: "Urbanist", sans-serif;
-    font-size: 15px;
+    font-size: 19px;
     border-radius: 25px;
 }
 
-.form-group button{
-    border-radius: 25px;
+.ui hr{
+    height: 5px;
+    border-radius: 15px;
+    background-color: #28a56b;
 }
 
+.ui button{
+    margin: 0 auto;
+    width: 50%;
+    border-radius: 15px;
+}
 
+.ui p{
+    font-size: 25px;
+}
+
+@media (max-width: 768px) {
+    body {
+        background: url('https://images.pexels.com/photos/4252142/pexels-photo-4252142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        
+    }
+    .contact-form{
+        width: auto;
+        height: auto;
+    }
+
+    .contact-form h2{
+        color: white;
+        display: block;
+        font-size: 30px;
+        font-family: "Urbanist", sans-serif;
+    }
+
+    .containers{
+        margin-top: 25px;
+        margin-bottom: 55px;
+
+    }
+    .frase{
+        font-size: 15px;
+    }
+
+    .form-group input{
+        font-family: "Urbanist", sans-serif;
+        font-size: 19px;
+        border-radius: 25px;
+    }
+ }

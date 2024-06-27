@@ -1,0 +1,94 @@
+body {
+    background: url('https://images.pexels.com/photos/1556688/pexels-photo-1556688.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+.container {
+    width: 35%;
+}
+
+.contact-form {
+    border: 2px solid  rgb(0, 123, 255);
+    background: rgba(243, 243, 243, 0.568);
+    margin-top: 35px;
+    text-align: center;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
+                0 6px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px;
+}
+
+.contact-form:hover {
+    border: 3px solid #28a56b;
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2),
+                0 14px 28px rgba(0, 0, 0, 0.25);
+}
+
+.contact-form h2{
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+    color: white;
+    font-size: 45px;
+}
+
+.contact-form h3{
+    font-family: "Urbanist", sans-serif;
+    color: white;
+}
+
+.form-group input{
+    font-family: "Urbanist", sans-serif;
+    border-radius: 20px;
+    border: 1px solid rgb(201, 191, 191);
+}
+
+.form-group input:hover{
+    border: 3px solid #28a56b;
+}
+
+.form-group textarea{
+    font-family: "Urbanist", sans-serif;
+    border-radius: 20px;
+}
+
+.form-group textarea:hover{
+    border: 3px solid #28a56b;
+}
+
+.contact-form button{
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-size: 20px;
+    background-color:  rgb(0, 123, 255);
+    transition: background-color 0.4s ease;
+}
+
+.contact-form button:hover{
+    background-color: #28a56b;
+}
+
+.form-group i{
+    color: grey;
+}
+
+.form-group i:hover{
+    color: #28a56b;
+}
+
+/*estilos modificados a la version del proyecto en github  12/06/2024 */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        height: auto; /* Oculta el elemento con clase "pagina" en dispositivos móviles */
+    }
+  
+}

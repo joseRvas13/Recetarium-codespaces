@@ -18,7 +18,7 @@ class Receta(models.Model):
     instrucciones = models.CharField(max_length=255)
     tiempo_preparacion = models.CharField(max_length=10)
     dificultad = models.CharField(max_length=20)
-    imagen = models.CharField(max_length=10)
+    imagen = models.ImageField(upload_to="recetas/")
     fecha_registro_receta = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 

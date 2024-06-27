@@ -18,36 +18,42 @@ import re
 from django.core.mail import send_mail
 from django.db.models import Q
 from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.conf import settings
+from django.http import JsonResponse
 
 
-# region INDEX
 
+# region INDEX Y 404
+
+
+def Not_Found(request):
+    pagina_actual = "Not_Found"
+    return render(request, "404.html", {"pagina": pagina_actual})
 
 def index(request):
     return render(request, "index.html")
 
 
 def bienvenido(request):
-    return render(request, "recetarium.html")
+    pagina_actual = "bienvenido" 
+    return render(request, "recetarium.html", {"pagina": pagina_actual})
+
+
 
 
 # endregion
 
 
 def informacion(request):
-    return render(request, "informacion.html")
-
-
-def crear_elegir_receta(request):
-    pagina_actual = "crear_elegir_receta"
-    return render(request, "Crear_Elegir_Receta.html")
+    pagina_actual = "informacion" 
+    return render(request, "informacion.html", {"pagina": pagina_actual})
 
 
 def olvido_contraseña(request):
     pagina_actual = "olvido_contraseña"
-    return render(request, "Olvido_Contraseña.html")
+    return render(request, "Olvido_Contraseña.html", {"pagina": pagina_actual})
 
 
 def salud_nutricion(request):
@@ -56,8 +62,10 @@ def salud_nutricion(request):
 
 
 def plan_nutricional(request):
+    if not request.user.is_authenticated:
+        return redirect("/Usuarios/login")
     pagina_actual = "plan_nutricional"
-    return render(request, "plan_nutricional.html", {"pagina": pagina_actual})
+    return render(request, "Usuarios/plan_nutricional.html", {"pagina": pagina_actual})
 
 
 # region SOPORTE TECNICO
@@ -68,13 +76,14 @@ def soporte_tecnico(request):
 
     if request.method == "POST":
         descripcion = request.POST.get("descripcion")
+        email = request.POST.get("email")
 
         # Validar si la descripción no está vacía
-        if descripcion:
+        if descripcion and email:
             # Enviar correo
             send_mail(
                 "Nuevo problema reportado",
-                f"Descripción del problema:\n{descripcion}",
+                f"Descripción del problema:\n{descripcion}\n\nCorreo del remitente:\n{email}",
                 settings.DEFAULT_FROM_EMAIL,
                 ["recetarium19@gmail.com"],
                 fail_silently=False,
@@ -85,15 +94,16 @@ def soporte_tecnico(request):
                 "Tu solicitud ha sido enviada correctamente. Nos pondremos en contacto contigo pronto.",
             )
             # Redirigir a una página de confirmación o regresar al formulario (según el flujo de tu aplicación)
-            return redirect("/")
+            return redirect("soporte_send")
         else:
-            # Mostrar mensaje de error si la descripción está vacía
+            # Mostrar mensaje de error si la descripción o el email están vacíos
             messages.error(
-                request, "Por favor proporciona una descripción del problema."
+                request, "Por favor proporciona una descripción del problema y tu correo electrónico."
             )
 
+    # Renderizar la plantilla del formulario
+    return render(request, "soporte.html", {"pagina_actual": pagina_actual})
     # Renderizar el formulario inicial si no es método POST o si hay errores
-    return render(request, "Soporte/soporte.html", {"pagina": pagina_actual})
 
 
 def soporte_send(request):
@@ -102,51 +112,22 @@ def soporte_send(request):
 
 
 # end
+    
 
-# region 404
-
-
-def Not_Found(request):
-    pagina_actual = "Not_Found"
-    return render(request, "404.html", {"pagina": pagina_actual})
+def home(request):
+    return render(request, "index.html")
 
 
-# endrefion
 
-
-# region FORMULARIO DE CREAR RECETAS (USUARIO)
-def receta_crear(request):
-    pagina_actual = "receta_crear"
-    return render(request, "receta_crear.html", {"pagina": pagina_actual})
-
-
-# endregion
-
-
-def invalid_page(request):
-    return render(request, "invalid_page.html")
-
-
-# PÁGINA RECETAS DISPONIBLES
-def lista_recetas(request):
-    pagina_actual = "lista_recetas"
-    recetas = Receta.objects.all()
-    return render(
-        request, "lista_recetas.html", {"recetas": recetas, "pagina": pagina_actual}
-    )
-
+# region CONSEJEROS DISPONIBLES
 
 def lista_consejeros(request):
-    consejeros = Consejero.objects.all()
-    return render(request, "lista_consejeros.html", {"consejeros": consejeros})
-
-
-# region paginacion consejeros
-def lista_consejeros(request):
+    if not request.user.is_authenticated:
+        return redirect("/Usuarios/login")
     pagina_actual = "lista_consejeros"
     consejeros_list = Consejero.objects.all().order_by(
         "id_consejero"
-    )  # Asegúrate de que el nombre del modelo es Consejero
+    ) 
     consejeros_por_pagina = 9
     paginator = Paginator(consejeros_list, consejeros_por_pagina)
 
@@ -160,7 +141,7 @@ def lista_consejeros(request):
 
     return render(
         request,
-        "lista_consejeros.html",
+        "Consejeros/lista_consejeros.html",
         {"consejeros": consejeros, "pagina": pagina_actual},
     )
 
@@ -168,17 +149,9 @@ def lista_consejeros(request):
 # endregion
 
 
-# region PÁGINA DETALLES DE LAS RECETAS POR SU ID
-def detalle_receta(request, id_receta):
-    receta = Receta.objects.get(pk=id_receta)
-    return render(request, "detalle_receta.html", {"receta": receta})
-
-
-# endregion
-
-
-# region PÁGINACION RECETAS DISPONIBLES
+# region  RECETAS DISPONIBLES
 def lista_recetas(request):
+    pagina_actual = "lista_recetastas"
     recetas_list = Receta.objects.all()
     recetas_por_pagina = 21
     paginator = Paginator(recetas_list, recetas_por_pagina)
@@ -187,7 +160,7 @@ def lista_recetas(request):
     # Verificar si el parámetro de página está presente
     if page_number is None:
         # Si no hay parámetro de página, redirigir a la primera página
-        return render(request, "lista_recetas.html", {"recetas": paginator.page(1)})
+        return render(request, "Recetas/lista_recetas.html", {"recetas": paginator.page(1)})
 
     try:
         recetas = paginator.page(page_number)
@@ -198,54 +171,18 @@ def lista_recetas(request):
         # Si el número de página está fuera del rango, mostrar la página de error personalizada
         return render(request, "invalid_page.html")  # Redirigir a la página de error
 
-    return render(request, "lista_recetas.html", {"recetas": recetas})
+    return render(request, "Recetas/lista_recetas.html", {"recetas": recetas , "pagina": pagina_actual})
+
+def detalle_receta(request, id_receta):
+    pagina_actual = "detalle_receta"
+    receta = Receta.objects.get(pk=id_receta)
+    return render(request, "Recetas/detalle_receta.html", {"receta": receta, "pagina": pagina_actual})
 
 
-# endregion
 
-
-# region SIGNUP USUARIO, LOGIN , LOGOUT ,REGISTER
-def Registro(request):
-    pagina_actual = "Registro"
-    if request.method == "POST":
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            # Verificar si el correo electrónico ya existe en la base de datos
-            if User.objects.filter(email=form.cleaned_data["email"]).exists():
-                # Si el correo electrónico ya existe, mostrar un mensaje de error
-                return render(
-                    request,
-                    "registro.html",
-                    {
-                        "form": form,
-                        "error_message": "El correo electrónico ya está en uso. Por favor, utiliza otro.",
-                    },
-                )
-            else:
-                # Si el correo electrónico es único, guardar el formulario y crear el usuario
-                form.save()
-                email = form.cleaned_data["email"]
-                password = form.cleaned_data["password1"]
-                user = authenticate(request, email=email, password=password)
-                login(request, user)
-                # No establecer signup_success en la sesión aquí
-                return redirect(
-                    "/"
-                )  # Redirigir a la página de éxito después del registro
-    else:
-        form = CustomUserCreationForm()
-    return render(request, "Registro.html", {"form": form, "pagina": pagina_actual})
-
-
-def home(request):
-    return render(request, "index.html")
-
-
-# endregion
-
-
-# region FUNCIONALIAD BUSQUEDA DE RECETAS (RECETAS DISPONIBLES)
 def buscar_recetas(request):
+    if not request.user.is_authenticated:
+        return redirect("/Usuarios/login")
     query = request.GET.get("search")
     categoria = request.GET.get("categoria")
     dificultad = request.GET.get("dificultad")
@@ -268,45 +205,95 @@ def buscar_recetas(request):
     # Filtrar las recetas utilizando la consulta construida
     recetas = Receta.objects.filter(consulta).distinct()
 
-    return render(request, "lista_recetas.html", {"recetas": recetas})
+    return render(request, "Recetas/lista_recetas.html", {"recetas": recetas})
+
+@login_required
+def receta_crear(request):
+    pagina_actual = "receta_crear"
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        nombre_plato = request.POST.get('nombre_plato')
+        categoria = request.POST.get('categoria')
+        temporada = request.POST.get('temporada')
+        origen = request.POST.get('origen')
+        ingredientes = request.POST.get('ingredientes')
+        descripcion = request.POST.get('descripcion')
+        instrucciones = request.POST.get('instrucciones')
+        tiempo_preparacion = request.POST.get('tiempo_preparacion')
+        dificultad = request.POST.get('dificultad')
+        imagen = request.FILES.get('imagen')  # Usar get para manejar el caso de que no haya imagen
+
+        # Obtener el usuario actual
+        usuario = request.user
+
+        # Crear la nueva instancia de Receta
+        nueva_receta = Receta(
+            nombre_plato=nombre_plato,
+            categoria=categoria,
+            temporada=temporada,
+            origen=origen,
+            ingredientes=ingredientes,
+            descripcion=descripcion,
+            instrucciones=instrucciones,
+            tiempo_preparacion=tiempo_preparacion,
+            dificultad=dificultad,
+            imagen=imagen,
+            usuario=usuario  # Asignar el usuario actual
+        )
+
+        # Guardar la receta en la base de datos
+        nueva_receta.save()
+    
+        return redirect('lista_recetas')
+    else:
+        # Manejar el caso de solicitud GET si es necesario
+        return render(request, 'Recetas/receta_crear.html', {"pagina": pagina_actual})
+    
+def crear_elegir_receta(request):
+    if not request.user.is_authenticated:
+        return redirect("/Usuarios/login")
+    pagina_actual = "crear_elegir_receta"
+    return render(request, "Recetas/Crear_Elegir_Receta.html", {"pagina": pagina_actual})
 
 
+
+def ver_recetas_usuarios(request, usuario_id):
+    user = get_object_or_404(User, id=usuario_id)
+    recetas_usuario = Receta.objects.filter(usuario=user)
+    return render(
+        request,
+        "Recetas/ver_recetas_usuarios.html",
+        {"user": user, "recetas_usuario": recetas_usuario},
+    )
 # endregion
 
-# region DIETAS DISPONIBLES - CALENDARIO
-
-
+# region DIETAS DISPONIBLES 
 def lista_dietas(request):
-    dietas = Dieta.objects.all()
-    return render(request, "dietas_disponibles/lista_dietas.html", {"dietas": dietas})
-
-
-def lista_dietas(request):
+    if not request.user.is_authenticated:
+        return redirect("/Usuarios/login")
+    pagina_actual = "lista_dietas"
     dietas_list = Dieta.objects.all()
     dietas_por_pagina = 15
     paginator = Paginator(dietas_list, dietas_por_pagina)
     page_number = request.GET.get("page")
 
-    # Verificar si el parámetro de página está presente
     if page_number is None:
         # Si no hay parámetro de página, redirigir a la primera página
-        return render(
-            request,
-            "dietas_disponibles/lista_dietas.html",
-            {"dietas": paginator.page(1)},
-        )
+        page_number = 1
 
     try:
         dietas = paginator.page(page_number)
     except PageNotAnInteger:
-        # Si el número de página no es un entero, mostrar la página de error personalizada
-        return render(request, "invalid_page.html")  # Redirigir a la página de error
+        # Si el número de página no es un entero, mostrar la primera página
+        dietas = paginator.page(1)
     except EmptyPage:
-        # Si el número de página está fuera del rango, mostrar la página de error personalizada
-        return render(request, "invalid_page.html")  # Redirigir a la página de error
+        # Si el número de página está fuera del rango, mostrar la última página
+        dietas = paginator.page(paginator.num_pages)
 
-    return render(request, "dietas_disponibles/lista_dietas.html", {"dietas": dietas})
-
+    return render(request, "dietas_disponibles/lista_dietas.html", {
+        "dietas": dietas,
+        "pagina": pagina_actual,
+    })
 
 def buscar_dietas(request):
     query = request.GET.get("search_dietas")
@@ -323,26 +310,17 @@ def buscar_dietas(request):
 
 
 def detalle_dietas(request, id_dieta_c):
+    pagina_actual = "detalle_dietas"
     dietas = Dieta.objects.get(pk=id_dieta_c)
-    return render(request, "dietas_disponibles/detalle_dietas.html", {"dietas": dietas})
+    return render(request, "dietas_disponibles/detalle_dietas.html", {"dietas": dietas, "pagina": pagina_actual})
+
+def consejeros_dietas(request):
+    pagina_actual = "consejeros_dietas"
+    return render(request, "dietas_disponibles/form_consejero.html", {"pagina": pagina_actual})
 
 
 # endregion
 
-# region VER RECETAS POR EL ID DEL USUARIO
-
-
-def ver_recetas_usuarios(request, usuario_id):
-    user = get_object_or_404(User, id=usuario_id)
-    recetas_usuario = Receta.objects.filter(usuario=user)
-    return render(
-        request,
-        "ver_recetas_usuarios/ver_recetas_usuarios.html",
-        {"user": user, "recetas_usuario": recetas_usuario},
-    )
-
-
-# endregion
 
 
 # region CRUD CONSEJEROS
@@ -444,10 +422,6 @@ def crear_receta(request):
 
 
 def listar_recetas(request):
-    recetas = Receta.objects.all()
-    context = {"recetas": recetas}
-    return render(request, "crud_recetas/listar.html", context)
-
     recetas = Receta.objects.all().order_by('-fecha_registro_receta')
     context = {
         'recetas': recetas
@@ -558,7 +532,6 @@ def listar_dietas(request):
 
 def actualizar_dietas(request, pk):
     dieta = get_object_or_404(Dieta, pk=pk)
-
     if request.method == "POST":
         form = DietaForm(request.POST, request.FILES, instance=dieta)
         if form.is_valid():
@@ -749,40 +722,9 @@ def actualizar_rol(request, idroles):
 # region CALCULADORA IMC
 
 
-def calculate_bmi(weight, height):
-    height_in_meters = height / 100
-    bmi = weight / (height_in_meters**2)
-    return bmi
-
-
-def bmi_result(bmi):
-    if bmi < 18.5:
-        return "Bajo peso"
-    elif 18.5 <= bmi < 24.9:
-        return "Normal"
-    elif 25 <= bmi < 29.9:
-        return "Sobrepeso"
-    else:
-        return "Obesidad"
-
-
-def bmi_calculator(request):
-    pagina_actual = "bmi_calculator"
-    if request.method == "POST":
-        form = BMICalculatorForm(request.POST)
-        if form.is_valid():
-            weight = form.cleaned_data["weight"]
-            height = form.cleaned_data["height"]
-            bmi = calculate_bmi(weight, height)
-            result = bmi_result(bmi)
-            return render(
-                request, "result_calculadora.html", {"bmi": bmi, "result": result}
-            )
-    else:
-        form = BMICalculatorForm()
-    return render(
-        request, "Calculadora_De_Salud.html", {"form": form, "pagina": pagina_actual}
-    )
+def calculadoraB(request):
+    pagina_actual = "calcualdoraB"
+    return render(request, "Calculadora/Calculadora.html", {"pagina": pagina_actual})
 
 
 # endregion
@@ -835,37 +777,70 @@ def registro_usuario(request):
     # Si la solicitud no es POST, renderizar el formulario vacío
     return render(request, "Usuarios/registro.html", {"pagina": pagina_actual})
 
-
 def loginusuarios(request):
+    pagina_actual = "loginusuarios"
+    mensaje = ""
+
     if request.method == "POST":
-        if request.POST.get("username") and request.POST.get("password"):
-            user = authenticate(
-                username=request.POST.get("username"),
-                password=request.POST.get("password"),
-            )
-            if user is not None:
-                login(request, user)
-                return redirect("/home")
-            else:
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        if email and password:
+            try:
+                # Buscar el usuario por correo electrónico
+                user = User.objects.get(email=email)
+                # Autenticar utilizando el nombre de usuario del usuario encontrado
+                user = authenticate(request, username=user.username, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect('principal_usuario')
+                else:
+                    mensaje = "Usuario o Contraseña incorrectos, Intente de nuevo"  
+            except User.DoesNotExist:
                 mensaje = "Usuario o Contraseña incorrectos, Intente de nuevo"
-                return render(request, "Usuarios/login.html", {"mensaje": mensaje})
-    else:
-        return render(request, "Usuarios/login.html")
+        else:
+            mensaje = "Por favor, ingrese ambos campos"
 
+    return render(request, "Usuarios/login.html", {"pagina": pagina_actual, "mensaje": mensaje})
+    
+@login_required
+def principal_usuario(request):
+    pagina_actual = "principal_usuario"
+    return render(request, "Usuarios/principal_usuario.html", {"pagina": pagina_actual})
 
-def usuario(request):
-    return render(request, "Usuarios/usuario.html")
+@login_required
+def perfil_usuario(request, user_id):
+    usuario = get_object_or_404(User, id=user_id)
+    return render(request, 'Usuarios/usuario.html', {'usuario': usuario})
 
+@login_required
+def usuario(request, user_id):
+    pagina_actual = "usuario"
+    usuario = get_object_or_404(User, id=user_id)
+    return render(request, "Usuarios/usuario.html", {'usuario': usuario ,"pagina": pagina_actual})
+
+def logoutusuarios(request):
+    logout(request)
+    return redirect('/')
+
+@login_required
+def perfil_config(request, user_id):
+    usuario = get_object_or_404(User, id=user_id)
+    return render(request, 'Usuarios/config.html', {'usuario': usuario})
 # endregion
+
 
 # region PANEL ADMINISTRATIVO
 
 
 def Home_Administracion(request):
-    return render(request, "Home_Administracion.html")
+    if not request.user.is_authenticated:
+        return redirect("/Usuarios/login")
+    return render(request, "Administracion/Home_Administracion.html")
 
 
 def dashboard(request):
+    if not request.user.is_authenticated:
+        return redirect("/Usuarios/login")
     total_usuarios = User.objects.count()
     total_consejeros = Consejero.objects.count()
     total_recetas = Receta.objects.count()
@@ -884,7 +859,6 @@ def dashboard(request):
         "consejeros_recientes": consejeros_recientes,
     }
 
-    return render(request, "Home_Administracion.html", context)
     consejeros_recientes = Consejero.objects.order_by('-fecha_registro')[:3]
     recetas_recientes = Receta.objects.order_by('-fecha_registro_receta')[:3]
     dietas_recientes = Dieta.objects.order_by('-fecha_registro_dieta')[:3]
@@ -909,3 +883,4 @@ def dashboard(request):
 
 
 # endregion
+
