@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    background: url('https://images.pexels.com/photos/4686826/pexels-photo-4686826.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    overflow: auto; 
+    font-family: "Urbanist", sans-serif;
+
+}
+
+main{
+    width: 50%;
+    margin: auto;
+
+}
+
+.container {
+    text-align: center;
+    padding: 20px; /* Añade un espacio interno */
+    background: linear-gradient(315deg, rgb(25, 100, 65) 3%, rgba(36, 121, 36, 0.514) 38%, rgb(35, 146, 109) 68%, rgb(33, 71, 54) 98%);
+    background-size: 400% 400%;
+    background-attachment: fixed;
+    animation: gradient 15s ease infinite;
+    font-family: 'Urbanist', sans-serif; /* Selecciona otra de las fuentes importadas */
+}
+
+.textos h1{
+    color: white;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+}
+
+
+
+hr{
+    width: 100%;
+    background-color: white;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.container form{
+    padding: 20px; /* Añade un espacio interno */
+    margin: 0 auto;
+    width: 80%;
+}
+
+@media (max-width: 768px) {
+    main{
+        width: auto;
+    }
+    .container form{
+        width: auto;
+    }
+}

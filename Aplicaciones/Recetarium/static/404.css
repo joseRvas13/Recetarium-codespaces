@@ -146,6 +146,13 @@ body.trasparent{
 }
 
 
+@media (max-width: 768px){
+    .container{
+        width: auto;
+        height: auto;
+        padding: 20px;
+    }
+}
 
 
 

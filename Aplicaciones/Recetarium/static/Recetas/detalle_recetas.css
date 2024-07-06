@@ -11,7 +11,6 @@ body {
 
 p {
     font-family: "Urbanist", sans-serif;
-    text-align: justify;
 }
 
 .container {
@@ -44,6 +43,12 @@ p {
 .container p strong {
     color: #333333;
 }
+
+.sec-container{
+    background-color: rgb(190, 108, 0);
+}
+
+
 
 @media (max-width: 768px) {
     .logo h1 {

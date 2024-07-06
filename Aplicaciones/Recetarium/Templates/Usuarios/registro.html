@@ -60,6 +60,14 @@
     </div>
 </main>
 
+{% if registro_exitoso %}
+<script>
+    setTimeout(function() {
+        window.location.href = "/Usuarios/login";
+    }, 3000);
+</script>
+{% endif %}
+
 <script>
     function validarContraseñas() {
         var password = document.getElementById("password").value;

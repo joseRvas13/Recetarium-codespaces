@@ -7,6 +7,11 @@
 <main>
     <div class="form">
         <div class="texts">
+            {% if mensaje %}
+            <div class="mensaje">
+                {{ mensaje }}
+            </div>
+            {% endif %}
             <h2 class="iniciar">Iniciar sesión</h2>
             <h1 class="rc">Recetarium</h1>
             <h3 class="frase">¡La Mejor Manera De Cocinar!</h3>
@@ -26,6 +31,7 @@
                     <!-- Alerta de validación para la contraseña -->
                     <div id="passwordHelp" class="form-text text-danger d-none">La contraseña debe tener al menos 8 caracteres.</div>
                 </div>
+                
 
                 <a href="{% url 'password_reset' %}">
                     <h5>¿Olvidaste tu contraseña?</h5>
@@ -33,7 +39,7 @@
 
                 <button class="red" type="submit">Iniciar Sesión</button>
                 <br>
-
+               
                 <h6>¿Aún no tienes cuenta? ¡Crea tu cuenta aquí!</h6>
                 <a href="/Usuarios/registro" class="crear">Crear cuenta</a>
             </form>

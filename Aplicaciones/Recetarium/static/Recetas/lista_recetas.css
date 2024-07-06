@@ -129,14 +129,14 @@ body {
     border-radius: 15px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
     text-align: center;
     height: auto;
     margin-top: 55px;
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: scale(1.05); 
 }
 
 .card a {

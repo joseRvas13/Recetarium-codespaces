@@ -8,7 +8,7 @@
 }
 
 body {
-    background: url('https://images.pexels.com/photos/6287237/pexels-photo-6287237.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+    background: url('/static/media/principal1.jpg') no-repeat center center/cover;
     height: 100vh;
     position: relative;
     color: #fdfdfd;
@@ -33,6 +33,11 @@ header.transparent {
     padding: 20px;
     background-color: transparent;
     color: #fff;
+}
+
+.content .bienvenido{
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
 }
 
 .logo {

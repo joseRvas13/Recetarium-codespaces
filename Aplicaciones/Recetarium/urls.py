@@ -17,7 +17,6 @@ from .views import (
     registro_usuario,
     loginusuarios,
     usuario,
-    principal_usuario,
     perfil_usuario,
     perfil_config,
 )
@@ -203,7 +202,6 @@ urlpatterns = [
     path('Usuarios/login/', views.loginusuarios, name='loginusuarios'),
     path("Usuarios/usuario/", usuario, name="usuario"),
     path('Usuarios/logout', views.logoutusuarios, name='logoutusuarios'),
-    path('principal/', principal_usuario, name='principal_usuario'),
     path('perfil/<int:user_id>/', perfil_usuario, name='perfil_usuario'),  
     path('config/<int:user_id>/', perfil_config , name='perfil_config'),
 
@@ -219,10 +217,11 @@ urlpatterns = [
     # FIN DIETAS DISPONIBLES - CALENDARIO
     # VER RECETAS USUARIOS
         path('recetas/<int:usuario_id>/tus_recetas/', views.ver_recetas_usuarios, name='ver_recetas_usuarios'),
-
+        
     # FIN VER RECETAS USUARIOS
 
-    #api de openia
+    #postulaciones de consejeros y sus hojas de vida 
+    path('consejeros/Enviar', views.consejero_pos, name='consejero_pos'),
     
 ]
 if settings.DEBUG:
