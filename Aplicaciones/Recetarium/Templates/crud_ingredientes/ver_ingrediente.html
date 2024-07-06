@@ -1,3 +1,4 @@
+{% load static %}
 <!-- ver_ingrediente.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -5,84 +6,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle Ingrediente</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin-top: 30px;
-        }
-        h1 {
-            font-family: 'Courgette', cursive;
-            font-family: 'Lobster', sans-serif;
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-        }
-        h3 {
-            font-family: 'Courgette', cursive;
-            font-family: 'Lobster', sans-serif;
-            color: #28a56b;
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        p {
-            font-size: 18px;
-            color: #555;
-            line-height: 1.8;
-        }
-        .btn-primary {
-            background-color: #28a56b;
-            border-color: #28a56b;
-            color: #fff;
-            border-radius: 5px;
-            padding: 12px 24px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 30px;
-            transition: background-color 0.3s ease;
-        }
-        .btn-primary:hover {
-            background-color: #1e8354;
-            border-color: #1e8354;
-        }
-        .btn-primary:focus {
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
-        }
-    </style>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{% static 'style_cruds/formularios.css' %}">
 </head>
 <body>
     <div class="container">
-        <h1>Detalle del Ingrediente</h1>
+        <h1>Ingrediente: {{ ingrediente.nombre }}</h1>
         <div>
-            <h3>{{ ingrediente.nombre }}</h3>
-            <p><strong>Descripción:</strong> {{ ingrediente.descripcion }}</p>
-            <p><strong>Cantidad:</strong> {{ ingrediente.cantidad }}</p>
-            <p><strong>Variedad:</strong> {{ ingrediente.variedad }}</p>
-            <p><strong>Usos:</strong> {{ ingrediente.usos }}</p>
-            <p><strong>Plan nutricional:</strong> {{ ingrediente.p_nutricional }}</p>
-            <p><strong>Consejos:</strong> {{ ingrediente.consejos }}</p>
-            <p><strong>Grasas Saturadas:</strong> {{ ingrediente.grasas_saturadas }}</p>
-            <p><strong>Hidratos de Carbono:</strong> {{ ingrediente.hidratos_de_carbono }}</p>
-            <p><strong>Grasas Trans:</strong> {{ ingrediente.grasas_trans }}</p>
-            <p><strong>Total Carbohidratos:</strong> {{ ingrediente.total_carbohidratos }}</p>
-            <p><strong>Azucares:</strong> {{ ingrediente.azucares }}</p>
-            <p><strong>Precio:</strong> {{ ingrediente.precio }}</p>
-            <p><strong>Receta:</strong> {{ ingrediente.receta.nombre_plato }}</p>
-            <!-- Agrega más detalles según sea necesario -->
+            <p><strong><i class="fas fa-info-circle"></i> Descripción:</strong> {{ ingrediente.descripcion }}</p>
+            <p><strong><i class="fas fa-balance-scale"></i> Cantidad:</strong> {{ ingrediente.cantidad }}</p>
+            <p><strong><i class="fas fa-seedling"></i> Variedad:</strong> {{ ingrediente.variedad }}</p>
+            <p><strong><i class="fas fa-utensils"></i> Usos:</strong> {{ ingrediente.usos }}</p>
+            <p><strong><i class="fas fa-leaf"></i> Plan nutricional:</strong> {{ ingrediente.p_nutricional }}</p>
+            <p><strong><i class="fas fa-lightbulb"></i> Consejos:</strong> {{ ingrediente.consejos }}</p>
+            <p><strong><i class="fas fa-bacon"></i> Grasas Saturadas:</strong> {{ ingrediente.grasas_saturadas }}</p>
+            <p><strong><i class="fas fa-bread-slice"></i> Hidratos de Carbono:</strong> {{ ingrediente.hidratos_de_carbono }}</p>
+            <p><strong><i class="fas fa-times-circle"></i> Grasas Trans:</strong> {{ ingrediente.grasas_trans }}</p>
+            <p><strong><i class="fas fa-cookie-bite"></i> Total Carbohidratos:</strong> {{ ingrediente.total_carbohidratos }}</p>
+            <p><strong><i class="fas fa-candy-cane"></i> Azucares:</strong> {{ ingrediente.azucares }}</p>
+            <p><strong><i class="fas fa-dollar-sign"></i> Precio:</strong> {{ ingrediente.precio }}</p>
+            <p><strong><i class="fas fa-book-open"></i> Receta:</strong> {{ ingrediente.receta.nombre_plato }}</p>
         </div>
-        <a href="{% url 'listado_ingredientes' %}" class="btn btn-primary">Volver al Listado</a>
+        <br>
+        <a href="{% url 'listado_ingredientes' %}" class="btn btn-primary" style="background-color: #28a56b; border-color: #28a56b;"><i class="fas fa-arrow-left"></i> Volver al Listado</a>
+
     </div>
 </body>
 </html>

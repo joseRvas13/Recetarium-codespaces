@@ -6,46 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Dieta</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .btn {
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .btn-create {
-            background-color: #28a745;
-            color: #fff;
-        }
-        .btn-create:hover {
-            background-color: #218838;
-            color: #fff;
-        }
-        .row > .col-md-6 {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{% static 'style_cruds/formularios.css' %}">
 </head>
 <body>
     <div class="container">
         <h1>Crear Dieta</h1>
-        <form method="POST" action="" enctype="multipart/form-data">
+        <form method="POST" action="" id="crearDietaForm" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.non_field_errors }}
+            <div class="d-flex justify-content-center mb-4">
+                <div class="file-drop-area">
+                    <i class="fas fa-cloud-upload-alt icon"></i>
+                    <span class="text">Haz clic o arrastra y suelta la foto aquí</span>
+                    {{ form.imagen }}
+                </div>
+            </div>
+            <div class="selected-image" id="selectedImage"></div>
+            <br><br>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -98,14 +85,62 @@
                         {{ form.usuario_id.label_tag }}
                         {{ form.usuario_id }}
                     </div>
-                    <div class="form-group">
-                        {{ form.imagen.label_tag }}
-                        {{ form.imagen }}
-                    </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-create">Crear Dieta</button>
         </form>
     </div>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#crearDietaForm').on('submit', function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: '',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.message,
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "{% url 'listar_dietas' %}";
+                            }
+                        });
+                    },
+                    error: function(response) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.responseJSON.message
+                        });
+                    }
+                });
+            });
+
+            document.querySelector('.file-drop-area input[type="file"]').addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const image = document.createElement('img');
+                        image.src = e.target.result;
+                        image.classList.add('img-thumbnail'); // Clase de Bootstrap para esquinas redondeadas
+                        const selectedImage = document.getElementById('selectedImage');
+                        selectedImage.innerHTML = ''; // Limpiar imagen previa si la hay
+                        selectedImage.appendChild(image);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

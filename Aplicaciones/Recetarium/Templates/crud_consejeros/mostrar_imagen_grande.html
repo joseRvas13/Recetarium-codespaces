@@ -1,45 +1,52 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imagen</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Ver Imagen - {{ consejero.nombre }}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{% static 'style_cruds/formularios.css' %}">
     <style>
-        body {
-            background-color: #f8f9fa;
-            padding: 20px;
-            display: flex;
-            flex-direction: column; /* Alinea los elementos verticalmente */
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        .img-container {
+            text-align: center;
         }
-        .image-info {
-            text-align: center; /* Alinea el texto al centro */
-            margin-bottom: 20px; /* Espacio debajo del mensaje */
-        }
-        .image-container {
-            max-width: 600px; /* Define el ancho máximo de la imagen */
-            margin: auto; /* Centra la imagen horizontalmente */
-            border: 1px solid #ced4da; /* Cambia el color del borde a gris más suave */
-            padding: 10px; /* Agrega un poco de espacio alrededor de la imagen */
-        }
-        img {
+        .img-container img {
             max-width: 100%;
             height: auto;
-            display: block; /* Hace que la imagen se centre correctamente */
-            margin: 0 auto; /* Centra la imagen horizontalmente */
+            max-height: 500px; /* Ajusta la altura máxima según tus necesidades */
+            border-radius: 10px; /* Para esquinas redondeadas */
+        }
+        .btn-create {
+            background-color: #28a56b;
+            border-color: #28a56b;
+            color: white;
+        }
+        .btn-create:hover {
+            background-color: #1a9045;
+            border-color: #1a9045;
         }
     </style>
 </head>
 <body>
-    <br>
-    <div class="image-info">
-        <i><h2><b>Imagen del Usuario</b></h2></i>
-    </div>
-    <div class="image-container">
-        <img src="{{ consejero.imagen.url }}" alt="{{ consejero.nombre }}">
+    <div class="container">
+        <h1 class="text-center">Imagen de {{ consejero.nombre }}</h1>
+        <br>
+        <div class="img-container">
+            <img src="{{ consejero.imagen.url }}" alt="{{ consejero.nombre }}" class="img-thumbnail">
+        </div>
+        <br><br>
+        <div class="text-center">
+            <a href="{% url 'listar_consejeros' %}"><button type="button" class="btn btn-create">Volver al listado</button></a>
+        </div>
     </div>
 </body>
 </html>

@@ -1,45 +1,37 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imagen</title>
+    <title>Ver Imagen - {{ dieta.nombre }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            padding: 20px;
-            display: flex;
-            flex-direction: column; /* Alinea los elementos verticalmente */
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .image-info {
-            text-align: center; /* Alinea el texto al centro */
-            margin-bottom: 20px; /* Espacio debajo del mensaje */
-        }
-        .image-container {
-            max-width: 600px; /* Define el ancho máximo de la imagen */
-            margin: auto; /* Centra la imagen horizontalmente */
-            border: 1px solid #ced4da; /* Cambia el color del borde a gris más suave */
-            padding: 10px; /* Agrega un poco de espacio alrededor de la imagen */
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block; /* Hace que la imagen se centre correctamente */
-            margin: 0 auto; /* Centra la imagen horizontalmente */
-        }
-    </style>
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome para iconos -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap" rel="stylesheet">
+        <!-- SweetAlert2 CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+        <!-- Estilos personalizados -->
+        <link rel="stylesheet" href="{% static 'style_cruds/formularios.css' %}">
+
+        <style>
+            .img-container{
+                margin-left: 30%;
+            }
+        </style>
 </head>
 <body>
-    <br>
-    <div class="image-info">
-        <i><h2><b>Imagen de la dieta</b></h2></i>
-    </div>
-    <div class="image-container">
-        <img src="{{ dieta.imagen.url }}" alt="{{ dieta.nombre }}">
+    <div class="container">
+        <h1>Imagen de {{ dieta.nombre }}</h1>
+        <br>
+        <div class="img-container">
+            <img src="{{ dieta.imagen.url }}" alt="{{ dieta.nombre }}">
+        </div>
+        <br><br>
+        <a href="{% url 'listar_dietas' %}"><button type="button" class="btn btn-create" style="margin-left: 25%;">Volver al listado</button></a>
     </div>
 </body>
 </html>

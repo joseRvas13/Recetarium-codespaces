@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,109 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle Dieta</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{% static 'style_cruds/formularios.css' %}">
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f8f9fa;
-            padding: 20px;
+        .detail-icon {
+            margin-right: 10px;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin-top: 30px;
-        }
-        h1 {
-            font-family: 'Courgette', cursive;
-            font-family: 'Lobster', sans-serif;
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-        }
-        h3 {
-            font-family: 'Courgette', cursive;
-            font-family: 'Lobster', sans-serif;
-            color: #28a56b;
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        p {
-            font-size: 18px;
-            color: #555;
-            line-height: 1.8;
-        }
-        .btn-primary {
-            background-color: #28a56b;
-            border-color: #28a56b;
-            color: #fff;
-            border-radius: 5px;
-            padding: 12px 24px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 30px;
-            transition: background-color 0.3s ease;
-        }
-        .btn-primary:hover {
-            background-color: #1e8354;
-            border-color: #1e8354;
-        }
-        .btn-primary:focus {
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
-        }
-        .image-preview {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .image-preview img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .ingredient-image {
+            max-width: 100%; /* Ajusta el tamaño máximo de la imagen al contenedor */
+            height: auto; /* Mantiene la proporción de la imagen */
+            display: block; /* Elimina el espacio extra debajo de la imagen */
+            margin: 0 auto; /* Centra la imagen horizontalmente */
+            max-height: 400px; /* Establece una altura máxima para evitar que la imagen sea demasiado grande */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Detalle de la Dieta</h1>
+        <h1>{{ dieta.nombre }}</h1>
         <div>
-            <h3>{{ dieta.nombre }}</h3>
-            <p><strong>Descripción:</strong> {{ dieta.descripcion }}</p>
-            <p><strong>Objetivo:</strong> {{ dieta.objetivo }}</p>
-            <p><strong>Calorías:</strong> {{ dieta.calorias }}</p>
-            <p><strong>Condición Médica:</strong> {{ dieta.condicion_medica }}</p>
-            <p><strong>Valor Nutricional:</strong> {{ dieta.valor_nutricional }}</p>
-            <p><strong>Actividad Física:</strong> {{ dieta.actividad_fisica }}</p>
-            <p><strong>Consejos:</strong> {{ dieta.consejos }}</p>
-            <p><strong>Dispositivos:</strong> {{ dieta.dispositivos }}</p>
-            <p><strong>Consejero:</strong> 
+            {% if dieta.imagen %}
+                <img src="{{ dieta.imagen.url }}" alt="Imagen de {{ dieta.nombre }}" class="ingredient-image">
+            {% endif %}
+            <p><strong><i class="fas fa-align-left detail-icon"></i>Descripción:</strong> {{ dieta.descripcion }}</p>
+            <p><strong><i class="fas fa-bullseye detail-icon"></i>Objetivo:</strong> {{ dieta.objetivo }}</p>
+            <p><strong><i class="fas fa-fire detail-icon"></i>Calorías:</strong> {{ dieta.calorias }}</p>
+            <p><strong><i class="fas fa-heartbeat detail-icon"></i>Condición Médica:</strong> {{ dieta.condicion_medica }}</p>
+            <p><strong><i class="fas fa-apple-alt detail-icon"></i>Valor Nutricional:</strong> {{ dieta.valor_nutricional }}</p>
+            <p><strong><i class="fas fa-dumbbell detail-icon"></i>Actividad Física:</strong> {{ dieta.actividad_fisica }}</p>
+            <p><strong><i class="fas fa-lightbulb detail-icon"></i>Consejos:</strong> {{ dieta.consejos }}</p>
+            <p><strong><i class="fas fa-laptop detail-icon"></i>Dispositivos:</strong> {{ dieta.dispositivos }}</p>
+            <p><strong><i class="fas fa-user-tie detail-icon"></i>Consejero:</strong> 
                 {% if dieta.consejero %}
                     {{ dieta.consejero.nombre }} {{ dieta.consejero.apellido }}
                 {% else %}
                     Sistema Recetarium
                 {% endif %}
             </p>
-            <p><strong>Usuario:</strong>
+            <p><strong><i class="fas fa-user detail-icon"></i>Usuario:</strong>
                 {% if dieta.usuario %}
                     {{ dieta.usuario.first_name }} {{ dieta.usuario.last_name }}
                 {% else %}
                     Sistema Recetarium
                 {% endif %}
             </p>
-            <div class="image-preview">
-                <p><strong>Imagen:</strong></p>
-                {% if dieta.imagen %}
-                    <img src="{{ dieta.imagen.url }}" alt="Imagen de {{ dieta.nombre }}">
-                {% else %}
-                    <p>No hay imagen disponible.</p>
-                {% endif %}
-            </div>
         </div>
-        <a href="{% url 'listar_dietas' %}" class="btn btn-primary">Volver al Listado de Dietas</a>
+        <a href="{% url 'listar_dietas' %}" class="btn btn-primary" style="background-color: #28a56b; border-color: #28a56b;">Volver al Listado</a>
     </div>
 </body>
 </html>

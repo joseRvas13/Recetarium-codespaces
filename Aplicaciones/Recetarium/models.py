@@ -8,6 +8,11 @@ class Receta(models.Model):
 
 # MODELO RECETAS
 class Receta(models.Model):
+    STATUS_CHOICES = [
+        ('habilitado', 'Habilitado'),
+        ('inhabilitado', 'Inhabilitado'),
+    ]
+
     id_receta = models.AutoField(primary_key=True)
     nombre_plato = models.CharField(max_length=50)
     categoria = models.CharField(max_length=255)
@@ -21,6 +26,7 @@ class Receta(models.Model):
     imagen = models.ImageField(upload_to="recetas/")
     fecha_registro_receta = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    status = models.CharField(max_length=255, choices=STATUS_CHOICES, default='habilitado', null=True)
 
     class Meta:
         db_table = "tbl_recetas"
@@ -53,6 +59,11 @@ class Ingrediente(models.Model):
 
 # MODELO CONSEJEROS
 class Consejero(models.Model):
+    STATUS_CHOICES = [
+        ('habilitado', 'Habilitado'),
+        ('inhabilitado', 'Inhabilitado'),
+    ]
+
     id_consejero = models.AutoField(primary_key=True)
     imagen = models.ImageField(upload_to="consejeros/")
     nombre = models.CharField(max_length=225)
@@ -66,6 +77,8 @@ class Consejero(models.Model):
     experiencia = models.CharField(max_length=225)
     descripcion = models.CharField(max_length=225)
     fecha_registro = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=255, choices=STATUS_CHOICES, default='habilitado', null=True)
+
 
     class Meta:
         db_table = "tbl_consejeros"
@@ -88,6 +101,11 @@ class Rol(models.Model):
 #MODELO DIETAS
 
 class Dieta(models.Model):
+    STATUS_CHOICES = [
+        ('habilitado', 'Habilitado'),
+        ('inhabilitado', 'Inhabilitado'),
+    ]
+
     id_dieta_c = models.AutoField(primary_key=True)
     imagen = models.ImageField(upload_to="dietas/")
     nombre = models.CharField(max_length=255)
@@ -103,6 +121,7 @@ class Dieta(models.Model):
     fecha_registro_dieta = models.DateTimeField(auto_now_add=True)
     consejero = models.ForeignKey(Consejero, on_delete=models.CASCADE, null=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    status = models.CharField(max_length=255, choices=STATUS_CHOICES, default='habilitado', null=True)
 
     # Campos de comidas opcionales
     dia_semana = models.CharField(max_length=20, null=True, blank=True)

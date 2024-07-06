@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,63 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ver Imagen - {{ receta.nombre_plato }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin-top: 30px;
-        }
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .img-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .img-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-height: 90vh; /* Ajustar la altura máxima de la imagen, usando el 90% del alto de la ventana */
-            display: block;
-            margin: 0 auto; /* Centrar la imagen horizontalmente */
-        }
-        .btn-primary {
-            background-color: #28a745;
-            border-color: #28a745;
-            color: #fff;
-            border-radius: 5px;
-            padding: 12px 24px;
-            text-decoration: none;
-            display: inline-block;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-        }
-        .btn-primary:hover {
-            background-color: #218838;
-            border-color: #218838;
-        }
-    </style>
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome para iconos -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap" rel="stylesheet">
+        <!-- SweetAlert2 CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+        <!-- Estilos personalizados -->
+        <link rel="stylesheet" href="{% static 'style_cruds/formularios.css' %}">
+
+        <style>
+            .img-container{
+                margin-left: 30%;
+            }
+        </style>
 </head>
 <body>
     <div class="container">
-        <h2>Imagen de {{ receta.nombre_plato }}</h2>
+        <h1>Imagen de {{ receta.nombre_plato }}</h1>
+        <br>
         <div class="img-container">
             <img src="{{ receta.imagen.url }}" alt="{{ receta.nombre_plato }}">
         </div>
-        <a href="{% url 'listar_recetas' %}" class="btn btn-primary">Volver al Listado de Recetas</a>
+        <br><br>
+        <a href="{% url 'listar_recetas' %}"><button type="button" class="btn btn-create" style="margin-left: 25%;">Volver al listado</button></a>
     </div>
 </body>
 </html>

@@ -178,8 +178,6 @@ def detalle_receta(request, id_receta):
     receta = Receta.objects.get(pk=id_receta)
     return render(request, "Recetas/detalle_receta.html", {"receta": receta, "pagina": pagina_actual})
 
-
-
 def buscar_recetas(request):
     if not request.user.is_authenticated:
         return redirect("/Usuarios/login")
@@ -325,23 +323,32 @@ def consejeros_dietas(request):
 
 # region CRUD CONSEJEROS
 
-
 def crear_consejero(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = ConsejeroForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Consejero creado exitosamente.")
-            return redirect("listar_consejeros")
+            consejero = form.save(commit=False)  # Guardar el formulario sin commit
+            consejero.habilitado = True  # Establecer como habilitado
+            consejero.save()  # Guardar el consejero con la habilitación
+
+            data = {
+                'nombre': consejero.nombre,
+                'apellido': consejero.apellido,
+                'pais': consejero.pais,
+                'experiencia': consejero.experiencia,
+                'habilitado': consejero.habilitado,  # Incluir el estado de habilitación en la respuesta
+            }
+            return JsonResponse(data)  # Devuelve los datos del consejero en formato JSON
         else:
-            messages.error(request, "Por favor, corrija los errores a continuación.")
+            # Manejar el caso cuando el formulario no es válido
+            return JsonResponse({'error': form.errors}, status=400)
     else:
         form = ConsejeroForm()
-    return render(request, "crud_consejeros/insertar.html", {"form": form})
 
+    return render(request, 'crud_consejeros/insertar.html', {'form': form})
 
 def listar_consejeros(request):
-    consejeros = Consejero.objects.all().order_by("-fecha_registro")
+    consejeros = Consejero.objects.order_by("-fecha_registro")
 
     # Filtrado por búsqueda
     query = request.GET.get("q")
@@ -368,10 +375,11 @@ def actualizar_consejero(request, pk):
         form = ConsejeroForm(request.POST, request.FILES, instance=consejero)
         if form.is_valid():
             form.save()
-            messages.success(
-                request, "¡El consejero ha sido actualizado correctamente!"
-            )
-            return redirect("listar_consejeros")
+            # Si el formulario se guarda correctamente, retorna un mensaje JSON
+            return JsonResponse({'message': '¡Consejero actualizado correctamente!'})
+        else:
+            # Si hay errores en el formulario, retorna los errores
+            return JsonResponse({'error': form.errors}, status=400)
     else:
         form = ConsejeroForm(instance=consejero)
 
@@ -382,18 +390,23 @@ def actualizar_consejero(request, pk):
     )
 
 
-def borrar_consejero(request, pk):
-    # Obtener el consejero o devolver un error 404 si no existe
+def consejeros_inhabilitados(request):
+    consejeros = Consejero.objects.filter(status='inhabilitado')
+    return render(request, 'crud_consejeros/listar.html', {'consejeros': consejeros})
+
+def inhabilitar_consejero(request, pk):
     consejero = get_object_or_404(Consejero, pk=pk)
-
-    if request.method == "POST":
-        # Si la solicitud es POST, se está confirmando la eliminación
-        consejero.delete()
-        messages.success(request, "¡El consejero ha sido eliminado correctamente!")
-        return redirect("listar_consejeros")
-
-    # Si la solicitud no es POST, mostrar la página de confirmación de eliminación
-    return render(request, "crud_consejeros/borrar.html", {"consejero": consejero})
+    
+    if consejero.status == 'habilitado':
+        consejero.status = 'inhabilitado'
+        message = "Receta inhabilitada correctamente."
+    else:
+        consejero.status = 'habilitado'
+        message = "Receta habilitada correctamente."
+    
+    consejero.save()
+    
+    return JsonResponse({'message': message})
 
 
 def mostrar_imagen_grande(request, id_consejero):
@@ -412,10 +425,11 @@ def crear_receta(request):
         form = RecetaForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, "Receta creada exitosamente.")
-            return redirect("listar_recetas")
+            return JsonResponse({'success': True, 'message': 'Receta creada exitosamente.'})
         else:
-            messages.error(request, "Por favor, corrija los errores a continuación.")
+            # Recoge los errores del formulario para mostrarlos en el frontend
+            errores = form.errors.as_json()
+            return JsonResponse({'success': False, 'message': 'Por favor, corrija los errores a continuación.', 'errors': errores})
     else:
         form = RecetaForm()
     return render(request, "crud_recetas/insertar.html", {"form": form})
@@ -423,10 +437,36 @@ def crear_receta(request):
 
 def listar_recetas(request):
     recetas = Receta.objects.all().order_by('-fecha_registro_receta')
+    
+    # Paginación
+    paginator = Paginator(recetas, 15)  # 15 recetas por página
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'recetas': recetas
+        'recetas': page_obj,
+        'paginator': paginator
     }
     return render(request, 'crud_recetas/listar.html', context)
+
+def recetas_inhabilitadas(request):
+    recetas = Receta.objects.filter(status='inhabilitado')
+    return render(request, 'crud_recetas/listar.html', {'recetas': recetas})
+
+def inhabilitar_receta(request, pk):
+    receta = get_object_or_404(Receta, pk=pk)
+    
+    if receta.status == 'habilitado':
+        receta.status = 'inhabilitado'
+        message = "Receta inhabilitada correctamente."
+    else:
+        receta.status = 'habilitado'
+        message = "Receta habilitada correctamente."
+    
+    receta.save()
+    
+    return JsonResponse({'message': message})
+
 
 def actualizar_receta(request, pk):
     receta = get_object_or_404(Receta, pk=pk)
@@ -444,20 +484,6 @@ def actualizar_receta(request, pk):
     )
 
 
-def borrar_receta(request, pk):
-    # Obtener la receta o devolver un error 404 si no existe
-    receta = get_object_or_404(Receta, pk=pk)
-
-    if request.method == "POST":
-        # Si la solicitud es POST, se está confirmando la eliminación
-        receta.delete()
-        messages.success(request, "¡La receta ha sido eliminada correctamente!")
-        return redirect("listar_recetas")
-
-    # Si la solicitud no es POST, mostrar la página de confirmación de eliminación
-    return render(request, "crud_recetas/borrar.html", {"receta": receta})
-
-
 def ver_recetas(request, receta_id):
     receta = get_object_or_404(Receta, id_receta=receta_id)
     return render(request, "crud_recetas/ver_receta.html", {"receta": receta})
@@ -466,35 +492,34 @@ def ver_recetas(request, receta_id):
 def ver_imagen(request, id_receta):
     receta = get_object_or_404(Receta, id_receta=id_receta)
     context = {"receta": receta}
-    return render(request, "ver_imagen.html", context)
+    return render(request, "crud_recetas/ver_imagen.html", context)
 
 
 # endregion
 
 # region CRUD DIETAS
 
-
 def crear_dietas(request):
     if request.method == "POST":
         form = DietaForm(request.POST, request.FILES)
         if form.is_valid():
-            # Guarda la instancia de Dieta sin commit para poder asignar consejero y usuario manualmente
             nueva_dieta = form.save(commit=False)
-
-            # Asigna el consejero y usuario seleccionados desde el formulario
             consejero_id = form.cleaned_data["consejero_id"]
             usuario_id = form.cleaned_data["usuario_id"]
-
-            # Asigna los objetos correspondientes a los campos de la dieta
             nueva_dieta.consejero = consejero_id
             nueva_dieta.usuario = usuario_id
-
-            # Guarda la dieta completa con los campos actualizados
             nueva_dieta.save()
-            messages.success(request, "Dieta creada exitosamente.")
-            return redirect(
-                "listar_dietas"
-            )  # Redirige a la vista de listado de dietas después de guardar
+            response_data = {
+                "success": True,
+                "message": "Dieta creada exitosamente."
+            }
+            return JsonResponse(response_data)
+        else:
+            response_data = {
+                "success": False,
+                "message": "Hubo un error al crear la dieta. Por favor, revise el formulario."
+            }
+            return JsonResponse(response_data, status=400)
     else:
         form = DietaForm()
 
@@ -503,30 +528,20 @@ def crear_dietas(request):
     }
     return render(request, "crud_dietas/insertar.html", context)
 
-
 def listar_dietas(request):
 
     dietas = Dieta.objects.select_related('consejero', 'usuario').all().order_by('-fecha_registro_dieta')
 
-    # Manejo de búsqueda
-    query = request.GET.get("q")
-    if query:
-        dietas = dietas.filter(nombre__icontains=query)
-
     # Paginación
-    paginator = Paginator(dietas, 15)  # Mostrar 15 registros por página
-    page = request.GET.get("page")
-    try:
-        dietas_pagina = paginator.page(page)
-    except PageNotAnInteger:
-        dietas_pagina = paginator.page(1)
-    except EmptyPage:
-        dietas_pagina = paginator.page(paginator.num_pages)
+    paginator = Paginator(dietas, 2)  # 15 dietas por página
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
     context = {
-        "dietas": dietas_pagina,
-        "query": query,  # Para mantener el valor de búsqueda en el formulario
+        'dietas': page_obj,
+        'paginator': paginator
     }
+
     return render(request, "crud_dietas/listar.html", context)
 
 
@@ -535,23 +550,22 @@ def actualizar_dietas(request, pk):
     if request.method == "POST":
         form = DietaForm(request.POST, request.FILES, instance=dieta)
         if form.is_valid():
-            # Guardar los cambios en la instancia de Dieta
             dieta = form.save(commit=False)
 
-            # Actualizar usuario_id si se seleccionó uno nuevo
             if form.cleaned_data["usuario_id"] == "Sistema Recetarium":
                 dieta.usuario_id = None
             else:
                 dieta.usuario_id = form.cleaned_data["usuario_id"]
 
-            # Actualizar consejero_id si se seleccionó uno nuevo
             if form.cleaned_data["consejero_id"] == "Sistema Recetarium":
                 dieta.consejero_id = None
             else:
                 dieta.consejero_id = form.cleaned_data["consejero_id"]
 
             dieta.save()
-            return redirect("listar_dietas")
+            return JsonResponse({"success": True, "message": "Dieta actualizada correctamente."})
+        else:
+            return JsonResponse({"success": False, "message": "Error al actualizar la dieta."})
     else:
         form = DietaForm(instance=dieta)
 
@@ -559,20 +573,23 @@ def actualizar_dietas(request, pk):
         request, "crud_dietas/actualizar.html", {"form": form, "dieta": dieta}
     )
 
+def dietas_inhabilitadas(request):
+    dietas = Dieta.objects.filter(status='inhabilitado')
+    return render(request, 'crud_dietas/listar.html', {'dietas': dietas})
 
-def borrar_dietas(request, pk):
-    # Obtener la receta o devolver un error 404 si no existe
+def inhabilitar_dieta(request, pk):
     dieta = get_object_or_404(Dieta, pk=pk)
-
-    if request.method == "POST":
-        # Si la solicitud es POST, se está confirmando la eliminación
-        dieta.delete()
-        messages.success(request, "¡La dieta ha sido eliminada correctamente!")
-        return redirect("listar_dietas")
-
-    # Si la solicitud no es POST, mostrar la página de confirmación de eliminación
-    return render(request, "crud_dietas/borrar.html", {"dieta": dieta})
-
+    
+    if dieta.status == 'habilitado':
+        dieta.status = 'inhabilitado'
+        message = "Dieta inhabilitada correctamente."
+    else:
+        dieta.status = 'habilitado'
+        message = "Dieta habilitada correctamente."
+    
+    dieta.save()
+    
+    return JsonResponse({'message': message})
 
 def ver_dietas(request, dieta_id):
     dieta = get_object_or_404(Dieta, id_dieta_c=dieta_id)
@@ -649,12 +666,10 @@ def borrar_ingrediente(request, pk):
         # Si la solicitud es POST, se está confirmando la eliminación
         ingrediente.delete()
         messages.success(request, "¡El ingrediente ha sido eliminado correctamente!")
-        return redirect("listado_ingredientes")
-
-    # Si la solicitud no es POST, mostrar la página de confirmación de eliminación
-    return render(
-        request, "crud_ingredientes/borrar.html", {"ingrediente": ingrediente}
-    )
+        return JsonResponse({'message': '¡El ingrediente ha sido eliminado correctamente!'}, status=200)
+    else:
+        # Manejar otras solicitudes como GET si es necesario
+        return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 
 def ver_ingrediente(request, ingrediente_id):

@@ -1,265 +1,212 @@
-<!-- Tu plantilla -->
-
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado Recetas</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Listado de Recetas</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{% static 'style_cruds/listar.css' %}">
     <style>
-        /* Estilos existentes */
-        body {
-            background-color: #f8f9fa;
-            padding: 20px;
+        /* Estilos para la flecha de regreso */
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            font-size: 2rem;
+            color: #28a56b; /* Color verde atractivo */
+            transition: color 0.3s ease-in-out;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+
+        .back-link:hover {
+            color: #1a9045; /* Cambia el color al hacer hover */
         }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-        th, td {
-            padding: 15px;
-            text-align: left;
-            vertical-align: middle;
-        }
-        th {
-            background-color: #6c757d;
-            color: #fff;
-        }
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        tr:hover {
-            background-color: #e9ecef;
-        }
-        .btn {
-            padding: 5px 10px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .btn-delete {
-            background-color: #dc3545;
-            color: #fff;
-        }
-        .btn-delete:hover {
-            background-color: #c82333;
-            color: #fff;
-        }
-        .btn-update {
-            background-color: #6c757d;
-            color: #fff;
-            margin-left: 5px;
-        }
-        .btn-update:hover {
-            background-color: #5a6268;
-            color: #fff;
-        }
-        .btn-create {
-            background-color: #28a745;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-        .btn-create:hover {
-            background-color: #218838;
-            color: #fff;
-        }
-        .btn-view {
-            background-color: #007bff;
-            color: #fff;
-            margin-left: 5px;
-        }
-        .btn-view:hover {
-            background-color: #0056b3;
-            color: #fff;
-        }
-        .search-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        .search-container form {
-            display: flex;
-            align-items: center;
-        }
-        .search-container input[type="text"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            width: 570px;
-            border: 2px solid #5f5d5da9;
-        }
-        .search-container button[type="submit"] {
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-left: 10px;
-        }
-        .search-container button[type="submit"]:hover {
-            background-color: #218838;
-        }
-        .search-container button[type="submit"] i {
-            font-size: 18px;
-            margin-right: 5px;
-        }
-        .pagination a {
-            color: #fff;
-            background-color: #28a745;
-            border: 1px solid #28a745;
-            padding: 8px 12px;
-            margin-right: 5px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .pagination .current {
-            color: #000;
-            background-color: #fff;
-            border: 1px solid #28a745;
-            padding: 8px 12px;
-            margin-right: 5px;
-            border-radius: 5px;
-        }
-        .alert {
-            position: relative;
-            padding: 1rem 1.25rem;
-            border: 1px solid transparent;
-            border-radius: 0.25rem;
-            margin-bottom: 10px;
-        }
-        .alert-success {
-            color: #155724;
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-        }
-        .alert-success .close {
-            color: #155724;
-        }
-        .alert-danger {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-        .alert-danger .close {
-            color: #721c24;
-        }
-        .alert-warning {
-            color: #856404;
-            background-color: #fff3cd;
-            border-color: #ffeeba;
-        }
-        .alert-warning .close {
-            color: #856404;
-        }
-        .alert-info {
-            color: #0c5460;
-            background-color: #d1ecf1;
-            border-color: #bee5eb;
-        }
-        .alert-info .close {
-            color: #0c5460;
-        }
-        .img-thumbnail {
-            max-width: 100px;
-            max-height: 100px;
-            object-fit: cover;
-        }
+
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
-<div class="container">
-    <div class="textos">
-        <h1>listado de Recetas</h1>
-        <a href="{% url 'home_administracion' %}">Volver</a>
-    </div>
-    <div class="search-container">
-        <form method="GET" action="{% url 'listar_recetas' %}" class="form-inline">
-            <input type="text" name="q" class="form-control" placeholder="Buscar Recetas" value="{% if query %}{{ query }}{% endif %}">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Buscar</button>
-        </form>
-    </div>
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-dismissible {% if message.tags == 'success' %}alert-success{% elif message.tags == 'warning' %}alert-warning{% elif message.tags == 'error' %}alert-danger{% else %}alert-info{% endif %}" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-    <a href="{% url 'crear_receta' %}" class="btn btn-create float-right mb-3"><i class="fas fa-user-plus"></i> Nueva Receta</a>
-    <table class="table table-bordered table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th>Imagen</th>
-                <th>Nombre del plato</th>
-                <th>Categoría</th>
-                <th>Tiempo de preparación</th>
-                <th>Dificultad</th>
-                <th>Usuario</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for receta in recetas %}
-            <tr>
-                <td>
-                    <a href="{% url 'ver_imagen' receta.id_receta %}">
-                        <img src="{{ receta.imagen.url }}" alt="{{ receta.nombre_plato }}" class="img-thumbnail">
-                    </a>
-                </td>
-                <td>{{ receta.nombre_plato }}</td>
-                <td>{{ receta.categoria }}</td>
-                <td>{{ receta.tiempo_preparacion }} Minutos</td>
-                <td>{{ receta.dificultad }}</td>
-                <td>{{ receta.usuario.first_name }} {% if not receta.usuario.first_name %}Sistema Recetarium{% endif %} {{ receta.usuario.last_name }}</td>
-                <td>
-                    <div class="btn-group">
-                        <a href="{% url 'borrar_receta' receta.id_receta %}" class="btn btn-delete"><i class="fas fa-trash"></i> Borrar</a>
-                        <a href="{% url 'actualizar_receta' receta.id_receta %}" class="btn btn-update"><i class="fas fa-user-edit"></i> Actualizar</a>
-                        <a href="{% url 'ver_receta' receta.id_receta %}" class="btn btn-view"><i class="fas fa-eye"></i> Ver Más</a>
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div class="pagination">
-        <span class="step-links">
-            {% if recetas.has_previous %}
-                <a href="?page=1">&laquo; Primera</a>
-                <a href="?page={{ recetas.previous_page_number }}">Anterior</a>
-            {% endif %}
-            <span class="current">
-                Página {{ recetas.number }} de {{ recetas.paginator.num_pages }}.
-            </span>
-            {% if recetas.has_next %}
-                <a href="?page={{ recetas.next_page_number }}">Siguiente</a>
-                <a href="?page={{ recetas.paginator.num_pages }}">Última &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
-</div>
+    <!-- Flecha de regreso a administración -->
+    <a href="{% url 'home_administracion' %}" class="back-link">
+        <i class="fas fa-arrow-left"></i>
+    </a>
 
-<!-- Bootstrap JS (optional) -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <div class="container mt-4">
+        <h2 class="text-center mb-4 glow-text">Listado de Recetas</h2>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Buscar recetas por nombre...">
+            <i class="fas fa-search search-icon"></i>
+            <div id="reloadIcon" style="display: none;">
+                <i class="fas fa-sync-alt fa-spin" style="font-size: 2rem;"></i>
+            </div>
+        </div>
+        <div class="text-center mb-4">
+            <a href="{% url 'listar_recetas' %}" class="btn btn-outline-primary btn-lg rounded-pill custom-btn mr-2">
+                <i class="fas fa-clipboard-check fa-lg mr-1"></i> Todas las recetas
+            </a>
+            <a href="{% url 'recetas_inhabilitadas' %}" class="btn btn-outline-secondary btn-lg rounded-pill custom-btn">
+                <i class="fas fa-ban fa-lg mr-1"></i> Recetas Inhabilitadas
+            </a>
+        </div>
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered table-hover" id="recetasTable">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Nombre del plato</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Tiempo de preparación</th>
+                        <th scope="col">Dificultad</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se itera sobre las recetas para mostrar cada fila -->
+                    {% for receta in recetas %}
+                    <tr class="{% if receta.status == 'inhabilitado' %}inhabilitada{% endif %}">
+                        <td>
+                            <a href="{% url 'ver_imagen' receta.id_receta %}">
+                                <img src="{{ receta.imagen.url }}" alt="{{ receta.nombre }}" class="img-thumbnail">
+                            </a>
+                        </td>
+                        <td>{{ receta.nombre_plato }}</td>
+                        <td>{{ receta.categoria }}</td>
+                        <td>{{ receta.tiempo_preparacion }} Minutos</td>
+                        <td>{{ receta.dificultad }}</td>
+                        <td>{{ receta.usuario.first_name|default:"Sistema Recetarium" }} {{ receta.usuario.last_name|default:"" }}</td>
+                        <td>
+                            <div class="btn-group">
+                                {% if receta.status == 'habilitado' %}
+                                <button data-url="{% url 'inhabilitar_receta' receta.id_receta %}" class="btn btn-warning btn-inhabilitar">
+                                    <i class="fas fa-ban fa-sm"></i> Inhabilitar
+                                </button>
+                                {% else %}
+                                <button data-url="{% url 'inhabilitar_receta' receta.id_receta %}" class="btn btn-success btn-habilitar">
+                                    <i class="fas fa-check-circle fa-sm"></i> Habilitar
+                                </button>
+                                {% endif %}
+                                <a href="{% url 'actualizar_receta' receta.id_receta %}" class="btn btn-info">
+                                    <i class="fas fa-user-edit fa-lg"></i> Actualizar
+                                </a>
+                                <a href="{% url 'ver_receta' receta.id_receta %}" class="btn btn-primary">
+                                    <i class="fas fa-eye fa-lg"></i> Ver más
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- Botón para agregar nueva receta -->
+        <div class="float-button">
+            <a href="{% url 'crear_receta' %}" class="btn" data-toggle="tooltip" title="Agregar nueva receta">
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if recetas.has_previous %}
+                    <a href="?page=1">&laquo; Primera</a>
+                    <a href="?page={{ recetas.previous_page_number }}">Anterior</a>
+                {% endif %}
+                <span class="current">
+                    Página {{ recetas.number }} de {{ recetas.paginator.num_pages }}.
+                </span>
+                {% if recetas.has_next %}
+                    <a href="?page={{ recetas.next_page_number }}">Siguiente</a>
+                    <a href="?page={{ recetas.paginator.num_pages }}">Última &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- Custom Script -->
+    <script>
+        // Mostrar el icono de recarga y recargar la página al hacer clic
+        $('#reloadIcon').show().click(function() {
+            location.reload();
+        });
+
+        // Filtro de búsqueda
+        $('#searchInput').on('keyup', function() {
+            var query = $(this).val().toLowerCase();
+            $('#recetasTable tbody tr').filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(query) > -1);
+            });
+        });
+
+        // Función para mostrar la alerta de confirmación
+        function showConfirmationAlert(event, url, action) {
+            event.preventDefault();
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: `¿Realmente quieres ${action} esta receta?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: `Sí, ${action}`,
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Realizar la solicitud AJAX
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: {
+                            csrfmiddlewaretoken: '{{ csrf_token }}'
+                        },
+                        success: function(response) {
+                            Swal.fire({
+                                title: '¡Éxito!',
+                                text: `La receta ha sido ${action} correctamente.`,
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                location.reload(); // Recargar la página después de la confirmación
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Hubo un problema al realizar la acción. Por favor, intenta de nuevo.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        // Asignar la función a los botones de habilitar e inhabilitar
+        $(document).on('click', '.btn-habilitar', function(event) {
+            var url = $(this).data('url');
+            showConfirmationAlert(event, url, 'habilitar');
+        });
+
+        $(document).on('click', '.btn-inhabilitar', function(event) {
+            var url = $(this).data('url');
+            showConfirmationAlert(event, url, 'inhabilitar');
+        });
+    </script>
 </body>
 </html>

@@ -1,156 +1,109 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consejero: {{ consejero.nombre }}</title>
+    <title>Actualizar Consejero {{ consejero.nombre }} {{ consejero.apellido }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            font-weight: bold;
-            color: #555;
-        }
-        input[type=text],
-        textarea,
-        select,
-        input[type=file] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.2s ease-in-out;
-        }
-        input[type=text]:focus,
-        textarea:focus,
-        select:focus,
-        input[type=file]:focus {
-            border-color: #80bdff;
-        }
-        select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image: url('data:image/svg+xml;utf8,<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>');
-            background-repeat: no-repeat;
-            background-position-x: calc(100% - 12px);
-            background-position-y: center;
-        }
-        .btn {
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .btn-create {
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-        }
-        .btn-create:hover {
-            background-color: #218838;
-            color: #fff;
-        }
-        .image-preview {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            margin-top: 10px;
-        }
-        .image-preview img {
-            max-width: 100%;
-            border-radius: 5px;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap" rel="stylesheet">
+    <!-- SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="{% static 'style_cruds/formularios.css' %}">
 </head>
 <body>
     <div class="container">
-        <h2>Actualizar Consejero: {{ consejero.nombre }}</h2>
-        <form method="POST" enctype="multipart/form-data">
+        <h1>Actualizar Consejero: {{ consejero.nombre }} {{ consejero.apellido }}</h1>
+        <form id="crearConsejeroForm" method="POST" action="" enctype="multipart/form-data">
             {% csrf_token %}
+            <div class="d-flex justify-content-center mb-4">
+                <div class="file-drop-area">
+                    <i class="fas fa-cloud-upload-alt icon"></i>
+                    {{ form.imagen }}
+                </div>
+            </div>
+            <div class="selected-image" id="selectedImage">
+                {% if consejero.imagen %}
+                    <img src="{{ consejero.imagen.url }}" class="img-thumbnail">
+                {% endif %}
+            </div>
+            <br><br>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="id_nombre">Nombre:</label>
+                        {{ form.nombre.label_tag }}
                         {{ form.nombre }}
                     </div>
                     <div class="form-group">
-                        <label for="id_apellido">Apellido:</label>
+                        {{ form.apellido.label_tag }}
                         {{ form.apellido }}
                     </div>
                     <div class="form-group">
-                        <label for="id_descripcion">Descripción:</label>
-                        {{ form.descripcion }}
-                    </div>
-                    <div class="form-group">
-                        <label for="id_edad">Edad:</label>
+                        {{ form.edad.label_tag }}
                         {{ form.edad }}
                     </div>
                     <div class="form-group">
-                        <label for="id_idioma">Idioma:</label>
-                        {{ form.idioma }}
+                        {{ form.descripcion.label_tag }}
+                        {{ form.descripcion }}
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="id_fecha_nacimiento">Fecha De Nacimiento:</label>
+                        {{ form.idioma.label_tag }}
+                        {{ form.idioma }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.fecha_nacimiento.label_tag }}
                         {{ form.fecha_nacimiento }}
                     </div>
                     <div class="form-group">
-                        <label for="id_instrucciones">Titulación:</label>
-                        {{ form.titulacion}}
+                        {{ form.titulacion.label_tag }}
+                        {{ form.titulacion }}
                     </div>
                     <div class="form-group">
-                        <label for="id_pais">Pais:</label>
+                        {{ form.pais.label_tag }}
                         {{ form.pais }}
                     </div>
                     <div class="form-group">
-                        <label for="id_experiencia">Experiencia:</label>
+                        {{ form.experiencia.label_tag }}
                         {{ form.experiencia }}
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="id_imagen">Imagen:</label>
-                        {{ form.imagen }}
-                        <div class="image-preview">
-                            {% if consejero.imagen %}
-                                <img src="{{ consejero.imagen.url }}" alt="Imagen de {{ consejero.nombre }}">
-                            {% else %}
-                                No hay imagen disponible.
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+            <div class="btn-container">
+                <button type="submit" class="btn btn-create">Actualizar Consejero</button>
+                <a href="{% url 'listar_consejeros' %}" class="btn btn-back">Volver</a>
             </div>
-            <button type="submit" class="btn btn-create">Actualizar Receta</button>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+                document.getElementById('crearConsejeroForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evitar el envío estándar del formulario
+
+            // Realizar la petición AJAX (aquí puedes usar jQuery o fetch API)
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this)
+            })
+            .then(response => response.json()) // Asumiendo que la respuesta es JSON
+            .then(data => {
+                // Mostrar SweetAlert con los datos del consejero creado
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Consejero actualizado con éxito',
+                }).then(() => {
+                    // Redirigir a la página de listado de consejeros
+                    window.location.href = '/administracion/consejeros/listado/';
+                });
+            })
+            .catch(error => {
+                console.error('Error al enviar el formulario:', error);
+                // Aquí puedes mostrar un mensaje de error si falla la petición
+            });
+        });
+    </script>
 </body>
 </html>

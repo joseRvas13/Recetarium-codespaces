@@ -7,80 +7,13 @@
     <title>Ingrediente: {{ ingrediente.nombre }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            font-weight: bold;
-            color: #555;
-        }
-        input[type=text], 
-        input[type=email],
-        input[type=number],
-        textarea,
-        select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.2s ease-in-out;
-        }
-        input[type=text]:focus, 
-        input[type=email]:focus,
-        input[type=number]:focus,
-        textarea:focus,
-        select:focus {
-            border-color: #80bdff;
-        }
-        select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image: url('data:image/svg+xml;utf8,<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>');
-            background-repeat: no-repeat;
-            background-position-x: calc(100% - 12px);
-            background-position-y: center;
-        }
-        .btn {
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .btn-create {
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-        }
-        .btn-create:hover {
-            background-color: #218838;
-            color: #fff;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style_cruds/formularios.css' %}">
 </head>
 <body>
     <div class="container">
-        <h2>Actualizar Ingrediente: {{ ingrediente.nombre }}</h2>
+        <h1>Actualizar Ingrediente: {{ ingrediente.nombre }}</h1>
         <form method="POST" action="">
             {% csrf_token %}
             <div class="row">
@@ -149,7 +82,13 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-create">Actualizar Ingrediente</button>
+            <br>
+            <div class="form-group">
+                <button type="submit" class="btn btn-create">Actualizar Ingrediente</button>
+                <a href="{% url 'listado_ingredientes' %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Volver al Listado
+                </a>
+            </div>
         </form>
     </div>
 </body>

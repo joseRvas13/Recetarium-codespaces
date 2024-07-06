@@ -7,46 +7,32 @@
     <title>Crear Receta</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .btn {
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .btn-create {
-            background-color: #28a745;
-            color: #fff;
-        }
-        .btn-create:hover {
-            background-color: #218838;
-            color: #fff;
-        }
-        .row > .col-md-6 {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-    </style>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{% static 'style_cruds/formularios.css' %}">
+
 </head>
 <body>
     <div class="container">
         <h1>Crear Receta</h1>
-        <form method="POST" action="" enctype="multipart/form-data">
+        <form id="crearRecetaForm" method="POST" action="" enctype="multipart/form-data">
             {% csrf_token %}
+            <div class="d-flex justify-content-center mb-4">
+                <div class="file-drop-area">
+                    <i class="fas fa-cloud-upload-alt icon"></i>
+                    <span class="text">Haz clic o arrastra y suelta la foto aquí</span>
+                    {{ form.imagen }}
+                </div>
+            </div>
+            <div class="selected-image" id="selectedImage"></div>
+            <br><br>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -91,14 +77,82 @@
                         {{ form.usuario.label_tag }}
                         {{ form.usuario }}
                     </div>
-                    <div class="form-group">
-                        {{ form.imagen.label_tag }}
-                        {{ form.imagen }}
-                    </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-create">Crear Receta</button>
         </form>
     </div>
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("crearRecetaForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // Evitar envío automático del formulario
+                
+                // Enviar formulario mediante AJAX
+                let formData = new FormData(this);
+                fetch(this.action, {
+                    method: this.method,
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest' // Indicar que es una solicitud AJAX
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Mostrar alerta SweetAlert2 si la receta se creó correctamente
+                        Swal.fire({
+                            title: 'Receta creada exitosamente',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "{% url 'listar_recetas' %}";
+                            }
+                        });
+                    } else {
+                        // Mostrar error si hay problemas con el formulario
+                        Swal.fire({
+                            title: 'Error',
+                            text: data.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                        // Mostrar errores específicos del formulario (opcional)
+                        console.log(data.errors);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Hubo un problema al procesar la solicitud.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            });
+        });
+
+        // Script para mostrar la imagen seleccionada
+        document.querySelector('.file-drop-area input[type="file"]').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const image = document.createElement('img');
+                    image.src = e.target.result;
+                    image.classList.add('img-thumbnail'); // Clase de Bootstrap para esquinas redondeadas
+                    const selectedImage = document.getElementById('selectedImage');
+                    selectedImage.innerHTML = ''; // Limpiar imagen previa si la hay
+                    selectedImage.appendChild(image);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 </html>

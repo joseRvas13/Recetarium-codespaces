@@ -4,162 +4,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receta: {{ receta.nombre_plato }}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Actualizar Receta: {{ receta.nombre_plato }}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{% static 'style_cruds/formularios.css' %}">
     <style>
-        body {
-            background-color: #f8f9fa;
+        .file-drop-area {
+            border: 2px dashed #28a56b;
             padding: 20px;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-        }
-        h2 {
             text-align: center;
-            margin-bottom: 30px;
-            color: #333;
+            cursor: pointer;
+            border-radius: 10px;
         }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            font-weight: bold;
-            color: #555;
-        }
-        input[type=text],
-        textarea,
-        select,
-        input[type=file] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.2s ease-in-out;
-        }
-        input[type=text]:focus,
-        textarea:focus,
-        select:focus,
-        input[type=file]:focus {
-            border-color: #80bdff;
-        }
-        select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image: url('data:image/svg+xml;utf8,<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>');
-            background-repeat: no-repeat;
-            background-position-x: calc(100% - 12px);
-            background-position-y: center;
-        }
-        .btn {
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
+        .file-drop-area .icon {
+            font-size: 3rem;
+            color: #28a56b;
         }
         .btn-create {
-            background-color: #28a745;
-            color: #fff;
-            border: none;
+            background-color: #28a56b;
+            border-color: #28a56b;
+            color: white;
         }
         .btn-create:hover {
-            background-color: #218838;
-            color: #fff;
+            background-color: #1a9045;
+            border-color: #1a9045;
         }
-        .image-preview {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
+        .btn-back {
+            background-color: gray;
+            border-color: gray;
+            color: white;
+        }
+        .btn-back:hover {
+            background-color: gray;
+            border-color: gray;
+        }
+        .selected-image {
+            margin-top: 20px;
+        }
+        .selected-image img {
+            max-width: 100%;
+            display: block;
             margin-top: 10px;
         }
-        .image-preview img {
-            max-width: 100%;
-            border-radius: 5px;
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Espacio entre los botones */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Actualizar Receta: {{ receta.nombre_plato }}</h2>
-        <form method="POST" enctype="multipart/form-data">
+        <h1>Actualizar Receta: {{ receta.nombre_plato }}</h1>
+        <form method="POST" id="actualizarRecetaForm" action="" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="id_nombre">Nombre:</label>
-                        {{ form.nombre_plato }}
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-8 text-center">
+                    <div class="file-drop-area">
+                        <i class="fas fa-cloud-upload-alt icon"></i>
+                        {{ form.imagen }}
                     </div>
-                    <div class="form-group">
-                        <label for="id_categoria">Categoría:</label>
-                        {{ form.categoria }}
-                    </div>
-                    <div class="form-group">
-                        <label for="id_temporada">Temporada:</label>
-                        {{ form.temporada }}
-                    </div>
-                    <div class="form-group">
-                        <label for="id_origen">Origen:</label>
-                        {{ form.origen }}
-                    </div>
-                    <div class="form-group">
-                        <label for="id_ingredientes">Ingredientes:</label>
-                        {{ form.ingredientes }}
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="id_descripcion">Descripción:</label>
-                        {{ form.descripcion }}
-                    </div>
-                    <div class="form-group">
-                        <label for="id_instrucciones">Instrucciones:</label>
-                        {{ form.instrucciones }}
-                    </div>
-                    <div class="form-group">
-                        <label for="id_preparacion">Tiempo de Preparación:</label>
-                        {{ form.tiempo_preparacion }}
-                    </div>
-                    <div class="form-group">
-                        <label for="id_dificultad">Dificultad:</label>
-                        {{ form.dificultad }}
-                    </div>
-                    <div class="form-group">
-                        <label for="id_usuario">Usuario:</label>
-                        {{ form.usuario }}
-                        {% if receta.usuario %}
-                            {{ receta.usuario.first_name }} {{ receta.usuario.last_name }}
-                        {% else %}
-                            Sin asignar
+                    <div class="selected-image" id="selectedImage">
+                        {% if receta.imagen %}
+                            <img src="{{ receta.imagen.url }}" class="img-thumbnail">
                         {% endif %}
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
+            <br>
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="id_imagen">Imagen:</label>
-                        {{ form.imagen }}
-                        <div class="image-preview">
-                            {% if receta.imagen %}
-                                <img src="{{ receta.imagen.url }}" alt="Imagen de {{ receta.nombre_plato }}">
-                            {% else %}
-                                No hay imagen disponible.
-                            {% endif %}
-                        </div>
+                        {{ form.nombre_plato.label_tag }}
+                        {{ form.nombre_plato }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.categoria.label_tag }}
+                        {{ form.categoria }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.temporada.label_tag }}
+                        {{ form.temporada }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.origen.label_tag }}
+                        {{ form.origen }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.ingredientes.label_tag }}
+                        {{ form.ingredientes }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.descripcion.label_tag }}
+                        {{ form.descripcion }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.instrucciones.label_tag }}
+                        {{ form.instrucciones }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.tiempo_preparacion.label_tag }}
+                        {{ form.tiempo_preparacion }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.dificultad.label_tag }}
+                        {{ form.dificultad }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.usuario.label_tag }}
+                        {{ form.usuario }}
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-create">Actualizar Receta</button>
+            <br>
+            <div class="btn-container">
+                <button type="submit" class="btn btn-create">Actualizar Receta</button>
+                <a href="{% url 'listar_recetas' %}" class="btn btn-back">Volver</a>
+            </div>
         </form>
     </div>
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
+    <script>
+        document.querySelector('.file-drop-area input[type="file"]').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const image = document.createElement('img');
+                    image.src = e.target.result;
+                    image.classList.add('img-thumbnail'); // Clase de Bootstrap para esquinas redondeadas
+                    const selectedImage = document.getElementById('selectedImage');
+                    selectedImage.innerHTML = ''; // Limpiar imagen previa si la hay
+                    selectedImage.appendChild(image);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('actualizarRecetaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = this;
+            $.ajax({
+                type: form.method,
+                url: form.action,
+                data: new FormData(form),
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    Swal.fire({
+                        title: 'Receta Actualizada',
+                        text: 'La receta se ha actualizado exitosamente.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        onClose: () => {
+                            window.location.href = "{% url 'listar_recetas' %}";
+                        }
+                    });
+                },
+                error: function(response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Hubo un problema al actualizar la receta.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

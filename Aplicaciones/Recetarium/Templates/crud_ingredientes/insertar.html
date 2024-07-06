@@ -7,45 +7,14 @@
     <title>Crear Ingrediente</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .btn {
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .btn-create {
-            background-color: #28a745;
-            color: #fff;
-        }
-        .btn-create:hover {
-            background-color: #218838;
-            color: #fff;
-        }
-        .row > .col-md-6 {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style_cruds/formularios.css' %}">
 </head>
 <body>
     <div class="container">
         <h1>Crear Ingrediente</h1>
-        <form method="POST" action="">
+        <form id="crearIngredienteForm" method="POST" action="{% url 'crear_ingrediente' %}">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-6">
@@ -113,8 +82,50 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-create">Crear Ingrediente</button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-create">Crear Ingrediente</button>
+                <a href="{% url 'listado_ingredientes' %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Volver al Listado
+                </a>
+            </div>
         </form>
     </div>
+
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- Custom Script -->
+    <script>
+        $(document).ready(function() {
+            $('#crearIngredienteForm').submit(function(event) {
+                event.preventDefault(); // Prevenir el envío por defecto del formulario
+                
+                // Realizar la solicitud AJAX o procesar el formulario aquí
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        // Mostrar mensaje de éxito con SweetAlert2
+                        Swal.fire({
+                            title: '¡Éxito!',
+                            text: 'El ingrediente ha sido creado correctamente.',
+                            icon: 'success'
+                        }).then((result) => {
+                            // Redireccionar al listado de ingredientes
+                            window.location.href = "{% url 'listado_ingredientes' %}";
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        // Manejar errores si es necesario
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

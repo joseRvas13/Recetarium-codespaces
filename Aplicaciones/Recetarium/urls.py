@@ -106,17 +106,21 @@ urlpatterns = [
         views.actualizar_consejero,
         name="actualizar_consejero",
     ),
-    path(
-        "administracion/consejeros/borrar/<int:pk>",
-        views.borrar_consejero,
-        name="borrar_consejero",
-    ),
+    path('administracion/consejeros/inhabilitados', views.consejeros_inhabilitados, name='consejeros_inhabilitados'),
+
+    path('inhabilitar/<int:pk>/', views.inhabilitar_consejero, name='inhabilitar_consejero'),
+    path('inhabilitar_consejero/<int:pk>/', views.inhabilitar_consejero, name='inhabilitar_consejero'),
+
     path(
         "administracion/consejeros/ver/<int:id_consejero>/",
         views.mostrar_imagen_grande,
         name="mostrar_imagen_grande",
     ),
+
+
     # CRUD RECETAS
+    path('administracion/recetas/inhabilitadas', views.recetas_inhabilitadas, name='recetas_inhabilitadas'),
+    path('inhabilitar_receta/<int:pk>/', views.inhabilitar_receta, name='inhabilitar_receta'),
     path(
         "administracion/recetas/listado/", views.listar_recetas, name="listar_recetas"
     ),
@@ -127,11 +131,6 @@ urlpatterns = [
         name="actualizar_receta",
     ),
     path(
-        "administracion/recetas/borrar/<int:pk>",
-        views.borrar_receta,
-        name="borrar_receta",
-    ),
-    path(
         "administracion/recetas/ver/<int:receta_id>/",
         views.ver_recetas,
         name="ver_receta",
@@ -140,11 +139,7 @@ urlpatterns = [
     # CRUD DIETAS
     path("administracion/dietas/listado/", views.listar_dietas, name="listar_dietas"),
     path("administracion/dietas/insertar/", views.crear_dietas, name="crear_dietas"),
-    path(
-        "administracion/dietas/borrar/<int:pk>",
-        views.borrar_dietas,
-        name="borrar_dietas",
-    ),
+
     path(
         "administracion/dietas/actualizar/<int:pk>/",
         views.actualizar_dietas,
@@ -158,6 +153,12 @@ urlpatterns = [
         views.mostrar_imagen_grande_dieta,
         name="mostrar_imagen_grande_dieta",
     ),
+
+    path('administracion/dietas/inhabilitadas', views.dietas_inhabilitadas, name='dietas_inhabilitadas'),
+    path('inhabilitar_dieta/<int:pk>/', views.inhabilitar_dieta, name='inhabilitar_dieta'),
+
+
+
     # CRUD INGREDIENTES
     path(
         "administracion/ingredientes/listado",
