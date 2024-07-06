@@ -182,4 +182,3 @@ class DietaForm(forms.ModelForm):
         self.fields['consejero_id'].empty_label = 'Sistema Recetarium'
 
 
-#FIN CRUD DIETAS

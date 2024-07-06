@@ -12,7 +12,7 @@ from .forms import (
     IngredienteForm,
     RecetaForm,
 )
-from .models import Consejero, Dieta, Ingrediente, Receta, Rol
+from .models import Consejero, Dieta, Ingrediente, Receta, Rol, Comentario
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import re
 from django.core.mail import send_mail
@@ -22,6 +22,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from django.http import JsonResponse
+
 
 
 
@@ -45,15 +46,13 @@ def bienvenido(request):
 
 # endregion
 
+#region INFORMACION O NOVEDADES
 
 def informacion(request):
     pagina_actual = "informacion" 
     return render(request, "informacion.html", {"pagina": pagina_actual})
 
-
-def olvido_contraseña(request):
-    pagina_actual = "olvido_contraseña"
-    return render(request, "Olvido_Contraseña.html", {"pagina": pagina_actual})
+#endregion 
 
 
 def salud_nutricion(request):
@@ -69,7 +68,6 @@ def plan_nutricional(request):
 
 
 # region SOPORTE TECNICO
-
 
 def soporte_tecnico(request):
     pagina_actual = "soporte_tecnico"
@@ -144,6 +142,14 @@ def lista_consejeros(request):
         "Consejeros/lista_consejeros.html",
         {"consejeros": consejeros, "pagina": pagina_actual},
     )
+
+def postulaciones(request):
+    pagina_actual = "postulaciones"
+    return render(request, "Consejeros/postulaciones.html", {'pagina': pagina_actual})
+
+def consejero_pos(request):
+    pagina_actual = "consejero_pos"
+    return render(request,"Consejeros/enviar_hoja.html", {'pagina': pagina_actual})
 
 
 # endregion
@@ -265,6 +271,11 @@ def ver_recetas_usuarios(request, usuario_id):
         "Recetas/ver_recetas_usuarios.html",
         {"user": user, "recetas_usuario": recetas_usuario},
     )
+
+
+
+
+
 # endregion
 
 # region DIETAS DISPONIBLES 
@@ -750,22 +761,37 @@ def registro_usuario(request):
                 return render(
                     request, "Usuarios/registro.html", {"pagina": pagina_actual}
                 )
-            else:
-                try:
-                    # Crear el usuario si el correo electrónico es único
-                    user = User.objects.create_user(
-                        username=username, email=email, password=password
-                    )
-                    user.save()
-                    messages.success(
-                        request, "¡Registro exitoso! Ahora puedes iniciar sesión."
-                    )
-                    return redirect("/Usuarios/login")
-                except Exception as e:
-                    messages.error(request, f"Error al crear usuario: {e}")
-                    return render(
-                        request, "Usuarios/registro.html", {"pagina": pagina_actual}
-                    )
+
+            # Verificar si el nombre de usuario ya está en uso
+            if User.objects.filter(username=username).exists():
+                messages.error(
+                    request,
+                    "El nombre de usuario ya está en uso. Por favor, elige otro.",
+                )
+                return render(
+                    request, "Usuarios/registro.html", {"pagina": pagina_actual}
+                )
+
+            try:
+                # Crear el usuario si el correo electrónico y el nombre de usuario son únicos
+                user = User.objects.create_user(
+                    username=username, email=email, password=password
+                )
+                user.save()
+                messages.success(
+                    request, "¡Registro exitoso! Ahora puedes iniciar sesión."
+                )
+                # Renderizar la plantilla con una variable que indique que el registro fue exitoso
+                return render(
+                    request,
+                    "Usuarios/registro.html",
+                    {"pagina": pagina_actual, "registro_exitoso": True},
+                )
+            except Exception as e:
+                messages.error(request, f"Error al crear usuario: {e}")
+                return render(
+                    request, "Usuarios/registro.html", {"pagina": pagina_actual}
+                )
         else:
             # Si los campos no están completos o las contraseñas no coinciden, mostrar el formulario nuevamente con un mensaje de error
             messages.error(
@@ -792,20 +818,17 @@ def loginusuarios(request):
                 user = authenticate(request, username=user.username, password=password)
                 if user is not None:
                     login(request, user)
-                    return redirect('principal_usuario')
+                    return redirect('/')
                 else:
-                    mensaje = "Usuario o Contraseña incorrectos, Intente de nuevo"  
+                    mensaje = "Correo Electronico o Contraseña incorrectos, Intente de nuevo"  
             except User.DoesNotExist:
-                mensaje = "Usuario o Contraseña incorrectos, Intente de nuevo"
+                mensaje = "Este usuario NO Exite, Por favor Registrese o Intente de nuevo"
         else:
             mensaje = "Por favor, ingrese ambos campos"
 
     return render(request, "Usuarios/login.html", {"pagina": pagina_actual, "mensaje": mensaje})
     
-@login_required
-def principal_usuario(request):
-    pagina_actual = "principal_usuario"
-    return render(request, "Usuarios/principal_usuario.html", {"pagina": pagina_actual})
+
 
 @login_required
 def perfil_usuario(request, user_id):
@@ -826,6 +849,12 @@ def logoutusuarios(request):
 def perfil_config(request, user_id):
     usuario = get_object_or_404(User, id=user_id)
     return render(request, 'Usuarios/config.html', {'usuario': usuario})
+
+def olvido_contraseña(request):
+    pagina_actual = "olvido_contraseña"
+    return render(request, "Olvido_Contraseña.html", {"pagina": pagina_actual})
+
+
 # endregion
 
 

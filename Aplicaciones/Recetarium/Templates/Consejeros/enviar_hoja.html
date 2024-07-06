@@ -1,0 +1,69 @@
+{% load static %}
+{% include 'inc/header.html' %}
+
+<link rel="stylesheet" href="{% static 'consejeros/enviar.css' %}">
+
+    <main>
+        <div class="container">
+            <div class="textos">
+                <h1>Recetarium</h1>
+                <h2>Comparte Tus conocimientos y ayuda a las Personas en su proceso de Cocinar, Entra en el proceso de seleccion para ser consejero en nuestra plataforma</h2>
+            </div>
+            <hr>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFileLang" lang="es" name="archivo">
+                    <label class="custom-file-label" for="customFileLang" id="archivoLabel">Sube tu Hoja de vida o tu CV</label>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group mt-3">
+                            <input type="number" class="form-control" id="edad" name="edad" placeholder="Ingresa Tu Edad" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Ingresa Tu Correo Personal" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group mt-3">
+                            <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Teléfono de Contacto" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                    <label class="form-check-label" for="exampleCheck1">Aceptar <a href=""><b>Terminos y Condiciones</b></a></label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="enviar">Enviar</button>
+                <button type="submit" class="btn btn-danger" id="cancelar">Cancelar</button>
+
+            </form>
+        </div>
+    </main>
+
+    {% include 'inc/footer.html' %}
+
+    <!-- Script para actualizar el nombre del archivo seleccionado -->
+    <script>
+        // Obtener el campo de archivo
+        var inputFile = document.getElementById('customFileLang');
+
+        // Escuchar el evento de cambio
+        inputFile.addEventListener('change', function() {
+            // Obtener el nombre del archivo
+            var fileName = inputFile.files[0].name;
+            // Actualizar el texto del label
+            var label = document.getElementById('archivoLabel');
+            label.innerHTML = fileName;
+        });
+    </script>
+
+</body>
+</html>

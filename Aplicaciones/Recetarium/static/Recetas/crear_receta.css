@@ -6,6 +6,8 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto; 
+    font-family: "Urbanist", sans-serif;
+    font-weight: 500;
     text-align: center;
 }
 
@@ -18,11 +20,64 @@ body {
     margin-bottom: 25px;
 }
 
+.rc{
+    color: #fff;
+    font-size: 55px;
+    font-family: 'Courgette', cursive;
+    font-family: 'Lobster', sans-serif;
+}
+
+.crear{
+    display: none;
+}
+.dieta{
+    color: #fff;
+}
+
 hr{
     background-color: #28a56b;
     height: 4px;
     border-radius: 25px;
 }
+
+/* Estilos para el área de carga de imágenes */
+.drop-area {
+    border: 2px dashed #205e58;
+    background-color: #186b456c;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+.drop-area:hover{
+    background-color: #1158387e;
+    border-color: grey;
+    transform: scale(1.05); 
+}
+
+
+.drop-area i {
+    font-size: 3rem;
+    color: #daf0e6;
+    margin-bottom: 15px;
+}
+
+.drop-area p {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.file-input {
+    display: none; 
+}
+
+#preview {
+    display: none; 
+}
+
+
 @media (max-width: 768px) {
 
     body {
@@ -33,5 +88,9 @@ hr{
 
     .container{
         width: auto;
+    }
+
+    .crear{
+        display: block;
     }
 }

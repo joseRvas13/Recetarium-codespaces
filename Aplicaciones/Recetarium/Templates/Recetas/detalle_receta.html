@@ -26,9 +26,30 @@
                 {% else %}
                 <p><strong>Subido por:</strong> <i class="fas fa-user"></i> Sistema Recetarium</p>   
                 {% endif %}
-                
+
             </div>
+        
         </div>
+    
+        <h2>Comentarios</h2>
+
+        <div class="sec-comentarios">
+
+            <div class="form-group">
+
+                <textarea class="form-control" id="descripcion" name="descripcion"  placeholder="Escribe Tu Comentario" required></textarea>
+                <button class="btn btn-primary mt-3" type="submit">Comentar</button>
+
+            </div>
+
+            <div class="comentarios">
+                
+                
+
+            </div>
+
+        </div>
+
     </div>
 
     {% include 'inc/footer.html' %}

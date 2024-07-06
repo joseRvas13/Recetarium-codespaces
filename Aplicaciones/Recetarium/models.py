@@ -140,3 +140,13 @@ class Ingrediente(models.Model):
 
     class Meta:
         db_table = "tbl_ingredientes"
+
+
+class Comentario(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    receta = models.ForeignKey(Receta, related_name='comentarios', on_delete=models.CASCADE)
+    texto = models.CharField(max_length=1000)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Comentario de {self.usuario.username} en {self.receta.nombre}'

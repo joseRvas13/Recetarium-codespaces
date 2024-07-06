@@ -7,7 +7,7 @@
 }
 
 body {
-    background: url('https://images.pexels.com/photos/14785919/pexels-photo-14785919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+    background: url('/static/media/iniciar.jpg') no-repeat center center/cover;
     width: 100%;
     height: 100vh;
     justify-content: center;
@@ -147,6 +147,17 @@ form button:hover {
     background-color: white;
     color: #007bff;
 }
+
+.texts .mensaje{
+   color: rgb(246, 255, 254);
+   font-family: "Urbanist", sans-serif;    
+   font-weight: 500;
+   background-color: rgba(131, 14, 14, 0.637);
+   border-radius: 15px; 
+   margin-top: 20px; 
+   text-align: center;
+}
+
 
 
 
